@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ Copyright (C) 2016 CK, Inc. All Rights Reserved.
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyj.jhpt.dao.DeviceConfigHistoryMapper">
+  <resultMap id="BaseResultMap" type="com.tyj.jhpt.bo.DeviceConfigHistory">
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="device_id" property="deviceId" jdbcType="INTEGER" />
+    <result column="override_video" property="overrideVideo" jdbcType="TINYINT" />
+    <result column="car_type" property="carType" jdbcType="TINYINT" />
+    <result column="video_length_before_interrupt" property="videoLengthBeforeInterrupt" jdbcType="TINYINT" />
+    <result column="video_length_after_interrupt" property="videoLengthAfterInterrupt" jdbcType="TINYINT" />
+    <result column="gps_msg_send_interval" property="gpsMsgSendInterval" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="device_confirm_time" property="deviceConfirmTime" jdbcType="TIMESTAMP" />
+    <result column="config_state" property="configState" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    `id`, `device_id`, `override_video`, `car_type`, `video_length_before_interrupt`, `video_length_after_interrupt`, `gps_msg_send_interval`, 
+    `create_time`, `device_confirm_time`, `config_state`
+  </sql>
+  <insert id="insert" parameterType="com.tyj.jhpt.bo.DeviceConfigHistory" useGeneratedKeys="true" keyProperty="id">
+    <![CDATA[
+    insert into `device_config_history` (`device_id`, `override_video`, `car_type`, 
+      `video_length_before_interrupt`, `video_length_after_interrupt`, 
+      `gps_msg_send_interval`, `create_time`, `device_confirm_time`, 
+      `config_state`)
+    values (#{deviceId,jdbcType=INTEGER}, #{overrideVideo,jdbcType=TINYINT}, #{carType,jdbcType=TINYINT}, 
+      #{videoLengthBeforeInterrupt,jdbcType=TINYINT}, #{videoLengthAfterInterrupt,jdbcType=TINYINT}, 
+      #{gpsMsgSendInterval,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{deviceConfirmTime,jdbcType=TIMESTAMP}, 
+      #{configState,jdbcType=INTEGER})
+    ]]>
+  </insert>
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into `device_config_history` (`device_id`, `override_video`, `car_type`, 
+      `video_length_before_interrupt`, `video_length_after_interrupt`, 
+      `gps_msg_send_interval`, `create_time`, 
+      `device_confirm_time`, `config_state`
+      )
+     values 
+    <foreach collection="list" item="item" index="index" separator=",">
+       (#{item.deviceId,jdbcType=INTEGER}, #{item.overrideVideo,jdbcType=TINYINT}, #{item.carType,jdbcType=TINYINT}, 
+        #{item.videoLengthBeforeInterrupt,jdbcType=TINYINT}, #{item.videoLengthAfterInterrupt,jdbcType=TINYINT}, 
+        #{item.gpsMsgSendInterval,jdbcType=TINYINT}, #{item.createTime,jdbcType=TIMESTAMP}, 
+        #{item.deviceConfirmTime,jdbcType=TIMESTAMP}, #{item.configState,jdbcType=INTEGER}
+        )
+    </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.tyj.jhpt.bo.DeviceConfigHistory" useGeneratedKeys="true" keyProperty="id">
+    insert into `device_config_history`
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="deviceId != null">
+        `device_id`,
+      </if>
+      <if test="overrideVideo != null">
+        `override_video`,
+      </if>
+      <if test="carType != null">
+        `car_type`,
+      </if>
+      <if test="videoLengthBeforeInterrupt != null">
+        `video_length_before_interrupt`,
+      </if>
+      <if test="videoLengthAfterInterrupt != null">
+        `video_length_after_interrupt`,
+      </if>
+      <if test="gpsMsgSendInterval != null">
+        `gps_msg_send_interval`,
+      </if>
+      <if test="createTime != null">
+        `create_time`,
+      </if>
+      <if test="deviceConfirmTime != null">
+        `device_confirm_time`,
+      </if>
+      <if test="configState != null">
+        `config_state`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=INTEGER},
+      </if>
+      <if test="overrideVideo != null">
+        #{overrideVideo,jdbcType=TINYINT},
+      </if>
+      <if test="carType != null">
+        #{carType,jdbcType=TINYINT},
+      </if>
+      <if test="videoLengthBeforeInterrupt != null">
+        #{videoLengthBeforeInterrupt,jdbcType=TINYINT},
+      </if>
+      <if test="videoLengthAfterInterrupt != null">
+        #{videoLengthAfterInterrupt,jdbcType=TINYINT},
+      </if>
+      <if test="gpsMsgSendInterval != null">
+        #{gpsMsgSendInterval,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deviceConfirmTime != null">
+        #{deviceConfirmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="configState != null">
+        #{configState,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from `device_config_history`
+    where `id` = #{id,jdbcType=INTEGER}
+  </delete>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from `device_config_history`
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from `device_config_history`
+    where `id` = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    select count(*) from `device_config_history`
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tyj.jhpt.bo.DeviceConfigHistory">
+    update `device_config_history`
+    <set>
+      <if test="deviceId != null">
+        `device_id` = #{deviceId,jdbcType=INTEGER},
+      </if>
+      <if test="overrideVideo != null">
+        `override_video` = #{overrideVideo,jdbcType=TINYINT},
+      </if>
+      <if test="carType != null">
+        `car_type` = #{carType,jdbcType=TINYINT},
+      </if>
+      <if test="videoLengthBeforeInterrupt != null">
+        `video_length_before_interrupt` = #{videoLengthBeforeInterrupt,jdbcType=TINYINT},
+      </if>
+      <if test="videoLengthAfterInterrupt != null">
+        `video_length_after_interrupt` = #{videoLengthAfterInterrupt,jdbcType=TINYINT},
+      </if>
+      <if test="gpsMsgSendInterval != null">
+        `gps_msg_send_interval` = #{gpsMsgSendInterval,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        `create_time` = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deviceConfirmTime != null">
+        `device_confirm_time` = #{deviceConfirmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="configState != null">
+        `config_state` = #{configState,jdbcType=INTEGER},
+      </if>
+    </set>
+    where `id` = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tyj.jhpt.bo.DeviceConfigHistory">
+    update `device_config_history`
+    set `device_id` = #{deviceId,jdbcType=INTEGER},
+      `override_video` = #{overrideVideo,jdbcType=TINYINT},
+      `car_type` = #{carType,jdbcType=TINYINT},
+      `video_length_before_interrupt` = #{videoLengthBeforeInterrupt,jdbcType=TINYINT},
+      `video_length_after_interrupt` = #{videoLengthAfterInterrupt,jdbcType=TINYINT},
+      `gps_msg_send_interval` = #{gpsMsgSendInterval,jdbcType=TINYINT},
+      `create_time` = #{createTime,jdbcType=TIMESTAMP},
+      `device_confirm_time` = #{deviceConfirmTime,jdbcType=TIMESTAMP},
+      `config_state` = #{configState,jdbcType=INTEGER}
+    where `id` = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
