@@ -1,6 +1,5 @@
 package com.tyj.jhpt.util;
 
-import com.github.fartherp.framework.security.ISecurity;
 import com.github.fartherp.framework.security.symmetry.ThreeDES;
 import io.netty.buffer.ByteBuf;
 
@@ -106,8 +105,8 @@ public class ByteUtils {
         if (encryptIndex == 0) {
             return content;
         }
-        ISecurity iSecurity = new ThreeDES(new byte[]{encryptIndex});
-        return iSecurity.decrypt(content);
+        byte[] key = new byte[]{encryptIndex};
+        return ThreeDES.decrypt(content, key);
     }
 
     /**
@@ -119,8 +118,8 @@ public class ByteUtils {
      */
     public static byte[] encrypt(byte encryptIndex, byte[] content) {
         content = completeData(content);
-        ISecurity iSecurity = new ThreeDES(new byte[]{encryptIndex});
-        return iSecurity.encrypt(content);
+        byte[] key = new byte[]{encryptIndex};
+        return ThreeDES.encrypt(content, key);
     }
 
     /**
