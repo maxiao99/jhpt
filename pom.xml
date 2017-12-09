@@ -17,6 +17,7 @@
         <module>jhpt-service</module>
         <module>jhpt-web</module>
         <module>jhpt-bean</module>
+        <module>jhpt-server</module>
     </modules>
     <properties>
         <project-version>1.0.4</project-version>

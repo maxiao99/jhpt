@@ -1,0 +1,122 @@
+/*
+ * Copyright (c) 2017. CK. All rights reserved.
+ */
+
+package com.tyj.jhpt.server.body;
+
+import com.tyj.jhpt.server.body.dto.QuDongDianJiDto;
+import com.tyj.jhpt.server.body.dto.QuDongDianJisDto;
+import com.tyj.jhpt.server.message.MessageBean;
+import com.tyj.jhpt.server.message.type.RealTimeMessage;
+import org.springframework.stereotype.Component;
+
+import java.math.BigInteger;
+
+import static com.tyj.jhpt.server.body.TwoBody.DataEnum.dianliu;
+import static com.tyj.jhpt.server.body.TwoBody.DataEnum.dianya;
+import static com.tyj.jhpt.server.body.TwoBody.DataEnum.speed;
+import static com.tyj.jhpt.server.body.TwoBody.DataEnum.controlTemperature;
+import static com.tyj.jhpt.server.body.TwoBody.DataEnum.seq;
+import static com.tyj.jhpt.server.body.TwoBody.DataEnum.status;
+import static com.tyj.jhpt.server.body.TwoBody.DataEnum.temperature;
+import static com.tyj.jhpt.server.body.TwoBody.DataEnum.zhuanju;
+
+/**
+ * 驱动电机数据
+ *
+ * @author: CK
+ * @date: 2017/12/8
+ */
+@Component
+public class TwoBody extends AbstractBody<QuDongDianJisDto> {
+    public TwoBody() {
+        super(RealTimeMessage.QUDONG_DIANJI.getCode());
+    }
+
+    public QuDongDianJisDto deal(MessageBean mb) {
+        QuDongDianJisDto dtos = new QuDongDianJisDto();
+
+        byte[] content = mb.getContent();
+        int offset = 0;
+        // 车辆状态
+        byte[] bytes = new byte[]{content[offset + 1]};
+        offset += 1;
+        dtos.setNumber(bytes[0]);
+        for (int i = 0; i < dtos.getNumber(); i++) {
+            QuDongDianJiDto dto = new QuDongDianJiDto();
+
+            // 驱动电机序号
+            bytes = new byte[]{content[offset + seq.length]};
+            offset += seq.length;
+            dto.setSeq(bytes[0]);
+
+            // 驱动电机状态
+            bytes = new byte[]{content[offset + status.length]};
+            offset += status.length;
+            dto.setStatus(bytes[0]);
+
+            // 驱动电机控制器温度
+            bytes = new byte[]{content[offset + controlTemperature.length]};
+            offset += controlTemperature.length;
+            dto.setControlTemperature(bytes[0]);
+
+            // 驱动电机转速
+            bytes = new byte[speed.length];
+            System.arraycopy(content, offset, bytes, 0, speed.length);
+            offset += speed.length;
+            BigInteger bigInteger = new BigInteger(bytes);
+            int speed = bigInteger.intValue();
+            dto.setSpeed(speed);
+
+            // 驱动电机转矩
+            bytes = new byte[zhuanju.length];
+            System.arraycopy(content, offset, bytes, 0, zhuanju.length);
+            offset += zhuanju.length;
+            bigInteger = new BigInteger(bytes);
+            int zhuanju = bigInteger.intValue();
+            dto.setZhuanju(zhuanju);
+
+            // 驱动电机温度
+            bytes = new byte[]{content[offset + temperature.length]};
+            offset += temperature.length;
+            dto.setTemperature(bytes[0]);
+
+            // 电机控制器输入电压
+            bytes = new byte[dianya.length];
+            System.arraycopy(content, offset, bytes, 0, dianya.length);
+            offset += dianya.length;
+            bigInteger = new BigInteger(bytes);
+            int dianya = bigInteger.intValue();
+            dto.setDianya(dianya);
+
+            // 电机控制器直流母线母线电流
+            bytes = new byte[dianliu.length];
+            System.arraycopy(content, offset, bytes, 0, dianliu.length);
+            offset += dianliu.length;
+            bigInteger = new BigInteger(bytes);
+            int dianliu = bigInteger.intValue();
+            dto.setDianliu(dianliu);
+
+            dtos.addDto(dto);
+        }
+        return dtos;
+    }
+
+    public static enum DataEnum {
+        seq(1, "驱动电机序号"),
+        status(1, "驱动电机状态"),
+        controlTemperature(1, "驱动电机控制器温度"),
+        speed(4, "驱动电机转速"),
+        zhuanju(4, "驱动电机转矩"),
+        temperature(1, "驱动电机温度"),
+        dianya(4, "电机控制器输入电压"),
+        dianliu(4, "电机控制器直流母线母线电流"),
+        ;
+        private int length;
+        private String desc;
+        DataEnum(int length, String desc) {
+            this.length = length;
+            this.desc = desc;
+        }
+    }
+}

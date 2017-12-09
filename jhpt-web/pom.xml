@@ -61,7 +61,7 @@
     <dependencies>
         <dependency>
             <groupId>com.tyj</groupId>
-            <artifactId>jhpt-service</artifactId>
+            <artifactId>jhpt-server</artifactId>
             <version>1.0.0</version>
         </dependency>
         <dependency>
