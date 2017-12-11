@@ -4,6 +4,8 @@
 
 package com.tyj.jhpt.server.util;
 
+import com.tyj.jhpt.bo.DeviceConfigHistory;
+
 import java.util.Calendar;
 import java.util.Date;
 
@@ -60,5 +62,46 @@ public class DeviceMsgUtils {
     public static Float parseAcceleration(byte[] content, int offset) {
         int a = 0xff & content[offset];
         return (float) (a * 1.0 / 10);
+    }
+
+    public static String formatDeviceConfigMsg(int msgId, DeviceConfigHistory dch) {
+        StringBuilder sb = new StringBuilder("【天盈健】VD.");
+        sb.append(dch.getOverrideVideo());
+        sb.append(".");
+        sb.append(dch.getCarType());
+        sb.append(".");
+        sb.append(dch.getVideoLengthBeforeInterrupt());
+        sb.append(".");
+        sb.append(dch.getVideoLengthAfterInterrupt());
+        sb.append(".");
+        sb.append(dch.getGpsMsgSendInterval());
+        sb.append(".");
+        sb.append(getFullHexString(msgId));
+        sb.append(",$设备配置提醒，请输入激活码配置设备");
+        return sb.toString();
+    }
+
+    public static String formatActivateMsg(int deviceId) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("【天盈健】Act,");
+        sb.append(getFullHexString(deviceId));
+        sb.append(",$设备激活提醒，请输入激活码激活设备");
+        return sb.toString();
+    }
+
+    public static String getFullHexString(int deviceId) {
+        String x = Integer.toHexString(deviceId);
+        if (x.length() < 8) {
+            x = repeat("0", 8 - x.length()) + x;
+        }
+        return x;
+    }
+
+    private static String repeat(String string, int i) {
+        String re = "";
+        for (int j = 0; j < i; j++) {
+            re += string;
+        }
+        return re;
     }
 }

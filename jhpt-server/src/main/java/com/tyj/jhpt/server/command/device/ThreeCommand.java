@@ -38,7 +38,7 @@ public class ThreeCommand extends DeviceAbstractCommand {
 
         for (Body body : bodyList) {
             if (body.support(typeFlag)) {
-                body.deal();
+                body.deal(mb);
                 return;
             }
         }
