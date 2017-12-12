@@ -28,10 +28,10 @@ public class DeviceRequestDecoder extends ReplayingDecoder {
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
         in.markReaderIndex();
         MessageBean mb = new MessageBean();
-        mb.setStart(ByteUtils.readBytes(in, 2));
+        mb.setStart(ByteUtils.getAsciiString(in, 2));
         mb.setCommandFlag(ByteUtils.readBytes(in, 1)[0]);
         mb.setRespFlag(ByteUtils.readBytes(in, 1)[0]);
-        mb.setVin(ByteUtils.readBytes(in, 17));
+        mb.setVin(ByteUtils.getAsciiString(in, 17));
         mb.setEncrypt(ByteUtils.readBytes(in, 1)[0]);
         mb.setLength(ByteUtils.readInt(in));
 

@@ -7,6 +7,8 @@ package com.tyj.jhpt.server.util;
 import com.github.fartherp.framework.common.util.ISOUtil;
 import org.testng.annotations.Test;
 
+import java.math.BigInteger;
+
 import static org.testng.Assert.*;
 
 /**

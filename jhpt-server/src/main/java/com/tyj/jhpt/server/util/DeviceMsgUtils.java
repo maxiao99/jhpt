@@ -24,17 +24,17 @@ public class DeviceMsgUtils {
      */
     public static Date resolveTime(byte[] content, int offset) {
         Calendar c = Calendar.getInstance();
-        int year = ((0xff & content[offset]) << 8) + (0xff & content[1 + offset]);
+        int year = Integer.parseInt("20" + (0xff & content[offset]));
         c.set(Calendar.YEAR, year);
-        int month = (0xff & content[2 + offset]) - 1;
+        int month = (0xff & content[1 + offset]);
         c.set(Calendar.MONTH, month);
-        int day = 0xff & content[3 + offset];
+        int day = 0xff & content[2 + offset];
         c.set(Calendar.DAY_OF_MONTH, day);
-        int hour = 0xff & content[4 + offset];
+        int hour = 0xff & content[3 + offset];
         c.set(Calendar.HOUR_OF_DAY, hour);
-        int minute = 0xff & content[5 + offset];
+        int minute = 0xff & content[4 + offset];
         c.set(Calendar.MINUTE, minute);
-        int second = 0xff & content[6 + offset];
+        int second = 0xff & content[5 + offset];
         c.set(Calendar.SECOND, second);
         return c.getTime();
     }

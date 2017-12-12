@@ -40,10 +40,10 @@ public class DeviceManagerServerHandler extends ChannelInboundHandlerAdapter {
         MessageBean mb = (MessageBean) msg;
         for (DeviceCommand command : beans) {
             if (command.support(mb.getCommandFlag())) {
-                logger.info("deal commandFlag: {} vin: {}", mb.getCommandFlag(), ISOUtil.hexString(mb.getVin()));
+                logger.info("deal commandFlag: {} vin: {}", mb.getCommandFlag(), mb.getVin());
                 command.deal(this, mb);
                 ctx.writeAndFlush(command.finish(mb));
-                logger.info("finish commandFlag: {} vin: {}", mb.getCommandFlag(), ISOUtil.hexString(mb.getVin()));
+                logger.info("finish commandFlag: {} vin: {}", mb.getCommandFlag(), mb.getVin());
                 ctx.fireChannelRead(mb);
                 return;
             }

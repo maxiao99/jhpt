@@ -14,7 +14,7 @@ public class MessageBean {
     /**
      * 起始符
      */
-    private byte[] start;
+    private String start;
     /**
      * 命令标识
      */
@@ -26,7 +26,7 @@ public class MessageBean {
     /**
      * 由 17 位字码构成，车辆唯一标识，应符合GB16735的规定
      */
-    private byte[] vin;
+    private String vin;
     /**
      * 数据加密方式 02: RSA
      */
@@ -40,11 +40,11 @@ public class MessageBean {
      */
     private byte[] content;
 
-    public byte[] getStart() {
+    public String getStart() {
         return start;
     }
 
-    public void setStart(byte[] start) {
+    public void setStart(String start) {
         this.start = start;
     }
 
@@ -64,11 +64,11 @@ public class MessageBean {
         this.respFlag = respFlag;
     }
 
-    public byte[] getVin() {
+    public String getVin() {
         return vin;
     }
 
-    public void setVin(byte[] vin) {
+    public void setVin(String vin) {
         this.vin = vin;
     }
 

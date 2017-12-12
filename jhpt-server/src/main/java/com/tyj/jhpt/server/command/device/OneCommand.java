@@ -8,6 +8,7 @@ import com.github.fartherp.framework.common.util.ISOUtil;
 import com.tyj.jhpt.server.message.CommandEnum;
 import com.tyj.jhpt.server.handler.DeviceManagerServerHandler;
 import com.tyj.jhpt.server.message.MessageBean;
+import com.tyj.jhpt.server.util.ByteUtils;
 import com.tyj.jhpt.server.util.DeviceMsgUtils;
 import org.springframework.stereotype.Component;
 
@@ -46,10 +47,8 @@ public class OneCommand extends DeviceAbstractCommand {
         int traceNo = bigInteger.intValue();
 
         // ICCID
-        bytes = new byte[ICCID.length];
-        System.arraycopy(content, offset, bytes, 0, ICCID.length);
+        String iccid = ByteUtils.getAsciiString(content, offset, ICCID.length);
         offset += ICCID.length;
-        String iccid = ISOUtil.byte2hex(bytes);
 
         // 可充电储能子系统数
         bytes = new byte[]{content[offset + SYSTEM_NUM.length]};
@@ -62,9 +61,7 @@ public class OneCommand extends DeviceAbstractCommand {
         byte systemCodeLength = bytes[0];
 
         // 可充电储能系统编码
-        bytes = new byte[systemCodeLength];
-        System.arraycopy(content, offset, bytes, 0, systemCodeLength);
-        String systemCode = ISOUtil.byte2hex(bytes);
+        String systemCode = ByteUtils.getAsciiString(content, offset, systemCodeLength);
 
     }
 

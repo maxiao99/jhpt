@@ -4,10 +4,10 @@
 
 package com.tyj.jhpt.server.command.device;
 
-import com.github.fartherp.framework.common.util.ISOUtil;
 import com.tyj.jhpt.server.message.CommandEnum;
 import com.tyj.jhpt.server.handler.DeviceManagerServerHandler;
 import com.tyj.jhpt.server.message.MessageBean;
+import com.tyj.jhpt.server.util.ByteUtils;
 import com.tyj.jhpt.server.util.DeviceMsgUtils;
 import org.springframework.stereotype.Component;
 
@@ -52,22 +52,16 @@ public class NineCommand extends DeviceAbstractCommand {
         byte driverNameLength = bytes[0];
 
         // 驾驶员姓名
-        bytes = new byte[driverNameLength];
-        System.arraycopy(content, offset, bytes, 0, driverNameLength);
+        String driveName = ByteUtils.getGBKString(content, offset, driverNameLength);
         offset += driverNameLength;
-        String driveName = ISOUtil.byte2hex(bytes);
 
         // 驾驶员身份证编码
-        bytes = new byte[DRIVER_IDENTITY_NO.length];
-        System.arraycopy(content, offset, bytes, 0, DRIVER_IDENTITY_NO.length);
+        String driveIdentityNo = ByteUtils.getAsciiString(content, offset, DRIVER_IDENTITY_NO.length);
         offset += DRIVER_IDENTITY_NO.length;
-        String driveIdentityNo = ISOUtil.byte2hex(bytes);
 
         // 从业资格证编码
-        bytes = new byte[WORK_QUALIFICATION_NO.length];
-        System.arraycopy(content, offset, bytes, 0, WORK_QUALIFICATION_NO.length);
+        String workQualification = ByteUtils.getAsciiString(content, offset, WORK_QUALIFICATION_NO.length);
         offset += WORK_QUALIFICATION_NO.length;
-        String workQualification = ISOUtil.byte2hex(bytes);
 
         // 发证机构名称长度
         bytes = new byte[]{content[offset + SEND_CERTIFICATE_NAME_LENGTH.length]};
@@ -75,10 +69,7 @@ public class NineCommand extends DeviceAbstractCommand {
         byte sendCertificateNameLength = bytes[0];
 
         // 发证机构名称
-        bytes = new byte[sendCertificateNameLength];
-        System.arraycopy(content, offset, bytes, 0, sendCertificateNameLength);
-        offset += sendCertificateNameLength;
-        String sendCertificateName = ISOUtil.byte2hex(bytes);
+        String sendCertificateName = ByteUtils.getGBKString(content, offset, sendCertificateNameLength);
     }
 
     public static enum DataEnum {

@@ -7,6 +7,8 @@ package com.tyj.jhpt.server.util;
 import com.github.fartherp.framework.security.symmetry.ThreeDES;
 import io.netty.buffer.ByteBuf;
 
+import java.io.UnsupportedEncodingException;
+
 /**
  * Created by IntelliJ IDEA .
  * Auth: CK
@@ -155,4 +157,47 @@ public class ByteUtils {
         }
         return re;
     }
+
+    /**
+     * 解析ASCII
+     * @param in ByteBuf
+     * @param length 字节长度
+     * @return ASCII字符串
+     */
+    public static String getAsciiString(ByteBuf in, int length) {
+        byte[] dest = new byte[length];
+        in.readBytes(dest);
+        return new String(dest);
+    }
+
+    /**
+     * 解析ASCII
+     * @param src 目标数组
+     * @param offset 开始位置
+     * @param length 字节长度
+     * @return ASCII字符串
+     */
+    public static String getAsciiString(byte[] src, int offset, int length) {
+        byte[] dest = new byte[length];
+        System.arraycopy(src, offset, dest, 0, length);
+        return new String(dest);
+    }
+
+    /**
+     * 解析GBK
+     * @param src 目标数组
+     * @param offset 开始位置
+     * @param length 字节长度
+     * @return GBK字符串
+     */
+    public static String getGBKString(byte[] src, int offset, int length) {
+        byte[] dest = new byte[length];
+        System.arraycopy(src, offset, dest, 0, length);
+        try {
+            return new String(dest, "GBK");
+        } catch (UnsupportedEncodingException e) {
+            return null;
+        }
+    }
+
 }
