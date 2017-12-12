@@ -42,17 +42,15 @@ public class SixBody extends AbstractBody<SuperDto> {
         int offset = 0;
 
         // 最高电压电池系统号
-        byte[] bytes = new byte[]{content[offset + maxSystemNo.length]};
+        dto.setMaxSystemNo(content[offset + maxSystemNo.length]);
         offset += maxSystemNo.length;
-        dto.setMaxSystemNo(bytes[0]);
 
         // 最高电压电池单体代号
-        bytes = new byte[]{content[offset + maxSimpleNo.length]};
+        dto.setMaxSimpleNo(content[offset + maxSimpleNo.length]);
         offset += maxSimpleNo.length;
-        dto.setMaxSimpleNo(bytes[0]);
 
         // 电池单体电压最高值
-        bytes = new byte[max.length];
+        byte[] bytes = new byte[max.length];
         System.arraycopy(content, offset, bytes, 0, max.length);
         offset += max.length;
         BigInteger bigInteger = new BigInteger(bytes);
@@ -60,14 +58,12 @@ public class SixBody extends AbstractBody<SuperDto> {
         dto.setMax(max);
 
         // 最低电压电池系统号
-        bytes = new byte[]{content[offset + minSystemNo.length]};
+        dto.setMinSystemNo(content[offset + minSystemNo.length]);
         offset += minSystemNo.length;
-        dto.setMinSystemNo(bytes[0]);
 
         // 最低电压电池单体代号
-        bytes = new byte[]{content[offset + minSimpleNo.length]};
+        dto.setMinSimpleNo(content[offset + minSimpleNo.length]);
         offset += minSimpleNo.length;
-        dto.setMinSimpleNo(bytes[0]);
 
         // 电池单体电压最低值
         bytes = new byte[min.length];
@@ -78,34 +74,27 @@ public class SixBody extends AbstractBody<SuperDto> {
         dto.setMin(min);
 
         // 最高温度子系统号
-        bytes = new byte[]{content[offset + maxTemperatureSystemNo.length]};
+        dto.setMaxTemperatureSystemNo(content[offset + maxTemperatureSystemNo.length]);
         offset += maxTemperatureSystemNo.length;
-        dto.setMaxTemperatureSystemNo(bytes[0]);
 
         // 最高温度探针序号
-        bytes = new byte[]{content[offset + maxSeq.length]};
+        dto.setMaxSeq(content[offset + maxSeq.length]);
         offset += maxSeq.length;
-        dto.setMaxSeq(bytes[0]);
 
         // 最高温度值
-        bytes = new byte[]{content[offset + maxTemperature.length]};
+        dto.setMaxTemperature(content[offset + maxTemperature.length]);
         offset += maxTemperature.length;
-        dto.setMaxTemperature(bytes[0]);
 
         // 最低温度子系统号
-        bytes = new byte[]{content[offset + minTemperatureSystemNo.length]};
+        dto.setMinTemperatureSystemNo(content[offset + minTemperatureSystemNo.length]);
         offset += minTemperatureSystemNo.length;
-        dto.setMinTemperatureSystemNo(bytes[0]);
 
         // 最低温度探针序号
-        bytes = new byte[]{content[offset + minSeq.length]};
+        dto.setMinSeq(content[offset + minSeq.length]);
         offset += minSeq.length;
-        dto.setMinSeq(bytes[0]);
 
         // 最低温度值
-        bytes = new byte[]{content[offset + minTemperature.length]};
-        offset += minTemperature.length;
-        dto.setMinTemperature(bytes[0]);
+        dto.setMinTemperature(content[offset + minTemperature.length]);
 
         return dto;
     }

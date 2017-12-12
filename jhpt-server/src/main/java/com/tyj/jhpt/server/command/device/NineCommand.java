@@ -47,9 +47,8 @@ public class NineCommand extends DeviceAbstractCommand {
         int alarmId = bigInteger.intValue();
 
         // 驾驶员姓名长度
-        bytes = new byte[]{content[offset + DRIVER_NAME_LENGTH.length]};
+        byte driverNameLength = content[offset + DRIVER_NAME_LENGTH.length];
         offset += DRIVER_NAME_LENGTH.length;
-        byte driverNameLength = bytes[0];
 
         // 驾驶员姓名
         String driveName = ByteUtils.getGBKString(content, offset, driverNameLength);
@@ -64,9 +63,8 @@ public class NineCommand extends DeviceAbstractCommand {
         offset += WORK_QUALIFICATION_NO.length;
 
         // 发证机构名称长度
-        bytes = new byte[]{content[offset + SEND_CERTIFICATE_NAME_LENGTH.length]};
+        byte sendCertificateNameLength = content[offset + SEND_CERTIFICATE_NAME_LENGTH.length];
         offset += SEND_CERTIFICATE_NAME_LENGTH.length;
-        byte sendCertificateNameLength = bytes[0];
 
         // 发证机构名称
         String sendCertificateName = ByteUtils.getGBKString(content, offset, sendCertificateNameLength);

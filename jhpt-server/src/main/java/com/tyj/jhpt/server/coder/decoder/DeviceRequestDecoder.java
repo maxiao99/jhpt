@@ -8,6 +8,7 @@ import com.github.fartherp.framework.common.util.ISOUtil;
 import com.tyj.jhpt.server.message.MessageBean;
 import com.tyj.jhpt.server.util.ByteUtils;
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.ByteBufUtil;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ReplayingDecoder;
 import org.slf4j.Logger;
@@ -26,6 +27,8 @@ public class DeviceRequestDecoder extends ReplayingDecoder {
     private static final Logger logger = LoggerFactory.getLogger(DeviceRequestDecoder.class);
 
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
+        String buff = ByteBufUtil.hexDump(in);
+        logger.info("######### buff=[{}]", buff);
         in.markReaderIndex();
         MessageBean mb = new MessageBean();
         mb.setStart(ByteUtils.getAsciiString(in, 2));

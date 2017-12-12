@@ -32,9 +32,7 @@ public class TwoCommand extends DeviceAbstractCommand {
         int offset = 6;
 
         // 信息体
-        byte[] bytes = new byte[]{content[offset + 1]};
-        offset += 1;
-        byte typeFlag = bytes[0];
+        byte typeFlag = content[offset + 1];
 
         for (Body body : bodyList) {
             if (body.support(typeFlag)) {

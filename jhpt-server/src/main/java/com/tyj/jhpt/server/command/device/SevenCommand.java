@@ -57,9 +57,8 @@ public class SevenCommand extends DeviceAbstractCommand {
         String driverId = ISOUtil.byte2hex(bytes);
 
         // 定位状态
-        bytes = new byte[]{content[offset + LOCATION_STATUS.length]};
+        byte locationStatus = content[offset + LOCATION_STATUS.length];
         offset += LOCATION_STATUS.length;
-        byte locationStatus = bytes[0];
 
         // 经度
         double longitude = DeviceMsgUtils.readLatLongInfo(content, offset);
@@ -77,9 +76,8 @@ public class SevenCommand extends DeviceAbstractCommand {
         int speed = bigInteger.intValue();
 
         // 信息类型标志
-        bytes = new byte[]{content[offset + MESSAGE_TYPE.length]};
+        byte alarmType = content[offset + MESSAGE_TYPE.length];
         offset += MESSAGE_TYPE.length;
-        byte alarmType = bytes[0];
 
         // 信息体
         if (CarAlarmMessage.LIMIT_SPEED_ALARM.getCode() == alarmType
@@ -87,9 +85,9 @@ public class SevenCommand extends DeviceAbstractCommand {
                 || CarAlarmMessage.SPEED_DOWN.getCode() == alarmType
                 || CarAlarmMessage.LEFT_UP.getCode() == alarmType
                 || CarAlarmMessage.RIGHT_UP.getCode() == alarmType) {
-            bytes = new byte[]{content[offset + MESSAGE_BODY.length]};
+            byte alarmBody = content[offset + MESSAGE_BODY.length];
             offset += MESSAGE_BODY.length;
-            byte alarmBody = bytes[0];
+
         }
     }
 

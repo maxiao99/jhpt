@@ -34,9 +34,8 @@ public class PlatformThreeCommand extends PlatformAbstractCommand {
         int offset = TIME.length;
 
         // 命令ID
-        byte[] bytes = new byte[]{content[offset + COMMAND_ID.length]};
+        byte commandId = content[offset + COMMAND_ID.length];
         offset += COMMAND_ID.length;
-        byte commandId = bytes[0];
 
     }
 

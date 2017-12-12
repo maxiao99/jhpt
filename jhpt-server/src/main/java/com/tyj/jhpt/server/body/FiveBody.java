@@ -32,9 +32,8 @@ public class FiveBody extends AbstractBody<CarLocationDto> {
         int offset = 0;
 
         // 定位状态
-        byte[] bytes = new byte[]{content[offset + locationStatus.length]};
+        dto.setLocationStatus(content[offset + locationStatus.length]);
         offset += locationStatus.length;
-        dto.setLocationStatus(bytes[0]);
 
         // 经度
         double longitude = DeviceMsgUtils.readLatLongInfo(content, offset);

@@ -86,9 +86,8 @@ public class ThreeBody extends AbstractBody<RanLiaoDianChiDto> {
         dto.setMaxTemperature(maxTemperature);
 
         // 氢系统中最高温度探针代号
-        bytes = new byte[]{content[offset + maxTanzhenNo.length]};
+        dto.setMaxTanzhenNo(content[offset + maxTanzhenNo.length]);
         offset += maxTanzhenNo.length;
-        dto.setMaxTanzhenNo(bytes[0]);
 
         // 氢气最高浓度
         bytes = new byte[maxConcentration.length];
@@ -99,9 +98,8 @@ public class ThreeBody extends AbstractBody<RanLiaoDianChiDto> {
         dto.setMaxConcentration(maxConcentration);
 
         // 氢气最高浓度传感器代号
-        bytes = new byte[]{content[offset + maxConcentrationNo.length]};
+        dto.setMaxConcentrationNo(content[offset + maxConcentrationNo.length]);
         offset += maxConcentrationNo.length;
-        dto.setMaxConcentrationNo(bytes[0]);
 
         // 氢气最高压力
         bytes = new byte[maxPressure.length];
@@ -112,14 +110,11 @@ public class ThreeBody extends AbstractBody<RanLiaoDianChiDto> {
         dto.setMaxPressure(maxPressure);
 
         // 氢气最高压力传感器代号
-        bytes = new byte[]{content[offset + maxPressureNo.length]};
+        dto.setMaxPressureNo(content[offset + maxPressureNo.length]);
         offset += maxPressureNo.length;
-        dto.setMaxPressureNo(bytes[0]);
 
         // 高压DC/DC状态
-        bytes = new byte[]{content[offset + dcStatus.length]};
-        offset += dcStatus.length;
-        dto.setDcStatus(bytes[0]);
+        dto.setDcStatus(content[offset + dcStatus.length]);
 
         return dto;
     }

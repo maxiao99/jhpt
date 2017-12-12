@@ -51,14 +51,12 @@ public class OneCommand extends DeviceAbstractCommand {
         offset += ICCID.length;
 
         // 可充电储能子系统数
-        bytes = new byte[]{content[offset + SYSTEM_NUM.length]};
+        byte systemNum = content[offset + SYSTEM_NUM.length];
         offset += SYSTEM_NUM.length;
-        byte systemNum = bytes[0];
 
         // 可充电储能系统编码长度
-        bytes = new byte[]{content[offset + SYSTEM_CODE_LENGTH.length]};
+        byte systemCodeLength = content[offset + SYSTEM_CODE_LENGTH.length];
         offset += SYSTEM_CODE_LENGTH.length;
-        byte systemCodeLength = bytes[0];
 
         // 可充电储能系统编码
         String systemCode = ByteUtils.getAsciiString(content, offset, systemCodeLength);

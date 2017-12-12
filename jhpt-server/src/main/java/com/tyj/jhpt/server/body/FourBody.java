@@ -33,12 +33,11 @@ public class FourBody extends AbstractBody<FaDongJiDto> {
         int offset = 0;
 
         // 发动机状态
-        byte[] bytes = new byte[]{content[offset + status.length]};
+        dto.setStatus(content[offset + status.length]);
         offset += status.length;
-        dto.setStatus(bytes[0]);
 
         // 曲轴转速
-        bytes = new byte[speed.length];
+        byte[] bytes = new byte[speed.length];
         System.arraycopy(content, offset, bytes, 0, speed.length);
         offset += speed.length;
         BigInteger bigInteger = new BigInteger(bytes);
@@ -48,7 +47,6 @@ public class FourBody extends AbstractBody<FaDongJiDto> {
         // 燃料消耗率
         bytes = new byte[xiaohaolv.length];
         System.arraycopy(content, offset, bytes, 0, xiaohaolv.length);
-        offset += xiaohaolv.length;
         bigInteger = new BigInteger(bytes);
         int xiaohaolv = bigInteger.intValue();
         dto.setXiaohaolv(xiaohaolv);

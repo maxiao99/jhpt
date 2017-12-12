@@ -34,9 +34,8 @@ public class PlatformTwoCommand extends PlatformAbstractCommand {
         int offset = TIME.length;
 
         // 参数总数
-        byte[] bytes = new byte[]{content[offset + PARAM_TOTAL.length]};
+        byte paramTotal = content[offset + PARAM_TOTAL.length];
         offset += PARAM_TOTAL.length;
-        byte paramTotal = bytes[0];
 
     }
 

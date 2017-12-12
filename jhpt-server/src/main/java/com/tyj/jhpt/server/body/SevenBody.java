@@ -56,6 +56,7 @@ public class SevenBody extends AbstractBody<AlarmDto> {
         // 可充电储能装置故障代码列表
         bytes = new byte[dto.getTotalN1()];
         System.arraycopy(content, offset, bytes, 0, dto.getTotalN1());
+        offset += dto.getTotalN1();
         dto.setBytes1(bytes);
 
         // 驱动电机故障总数N2
@@ -66,6 +67,7 @@ public class SevenBody extends AbstractBody<AlarmDto> {
         // 驱动电机故障代码列表
         bytes = new byte[dto.getTotalN2()];
         System.arraycopy(content, offset, bytes, 0, dto.getTotalN2());
+        offset += dto.getTotalN2();
         dto.setBytes2(bytes);
 
         // 发动机故障总数N3
@@ -76,6 +78,7 @@ public class SevenBody extends AbstractBody<AlarmDto> {
         // 发动机故障列表
         bytes = new byte[dto.getTotalN3()];
         System.arraycopy(content, offset, bytes, 0, dto.getTotalN3());
+        offset += dto.getTotalN3();
         dto.setBytes3(bytes);
 
         // 其他故障总数N4

@@ -42,22 +42,19 @@ public class OneBody extends AbstractBody<AllCarDto> {
         byte[] content = mb.getContent();
         int offset = 0;
         // 车辆状态
-        byte[] bytes = new byte[]{content[offset + carStatus.length]};
+        dto.setCarStatus(content[offset + carStatus.length]);
         offset += carStatus.length;
-        dto.setCarStatus(bytes[0]);
 
         // 充电状态
-        bytes = new byte[]{content[offset + changeStatus.length]};
+        dto.setChangeStatus(content[offset + changeStatus.length]);
         offset += changeStatus.length;
-        dto.setChangeStatus(bytes[0]);
 
         // 运行模式
-        bytes = new byte[]{content[offset + runMode.length]};
+        dto.setRunMode(content[offset + runMode.length]);
         offset += runMode.length;
-        dto.setRunMode(bytes[0]);
 
         // 车速
-        bytes = new byte[speed.length];
+        byte[] bytes = new byte[speed.length];
         System.arraycopy(content, offset, bytes, 0, speed.length);
         offset += speed.length;
         BigInteger bigInteger = new BigInteger(bytes);
@@ -89,19 +86,16 @@ public class OneBody extends AbstractBody<AllCarDto> {
         dto.setTotalElectricity(totalElectricity);
 
         // SOC
-        bytes = new byte[]{content[offset + soc.length]};
+        dto.setSoc(content[offset + soc.length]);
         offset += soc.length;
-        dto.setSoc(bytes[0]);
 
         // DC-DC状态
-        bytes = new byte[]{content[offset + dcStatus.length]};
+        dto.setDcStatus(content[offset + dcStatus.length]);
         offset += dcStatus.length;
-        dto.setDcStatus(bytes[0]);
 
         // 挡位
-        bytes = new byte[]{content[offset + dangwei.length]};
+        dto.setDangwei(content[offset + dangwei.length]);
         offset += dangwei.length;
-        dto.setDangwei(bytes[0]);
 
         // 绝缘电阻
         bytes = new byte[insulationResistance.length];
@@ -112,14 +106,11 @@ public class OneBody extends AbstractBody<AllCarDto> {
         dto.setInsulationResistance(insulationResistance);
 
         // 加速踏板行程值
-        bytes = new byte[]{content[offset + upFootplateKm.length]};
+        dto.setUpFootplateKm(content[offset + upFootplateKm.length]);
         offset += upFootplateKm.length;
-        dto.setUpFootplateKm(bytes[0]);
 
         // 制动踏板状态
-        bytes = new byte[]{content[offset + footplateStatus.length]};
-        offset += footplateStatus.length;
-        dto.setFootplateStatus(bytes[0]);
+        dto.setFootplateStatus(content[offset + footplateStatus.length]);
 
         return dto;
     }

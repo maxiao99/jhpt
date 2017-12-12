@@ -39,29 +39,25 @@ public class TwoBody extends AbstractBody<QuDongDianJisDto> {
         byte[] content = mb.getContent();
         int offset = 0;
         // 车辆状态
-        byte[] bytes = new byte[]{content[offset + 1]};
+        dtos.setNumber(content[offset + 1]);
         offset += 1;
-        dtos.setNumber(bytes[0]);
         for (int i = 0; i < dtos.getNumber(); i++) {
             QuDongDianJiDto dto = new QuDongDianJiDto();
 
             // 驱动电机序号
-            bytes = new byte[]{content[offset + seq.length]};
+            dto.setSeq(content[offset + seq.length]);
             offset += seq.length;
-            dto.setSeq(bytes[0]);
 
             // 驱动电机状态
-            bytes = new byte[]{content[offset + status.length]};
+            dto.setStatus(content[offset + status.length]);
             offset += status.length;
-            dto.setStatus(bytes[0]);
 
             // 驱动电机控制器温度
-            bytes = new byte[]{content[offset + controlTemperature.length]};
+            dto.setControlTemperature(content[offset + controlTemperature.length]);
             offset += controlTemperature.length;
-            dto.setControlTemperature(bytes[0]);
 
             // 驱动电机转速
-            bytes = new byte[speed.length];
+            byte[] bytes = new byte[speed.length];
             System.arraycopy(content, offset, bytes, 0, speed.length);
             offset += speed.length;
             BigInteger bigInteger = new BigInteger(bytes);
@@ -77,9 +73,8 @@ public class TwoBody extends AbstractBody<QuDongDianJisDto> {
             dto.setZhuanju(zhuanju);
 
             // 驱动电机温度
-            bytes = new byte[]{content[offset + temperature.length]};
+            dto.setTemperature(content[offset + temperature.length]);
             offset += temperature.length;
-            dto.setTemperature(bytes[0]);
 
             // 电机控制器输入电压
             bytes = new byte[dianya.length];

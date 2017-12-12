@@ -34,9 +34,8 @@ public class EightCommand extends DeviceAbstractCommand {
         int offset = TIME.length;
 
         // 信息类型标志
-        byte[] bytes = new byte[]{content[offset + MESSAGE_TYPE.length]};
+        byte alarmType = content[offset + MESSAGE_TYPE.length];
         offset += MESSAGE_TYPE.length;
-        byte alarmType = bytes[0];
 
     }
 
