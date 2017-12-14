@@ -18,7 +18,7 @@ public class KvVoExt {
         this(module, desc, null, params);
     }
 
-    public KvVoExt(Integer module, String desc, Integer id, Map<String, Object> params) {
+    public KvVoExt(Integer module, String desc, Long id, Map<String, Object> params) {
         this.module = module;
         this.desc = desc;
         this.id = id;
@@ -27,7 +27,7 @@ public class KvVoExt {
 
     private Integer module;
     private String desc;
-    private Integer id;
+    private Long id;
     private Map<String, Object> params;
 
     public Integer getModule() {
@@ -46,11 +46,11 @@ public class KvVoExt {
         this.desc = desc;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

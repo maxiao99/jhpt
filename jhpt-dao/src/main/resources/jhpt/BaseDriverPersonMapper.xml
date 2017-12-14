@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ Copyright (c) 2017. CK. All rights reserved.
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyj.jhpt.dao.DriverPersonMapper">
+  <resultMap id="BaseResultMap" type="com.tyj.jhpt.bo.DriverPerson">
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="car_vin" property="carVin" jdbcType="VARCHAR" />
+    <result column="driver_id" property="driverId" jdbcType="INTEGER" />
+    <result column="event_time" property="eventTime" jdbcType="TIMESTAMP" />
+    <result column="driver_name" property="driverName" jdbcType="VARCHAR" />
+    <result column="driver_identity_no" property="driverIdentityNo" jdbcType="VARCHAR" />
+    <result column="work_qualification" property="workQualification" jdbcType="VARCHAR" />
+    <result column="issue_organization_name" property="issueOrganizationName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    `id`, `car_vin`, `driver_id`, `event_time`, `driver_name`, `driver_identity_no`, `work_qualification`, `issue_organization_name`
+  </sql>
+  <insert id="insert" parameterType="com.tyj.jhpt.bo.DriverPerson" useGeneratedKeys="true" keyProperty="id">
+    <![CDATA[
+    insert into `tb_driver_person` (`car_vin`, `driver_id`, `event_time`, 
+      `driver_name`, `driver_identity_no`, `work_qualification`, 
+      `issue_organization_name`)
+    values (#{carVin,jdbcType=VARCHAR}, #{driverId,jdbcType=INTEGER}, #{eventTime,jdbcType=TIMESTAMP}, 
+      #{driverName,jdbcType=VARCHAR}, #{driverIdentityNo,jdbcType=VARCHAR}, #{workQualification,jdbcType=VARCHAR}, 
+      #{issueOrganizationName,jdbcType=VARCHAR})
+    ]]>
+  </insert>
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into `tb_driver_person` (`car_vin`, `driver_id`, `event_time`, 
+      `driver_name`, `driver_identity_no`, 
+      `work_qualification`, `issue_organization_name`
+      )
+     values 
+    <foreach collection="list" item="item" index="index" separator=",">
+       (#{item.carVin,jdbcType=VARCHAR}, #{item.driverId,jdbcType=INTEGER}, #{item.eventTime,jdbcType=TIMESTAMP}, 
+        #{item.driverName,jdbcType=VARCHAR}, #{item.driverIdentityNo,jdbcType=VARCHAR}, 
+        #{item.workQualification,jdbcType=VARCHAR}, #{item.issueOrganizationName,jdbcType=VARCHAR}
+        )
+    </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.tyj.jhpt.bo.DriverPerson" useGeneratedKeys="true" keyProperty="id">
+    insert into `tb_driver_person`
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="carVin != null">
+        `car_vin`,
+      </if>
+      <if test="driverId != null">
+        `driver_id`,
+      </if>
+      <if test="eventTime != null">
+        `event_time`,
+      </if>
+      <if test="driverName != null">
+        `driver_name`,
+      </if>
+      <if test="driverIdentityNo != null">
+        `driver_identity_no`,
+      </if>
+      <if test="workQualification != null">
+        `work_qualification`,
+      </if>
+      <if test="issueOrganizationName != null">
+        `issue_organization_name`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="carVin != null">
+        #{carVin,jdbcType=VARCHAR},
+      </if>
+      <if test="driverId != null">
+        #{driverId,jdbcType=INTEGER},
+      </if>
+      <if test="eventTime != null">
+        #{eventTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="driverName != null">
+        #{driverName,jdbcType=VARCHAR},
+      </if>
+      <if test="driverIdentityNo != null">
+        #{driverIdentityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="workQualification != null">
+        #{workQualification,jdbcType=VARCHAR},
+      </if>
+      <if test="issueOrganizationName != null">
+        #{issueOrganizationName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from `tb_driver_person`
+    where `id` = #{id,jdbcType=BIGINT}
+  </delete>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from `tb_driver_person`
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    select count(*) from `tb_driver_person`
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tyj.jhpt.bo.DriverPerson">
+    update `tb_driver_person`
+    <set>
+      <if test="carVin != null">
+        `car_vin` = #{carVin,jdbcType=VARCHAR},
+      </if>
+      <if test="driverId != null">
+        `driver_id` = #{driverId,jdbcType=INTEGER},
+      </if>
+      <if test="eventTime != null">
+        `event_time` = #{eventTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="driverName != null">
+        `driver_name` = #{driverName,jdbcType=VARCHAR},
+      </if>
+      <if test="driverIdentityNo != null">
+        `driver_identity_no` = #{driverIdentityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="workQualification != null">
+        `work_qualification` = #{workQualification,jdbcType=VARCHAR},
+      </if>
+      <if test="issueOrganizationName != null">
+        `issue_organization_name` = #{issueOrganizationName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where `id` = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tyj.jhpt.bo.DriverPerson">
+    update `tb_driver_person`
+    set `car_vin` = #{carVin,jdbcType=VARCHAR},
+      `driver_id` = #{driverId,jdbcType=INTEGER},
+      `event_time` = #{eventTime,jdbcType=TIMESTAMP},
+      `driver_name` = #{driverName,jdbcType=VARCHAR},
+      `driver_identity_no` = #{driverIdentityNo,jdbcType=VARCHAR},
+      `work_qualification` = #{workQualification,jdbcType=VARCHAR},
+      `issue_organization_name` = #{issueOrganizationName,jdbcType=VARCHAR}
+    where `id` = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

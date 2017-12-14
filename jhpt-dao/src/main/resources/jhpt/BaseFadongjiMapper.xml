@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ Copyright (c) 2017. CK. All rights reserved.
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyj.jhpt.dao.FadongjiMapper">
+  <resultMap id="BaseResultMap" type="com.tyj.jhpt.bo.Fadongji">
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="car_vin" property="carVin" jdbcType="VARCHAR" />
+    <result column="event_time" property="eventTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="speed" property="speed" jdbcType="INTEGER" />
+    <result column="xiaohaolv" property="xiaohaolv" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    `id`, `car_vin`, `event_time`, `status`, `speed`, `xiaohaolv`
+  </sql>
+  <insert id="insert" parameterType="com.tyj.jhpt.bo.Fadongji" useGeneratedKeys="true" keyProperty="id">
+    <![CDATA[
+    insert into `tb_fadongji` (`car_vin`, `event_time`, `status`, 
+      `speed`, `xiaohaolv`)
+    values (#{carVin,jdbcType=VARCHAR}, #{eventTime,jdbcType=TIMESTAMP}, #{status,jdbcType=TINYINT}, 
+      #{speed,jdbcType=INTEGER}, #{xiaohaolv,jdbcType=INTEGER})
+    ]]>
+  </insert>
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into `tb_fadongji` (`car_vin`, `event_time`, `status`, 
+      `speed`, `xiaohaolv`)
+     values 
+    <foreach collection="list" item="item" index="index" separator=",">
+       (#{item.carVin,jdbcType=VARCHAR}, #{item.eventTime,jdbcType=TIMESTAMP}, #{item.status,jdbcType=TINYINT}, 
+        #{item.speed,jdbcType=INTEGER}, #{item.xiaohaolv,jdbcType=INTEGER})
+    </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.tyj.jhpt.bo.Fadongji" useGeneratedKeys="true" keyProperty="id">
+    insert into `tb_fadongji`
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="carVin != null">
+        `car_vin`,
+      </if>
+      <if test="eventTime != null">
+        `event_time`,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="speed != null">
+        `speed`,
+      </if>
+      <if test="xiaohaolv != null">
+        `xiaohaolv`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="carVin != null">
+        #{carVin,jdbcType=VARCHAR},
+      </if>
+      <if test="eventTime != null">
+        #{eventTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="speed != null">
+        #{speed,jdbcType=INTEGER},
+      </if>
+      <if test="xiaohaolv != null">
+        #{xiaohaolv,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from `tb_fadongji`
+    where `id` = #{id,jdbcType=BIGINT}
+  </delete>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from `tb_fadongji`
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    select count(*) from `tb_fadongji`
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tyj.jhpt.bo.Fadongji">
+    update `tb_fadongji`
+    <set>
+      <if test="carVin != null">
+        `car_vin` = #{carVin,jdbcType=VARCHAR},
+      </if>
+      <if test="eventTime != null">
+        `event_time` = #{eventTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="speed != null">
+        `speed` = #{speed,jdbcType=INTEGER},
+      </if>
+      <if test="xiaohaolv != null">
+        `xiaohaolv` = #{xiaohaolv,jdbcType=INTEGER},
+      </if>
+    </set>
+    where `id` = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tyj.jhpt.bo.Fadongji">
+    update `tb_fadongji`
+    set `car_vin` = #{carVin,jdbcType=VARCHAR},
+      `event_time` = #{eventTime,jdbcType=TIMESTAMP},
+      `status` = #{status,jdbcType=TINYINT},
+      `speed` = #{speed,jdbcType=INTEGER},
+      `xiaohaolv` = #{xiaohaolv,jdbcType=INTEGER}
+    where `id` = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

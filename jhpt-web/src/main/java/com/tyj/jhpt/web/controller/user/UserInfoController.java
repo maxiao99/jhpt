@@ -11,12 +11,10 @@ import com.github.fartherp.framework.core.util.JsonResp;
 import com.github.fartherp.framework.core.web.filter.auth.AuthWrapper;
 import com.github.fartherp.framework.core.web.filter.auth.GeneralAuthWrapper;
 import com.github.fartherp.framework.core.web.http.session.SessionProvider;
-import com.tyj.jhpt.bo.UserInfos;
-import com.tyj.jhpt.bo.UserRoles;
+import com.tyj.jhpt.bo.User;
 import com.tyj.jhpt.server.SystemConfig;
-import com.tyj.jhpt.service.UserInfosService;
-import com.tyj.jhpt.service.UserRolesService;
-import com.tyj.jhpt.vo.UserInfoPageVo;
+import com.tyj.jhpt.service.UserService;
+import com.tyj.jhpt.vo.UserPageVo;
 import com.tyj.jhpt.web.controller.AbstractController;
 import com.tyj.jhpt.web.controller.general.KvVoExt;
 import org.springframework.stereotype.Controller;
@@ -39,11 +37,8 @@ import java.util.Map;
 @Controller
 @RequestMapping(value = "user")
 public class UserInfoController extends AbstractController {
-    @Resource(name = "userInfosService")
-    UserInfosService userInfosService;
-
-    @Resource(name = "userRolesService")
-    UserRolesService userRolesService;
+    @Resource(name = "userService")
+    UserService userService;
 
     @Resource(name = "sessionProvider")
     SessionProvider sessionProvider;
@@ -51,7 +46,7 @@ public class UserInfoController extends AbstractController {
     @RequestMapping(value = "/login")
     public ModelAndView login(@RequestParam Map<String, Object> param) {
         ModelAndView mv;
-        UserInfos user = userInfosService.findUserByMap(param);
+        User user = userService.findUserByMap(param);
         if (null == user) {
             mv = new ModelAndView("redirect:/");
             mv.addObject("message", "用户名或密码错误");
@@ -84,15 +79,15 @@ public class UserInfoController extends AbstractController {
 
     @ResponseBody
     @RequestMapping(value = "/page/list")
-    public String list(UserInfoPageVo vo) {
-        List<UserInfos> l = userInfosService.findPageUser(vo.convertPageMap());
+    public String list(UserPageVo vo) {
+        List<User> l = userService.findPageUser(vo.convertPageMap());
         vo.setRows(l);
         return JsonResp.asData(vo).setDatePattern(DateUtil.yyyy_MM_dd_HH_mm_ss).toJson();
     }
 
     @ResponseBody
     @RequestMapping(value = "/add_user")
-    public String addUser(UserInfos user) {
+    public String addUser(User user) {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_name", user.getUserName());
         KvVoExt kvVoExt = new KvVoExt(8, "账户", params);
@@ -100,20 +95,16 @@ public class UserInfoController extends AbstractController {
         if (result != null) {
             return result;
         }
-        UserInfos userInfos = (UserInfos) sessionProvider.getAttribute(AuthWrapper.SESSION_USER_MESSAGE);
+        User userInfos = (User) sessionProvider.getAttribute(AuthWrapper.SESSION_USER_MESSAGE);
         user.setCreatorId(userInfos.getId());
         user.setCreateTime(new Date());
-        userInfosService.saveEntitySelective(user);
-        UserRoles userRoles = new UserRoles();
-        userRoles.setUserId(user.getId());
-        userRoles.setRoleId(user.getRoleId());
-        userRolesService.saveEntitySelective(userRoles);
+        userService.saveEntitySelective(user);
         return JsonResp.asData().success().toJson();
     }
 
     @ResponseBody
     @RequestMapping(value = "/edit_user")
-    public String editUserInfos(UserInfos user) {
+    public String editUserInfos(User user) {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_name", user.getUserName());
         KvVoExt kvVoExt = new KvVoExt(8, "账户", user.getId(), params);
@@ -121,12 +112,7 @@ public class UserInfoController extends AbstractController {
         if (result != null) {
             return result;
         }
-        userInfosService.updateEntitySelective(user);
-        UserRoles userRoles = new UserRoles();
-        userRoles.setId(user.getUserRoleId());
-        userRoles.setUserId(user.getId());
-        userRoles.setRoleId(user.getRoleId());
-        userRolesService.updateEntitySelective(userRoles);
+        userService.updateEntitySelective(user);
         return JsonResp.asData().success().toJson();
     }
 

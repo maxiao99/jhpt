@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-  ~ Copyright (C) 2016 CK, Inc. All Rights Reserved.
+  ~ Copyright (c) 2017. CK. All rights reserved.
   -->
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.tyj.jhpt.dao.DeviceInfoMapper">
   <resultMap id="BaseResultMap" type="com.tyj.jhpt.bo.DeviceInfo">
-    <id column="device_id" property="deviceId" jdbcType="INTEGER" />
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="car_vin" property="carVin" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="age" property="age" jdbcType="TINYINT" />
     <result column="driving_license" property="drivingLicense" jdbcType="TINYINT" />
@@ -23,41 +24,48 @@
     <result column="if_active" property="ifActive" jdbcType="TINYINT" />
   </resultMap>
   <sql id="Base_Column_List">
-    `device_id`, `name`, `age`, `driving_license`, `identity_no`, `telephone`, `plate_no`, `car_type`, `phone_of_device`, `weixin_account`, 
-    `create_time`, `recorder_id`, `outofdate_time`, `activate_times`, `if_active`
+    `id`, `car_vin`, `name`, `age`, `driving_license`, `identity_no`, `telephone`, `plate_no`, `car_type`, `phone_of_device`, 
+    `weixin_account`, `create_time`, `recorder_id`, `outofdate_time`, `activate_times`, `if_active`
   </sql>
-  <insert id="insert" parameterType="com.tyj.jhpt.bo.DeviceInfo" useGeneratedKeys="true" keyProperty="device_id">
+  <insert id="insert" parameterType="com.tyj.jhpt.bo.DeviceInfo" useGeneratedKeys="true" keyProperty="id">
     <![CDATA[
-    insert into `device_info` (`name`, `age`, `driving_license`, 
-      `identity_no`, `telephone`, `plate_no`, 
-      `car_type`, `phone_of_device`, `weixin_account`, 
-      `create_time`, `recorder_id`, `outofdate_time`, 
-      `activate_times`, `if_active`)
-    values (#{name,jdbcType=VARCHAR}, #{age,jdbcType=TINYINT}, #{drivingLicense,jdbcType=TINYINT}, 
-      #{identityNo,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, #{plateNo,jdbcType=VARCHAR}, 
-      #{carType,jdbcType=TINYINT}, #{phoneOfDevice,jdbcType=VARCHAR}, #{weixinAccount,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{recorderId,jdbcType=INTEGER}, #{outofdateTime,jdbcType=TIMESTAMP}, 
-      #{activateTimes,jdbcType=INTEGER}, #{ifActive,jdbcType=TINYINT})
+    insert into `tb_device_info` (`car_vin`, `name`, `age`, 
+      `driving_license`, `identity_no`, `telephone`, 
+      `plate_no`, `car_type`, `phone_of_device`, 
+      `weixin_account`, `create_time`, `recorder_id`, 
+      `outofdate_time`, `activate_times`, `if_active`
+      )
+    values (#{carVin,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{age,jdbcType=TINYINT}, 
+      #{drivingLicense,jdbcType=TINYINT}, #{identityNo,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
+      #{plateNo,jdbcType=VARCHAR}, #{carType,jdbcType=TINYINT}, #{phoneOfDevice,jdbcType=VARCHAR}, 
+      #{weixinAccount,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{recorderId,jdbcType=INTEGER}, 
+      #{outofdateTime,jdbcType=TIMESTAMP}, #{activateTimes,jdbcType=INTEGER}, #{ifActive,jdbcType=TINYINT}
+      )
     ]]>
   </insert>
   <insert id="insertBatch" parameterType="java.util.List">
-    insert into `device_info` (`name`, `age`, `driving_license`, 
-      `identity_no`, `telephone`, `plate_no`, 
-      `car_type`, `phone_of_device`, `weixin_account`, 
-      `create_time`, `recorder_id`, `outofdate_time`, 
+    insert into `tb_device_info` (`car_vin`, `name`, `age`, 
+      `driving_license`, `identity_no`, `telephone`, 
+      `plate_no`, `car_type`, `phone_of_device`, 
+      `weixin_account`, `create_time`, 
+      `recorder_id`, `outofdate_time`, 
       `activate_times`, `if_active`)
      values 
     <foreach collection="list" item="item" index="index" separator=",">
-       (#{item.name,jdbcType=VARCHAR}, #{item.age,jdbcType=TINYINT}, #{item.drivingLicense,jdbcType=TINYINT}, 
-        #{item.identityNo,jdbcType=VARCHAR}, #{item.telephone,jdbcType=VARCHAR}, #{item.plateNo,jdbcType=VARCHAR}, 
-        #{item.carType,jdbcType=TINYINT}, #{item.phoneOfDevice,jdbcType=VARCHAR}, #{item.weixinAccount,jdbcType=VARCHAR}, 
-        #{item.createTime,jdbcType=TIMESTAMP}, #{item.recorderId,jdbcType=INTEGER}, #{item.outofdateTime,jdbcType=TIMESTAMP}, 
+       (#{item.carVin,jdbcType=VARCHAR}, #{item.name,jdbcType=VARCHAR}, #{item.age,jdbcType=TINYINT}, 
+        #{item.drivingLicense,jdbcType=TINYINT}, #{item.identityNo,jdbcType=VARCHAR}, #{item.telephone,jdbcType=VARCHAR}, 
+        #{item.plateNo,jdbcType=VARCHAR}, #{item.carType,jdbcType=TINYINT}, #{item.phoneOfDevice,jdbcType=VARCHAR}, 
+        #{item.weixinAccount,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP}, 
+        #{item.recorderId,jdbcType=INTEGER}, #{item.outofdateTime,jdbcType=TIMESTAMP}, 
         #{item.activateTimes,jdbcType=INTEGER}, #{item.ifActive,jdbcType=TINYINT})
     </foreach>
   </insert>
-  <insert id="insertSelective" parameterType="com.tyj.jhpt.bo.DeviceInfo" useGeneratedKeys="true" keyProperty="device_id">
-    insert into `device_info`
+  <insert id="insertSelective" parameterType="com.tyj.jhpt.bo.DeviceInfo" useGeneratedKeys="true" keyProperty="id">
+    insert into `tb_device_info`
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="carVin != null">
+        `car_vin`,
+      </if>
       <if test="name != null">
         `name`,
       </if>
@@ -102,6 +110,9 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="carVin != null">
+        #{carVin,jdbcType=VARCHAR},
+      </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
@@ -146,27 +157,24 @@
       </if>
     </trim>
   </insert>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from `device_info`
-    where `device_id` = #{deviceId,jdbcType=INTEGER}
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from `tb_device_info`
+    where `id` = #{id,jdbcType=BIGINT}
   </delete>
   <select id="selectAll" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from `device_info`
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from `device_info`
-    where `device_id` = #{deviceId,jdbcType=INTEGER}
+    from `tb_device_info`
   </select>
   <select id="count" resultType="java.lang.Integer">
-    select count(*) from `device_info`
+    select count(*) from `tb_device_info`
   </select>
   <update id="updateByPrimaryKeySelective" parameterType="com.tyj.jhpt.bo.DeviceInfo">
-    update `device_info`
+    update `tb_device_info`
     <set>
+      <if test="carVin != null">
+        `car_vin` = #{carVin,jdbcType=VARCHAR},
+      </if>
       <if test="name != null">
         `name` = #{name,jdbcType=VARCHAR},
       </if>
@@ -210,11 +218,12 @@
         `if_active` = #{ifActive,jdbcType=TINYINT},
       </if>
     </set>
-    where `device_id` = #{deviceId,jdbcType=INTEGER}
+    where `id` = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.tyj.jhpt.bo.DeviceInfo">
-    update `device_info`
-    set `name` = #{name,jdbcType=VARCHAR},
+    update `tb_device_info`
+    set `car_vin` = #{carVin,jdbcType=VARCHAR},
+      `name` = #{name,jdbcType=VARCHAR},
       `age` = #{age,jdbcType=TINYINT},
       `driving_license` = #{drivingLicense,jdbcType=TINYINT},
       `identity_no` = #{identityNo,jdbcType=VARCHAR},
@@ -228,6 +237,6 @@
       `outofdate_time` = #{outofdateTime,jdbcType=TIMESTAMP},
       `activate_times` = #{activateTimes,jdbcType=INTEGER},
       `if_active` = #{ifActive,jdbcType=TINYINT}
-    where `device_id` = #{deviceId,jdbcType=INTEGER}
+    where `id` = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

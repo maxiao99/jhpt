@@ -5,7 +5,7 @@
 package com.tyj.jhpt.server.body.dto;
 
 /**
- * Created by IntelliJ IDEA.
+ * 报警数据
  *
  * @author: CK
  * @date: 2017/12/9

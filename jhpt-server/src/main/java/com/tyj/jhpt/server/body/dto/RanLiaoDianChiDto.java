@@ -5,7 +5,7 @@
 package com.tyj.jhpt.server.body.dto;
 
 /**
- * Created by IntelliJ IDEA.
+ * 燃料电池数据
  *
  * @author: CK
  * @date: 2017/12/8

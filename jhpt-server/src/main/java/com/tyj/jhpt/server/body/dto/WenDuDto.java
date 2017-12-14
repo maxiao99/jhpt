@@ -5,7 +5,7 @@
 package com.tyj.jhpt.server.body.dto;
 
 /**
- * Created by IntelliJ IDEA.
+ * 可充电储能装置温度数据
  *
  * @author: CK
  * @date: 2017/12/9

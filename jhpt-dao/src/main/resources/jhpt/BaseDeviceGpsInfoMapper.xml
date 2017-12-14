@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ Copyright (c) 2017. CK. All rights reserved.
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyj.jhpt.dao.DeviceGpsInfoMapper">
+  <resultMap id="BaseResultMap" type="com.tyj.jhpt.bo.DeviceGpsInfo">
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="car_vin" property="carVin" jdbcType="VARCHAR" />
+    <result column="msg_id" property="msgId" jdbcType="INTEGER" />
+    <result column="event_time" property="eventTime" jdbcType="TIMESTAMP" />
+    <result column="driver_person_id" property="driverPersonId" jdbcType="INTEGER" />
+    <result column="location_status" property="locationStatus" jdbcType="TINYINT" />
+    <result column="longitude" property="longitude" jdbcType="DOUBLE" />
+    <result column="latitude" property="latitude" jdbcType="DOUBLE" />
+    <result column="speed" property="speed" jdbcType="INTEGER" />
+    <result column="msg_type" property="msgType" jdbcType="TINYINT" />
+    <result column="upload_time" property="uploadTime" jdbcType="TIMESTAMP" />
+    <result column="acceleration" property="acceleration" jdbcType="REAL" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    `id`, `car_vin`, `msg_id`, `event_time`, `driver_person_id`, `location_status`, `longitude`, `latitude`, `speed`, `msg_type`, 
+    `upload_time`, `acceleration`
+  </sql>
+  <insert id="insert" parameterType="com.tyj.jhpt.bo.DeviceGpsInfo" useGeneratedKeys="true" keyProperty="id">
+    <![CDATA[
+    insert into `tb_device_gps_info` (`car_vin`, `msg_id`, `event_time`, 
+      `driver_person_id`, `location_status`, `longitude`, 
+      `latitude`, `speed`, `msg_type`, 
+      `upload_time`, `acceleration`)
+    values (#{carVin,jdbcType=VARCHAR}, #{msgId,jdbcType=INTEGER}, #{eventTime,jdbcType=TIMESTAMP}, 
+      #{driverPersonId,jdbcType=INTEGER}, #{locationStatus,jdbcType=TINYINT}, #{longitude,jdbcType=DOUBLE}, 
+      #{latitude,jdbcType=DOUBLE}, #{speed,jdbcType=INTEGER}, #{msgType,jdbcType=TINYINT}, 
+      #{uploadTime,jdbcType=TIMESTAMP}, #{acceleration,jdbcType=REAL})
+    ]]>
+  </insert>
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into `tb_device_gps_info` (`car_vin`, `msg_id`, `event_time`, 
+      `driver_person_id`, `location_status`, 
+      `longitude`, `latitude`, `speed`, 
+      `msg_type`, `upload_time`, `acceleration`
+      )
+     values 
+    <foreach collection="list" item="item" index="index" separator=",">
+       (#{item.carVin,jdbcType=VARCHAR}, #{item.msgId,jdbcType=INTEGER}, #{item.eventTime,jdbcType=TIMESTAMP}, 
+        #{item.driverPersonId,jdbcType=INTEGER}, #{item.locationStatus,jdbcType=TINYINT}, 
+        #{item.longitude,jdbcType=DOUBLE}, #{item.latitude,jdbcType=DOUBLE}, #{item.speed,jdbcType=INTEGER}, 
+        #{item.msgType,jdbcType=TINYINT}, #{item.uploadTime,jdbcType=TIMESTAMP}, #{item.acceleration,jdbcType=REAL}
+        )
+    </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.tyj.jhpt.bo.DeviceGpsInfo" useGeneratedKeys="true" keyProperty="id">
+    insert into `tb_device_gps_info`
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="carVin != null">
+        `car_vin`,
+      </if>
+      <if test="msgId != null">
+        `msg_id`,
+      </if>
+      <if test="eventTime != null">
+        `event_time`,
+      </if>
+      <if test="driverPersonId != null">
+        `driver_person_id`,
+      </if>
+      <if test="locationStatus != null">
+        `location_status`,
+      </if>
+      <if test="longitude != null">
+        `longitude`,
+      </if>
+      <if test="latitude != null">
+        `latitude`,
+      </if>
+      <if test="speed != null">
+        `speed`,
+      </if>
+      <if test="msgType != null">
+        `msg_type`,
+      </if>
+      <if test="uploadTime != null">
+        `upload_time`,
+      </if>
+      <if test="acceleration != null">
+        `acceleration`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="carVin != null">
+        #{carVin,jdbcType=VARCHAR},
+      </if>
+      <if test="msgId != null">
+        #{msgId,jdbcType=INTEGER},
+      </if>
+      <if test="eventTime != null">
+        #{eventTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="driverPersonId != null">
+        #{driverPersonId,jdbcType=INTEGER},
+      </if>
+      <if test="locationStatus != null">
+        #{locationStatus,jdbcType=TINYINT},
+      </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="speed != null">
+        #{speed,jdbcType=INTEGER},
+      </if>
+      <if test="msgType != null">
+        #{msgType,jdbcType=TINYINT},
+      </if>
+      <if test="uploadTime != null">
+        #{uploadTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="acceleration != null">
+        #{acceleration,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from `tb_device_gps_info`
+    where `id` = #{id,jdbcType=BIGINT}
+  </delete>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from `tb_device_gps_info`
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    select count(*) from `tb_device_gps_info`
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tyj.jhpt.bo.DeviceGpsInfo">
+    update `tb_device_gps_info`
+    <set>
+      <if test="carVin != null">
+        `car_vin` = #{carVin,jdbcType=VARCHAR},
+      </if>
+      <if test="msgId != null">
+        `msg_id` = #{msgId,jdbcType=INTEGER},
+      </if>
+      <if test="eventTime != null">
+        `event_time` = #{eventTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="driverPersonId != null">
+        `driver_person_id` = #{driverPersonId,jdbcType=INTEGER},
+      </if>
+      <if test="locationStatus != null">
+        `location_status` = #{locationStatus,jdbcType=TINYINT},
+      </if>
+      <if test="longitude != null">
+        `longitude` = #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="latitude != null">
+        `latitude` = #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="speed != null">
+        `speed` = #{speed,jdbcType=INTEGER},
+      </if>
+      <if test="msgType != null">
+        `msg_type` = #{msgType,jdbcType=TINYINT},
+      </if>
+      <if test="uploadTime != null">
+        `upload_time` = #{uploadTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="acceleration != null">
+        `acceleration` = #{acceleration,jdbcType=REAL},
+      </if>
+    </set>
+    where `id` = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tyj.jhpt.bo.DeviceGpsInfo">
+    update `tb_device_gps_info`
+    set `car_vin` = #{carVin,jdbcType=VARCHAR},
+      `msg_id` = #{msgId,jdbcType=INTEGER},
+      `event_time` = #{eventTime,jdbcType=TIMESTAMP},
+      `driver_person_id` = #{driverPersonId,jdbcType=INTEGER},
+      `location_status` = #{locationStatus,jdbcType=TINYINT},
+      `longitude` = #{longitude,jdbcType=DOUBLE},
+      `latitude` = #{latitude,jdbcType=DOUBLE},
+      `speed` = #{speed,jdbcType=INTEGER},
+      `msg_type` = #{msgType,jdbcType=TINYINT},
+      `upload_time` = #{uploadTime,jdbcType=TIMESTAMP},
+      `acceleration` = #{acceleration,jdbcType=REAL}
+    where `id` = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

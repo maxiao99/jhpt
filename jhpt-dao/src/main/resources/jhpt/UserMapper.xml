@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ Copyright (c) 2017. CK. All rights reserved.
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyj.jhpt.dao.UserMapper">
+    <select id="findUserByMap" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from `tb_user`
+        <where>
+            <if test="userName != null and userName != ''">
+                AND `user_name` = #{userName}
+            </if>
+            <if test="userPassword != null and userPassword != ''">
+                AND `password` = #{userPassword}
+            </if>
+        </where>
+    </select>
+    <select id="findPageUser" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM
+        tb_user
+        <where>
+            <if test="keyword != null and keyword != ''">
+                and (`user_name` like CONCAT('%', #{keyword}, '%')
+                or `real_name` like CONCAT('%', #{keyword}, '%'))
+            </if>
+        </where>
+    </select>
+</mapper>

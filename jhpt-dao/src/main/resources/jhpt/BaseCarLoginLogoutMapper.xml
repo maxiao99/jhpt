@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ Copyright (c) 2017. CK. All rights reserved.
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyj.jhpt.dao.CarLoginLogoutMapper">
+  <resultMap id="BaseResultMap" type="com.tyj.jhpt.bo.CarLoginLogout">
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="car_vin" property="carVin" jdbcType="VARCHAR" />
+    <result column="login_time" property="loginTime" jdbcType="TIMESTAMP" />
+    <result column="logout_time" property="logoutTime" jdbcType="TIMESTAMP" />
+    <result column="trace_no" property="traceNo" jdbcType="INTEGER" />
+    <result column="iccid" property="iccid" jdbcType="VARCHAR" />
+    <result column="system_code" property="systemCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    `id`, `car_vin`, `login_time`, `logout_time`, `trace_no`, `iccid`, `system_code`
+  </sql>
+  <insert id="insert" parameterType="com.tyj.jhpt.bo.CarLoginLogout" useGeneratedKeys="true" keyProperty="id">
+    <![CDATA[
+    insert into `tb_car_login_logout` (`car_vin`, `login_time`, `logout_time`, 
+      `trace_no`, `iccid`, `system_code`
+      )
+    values (#{carVin,jdbcType=VARCHAR}, #{loginTime,jdbcType=TIMESTAMP}, #{logoutTime,jdbcType=TIMESTAMP}, 
+      #{traceNo,jdbcType=INTEGER}, #{iccid,jdbcType=VARCHAR}, #{systemCode,jdbcType=VARCHAR}
+      )
+    ]]>
+  </insert>
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into `tb_car_login_logout` (`car_vin`, `login_time`, `logout_time`, 
+      `trace_no`, `iccid`, `system_code`
+      )
+     values 
+    <foreach collection="list" item="item" index="index" separator=",">
+       (#{item.carVin,jdbcType=VARCHAR}, #{item.loginTime,jdbcType=TIMESTAMP}, #{item.logoutTime,jdbcType=TIMESTAMP}, 
+        #{item.traceNo,jdbcType=INTEGER}, #{item.iccid,jdbcType=VARCHAR}, #{item.systemCode,jdbcType=VARCHAR}
+        )
+    </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.tyj.jhpt.bo.CarLoginLogout" useGeneratedKeys="true" keyProperty="id">
+    insert into `tb_car_login_logout`
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="carVin != null">
+        `car_vin`,
+      </if>
+      <if test="loginTime != null">
+        `login_time`,
+      </if>
+      <if test="logoutTime != null">
+        `logout_time`,
+      </if>
+      <if test="traceNo != null">
+        `trace_no`,
+      </if>
+      <if test="iccid != null">
+        `iccid`,
+      </if>
+      <if test="systemCode != null">
+        `system_code`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="carVin != null">
+        #{carVin,jdbcType=VARCHAR},
+      </if>
+      <if test="loginTime != null">
+        #{loginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logoutTime != null">
+        #{logoutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="traceNo != null">
+        #{traceNo,jdbcType=INTEGER},
+      </if>
+      <if test="iccid != null">
+        #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="systemCode != null">
+        #{systemCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from `tb_car_login_logout`
+    where `id` = #{id,jdbcType=BIGINT}
+  </delete>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from `tb_car_login_logout`
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    select count(*) from `tb_car_login_logout`
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tyj.jhpt.bo.CarLoginLogout">
+    update `tb_car_login_logout`
+    <set>
+      <if test="carVin != null">
+        `car_vin` = #{carVin,jdbcType=VARCHAR},
+      </if>
+      <if test="loginTime != null">
+        `login_time` = #{loginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logoutTime != null">
+        `logout_time` = #{logoutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="traceNo != null">
+        `trace_no` = #{traceNo,jdbcType=INTEGER},
+      </if>
+      <if test="iccid != null">
+        `iccid` = #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="systemCode != null">
+        `system_code` = #{systemCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where `id` = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tyj.jhpt.bo.CarLoginLogout">
+    update `tb_car_login_logout`
+    set `car_vin` = #{carVin,jdbcType=VARCHAR},
+      `login_time` = #{loginTime,jdbcType=TIMESTAMP},
+      `logout_time` = #{logoutTime,jdbcType=TIMESTAMP},
+      `trace_no` = #{traceNo,jdbcType=INTEGER},
+      `iccid` = #{iccid,jdbcType=VARCHAR},
+      `system_code` = #{systemCode,jdbcType=VARCHAR}
+    where `id` = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

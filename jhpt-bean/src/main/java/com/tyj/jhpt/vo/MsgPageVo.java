@@ -5,14 +5,14 @@
 package com.tyj.jhpt.vo;
 
 import com.github.fartherp.framework.core.vo.BaseVo;
-import com.tyj.jhpt.bo.DeviceGpsInfos;
+import com.tyj.jhpt.bo.DeviceGpsInfo;
 
 /**
  * Created by IntelliJ IDEA .
  * Auth: CK
  * Date: 2016/5/4
  */
-public class MsgPageVo extends BaseVo<DeviceGpsInfos> {
+public class MsgPageVo extends BaseVo<DeviceGpsInfo> {
     private Integer deviceId;
     private String startDate;
     private String endDate;

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ Copyright (c) 2017. CK. All rights reserved.
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyj.jhpt.dao.DianyaMapper">
+  <resultMap id="BaseResultMap" type="com.tyj.jhpt.bo.Dianya">
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="car_vin" property="carVin" jdbcType="VARCHAR" />
+    <result column="event_time" property="eventTime" jdbcType="TIMESTAMP" />
+    <result column="system_no" property="systemNo" jdbcType="TINYINT" />
+    <result column="dianya" property="dianya" jdbcType="INTEGER" />
+    <result column="dianliu" property="dianliu" jdbcType="INTEGER" />
+    <result column="simple_total" property="simpleTotal" jdbcType="INTEGER" />
+    <result column="seq" property="seq" jdbcType="INTEGER" />
+    <result column="own_simple_total" property="ownSimpleTotal" jdbcType="TINYINT" />
+    <result column="simple_totals" property="simpleTotals" jdbcType="LONGVARBINARY" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    `id`, `car_vin`, `event_time`, `system_no`, `dianya`, `dianliu`, `simple_total`, `seq`, `own_simple_total`, `simple_totals`
+  </sql>
+  <insert id="insert" parameterType="com.tyj.jhpt.bo.Dianya" useGeneratedKeys="true" keyProperty="id">
+    <![CDATA[
+    insert into `tb_dianya` (`car_vin`, `event_time`, `system_no`, 
+      `dianya`, `dianliu`, `simple_total`, 
+      `seq`, `own_simple_total`, `simple_totals`
+      )
+    values (#{carVin,jdbcType=VARCHAR}, #{eventTime,jdbcType=TIMESTAMP}, #{systemNo,jdbcType=TINYINT}, 
+      #{dianya,jdbcType=INTEGER}, #{dianliu,jdbcType=INTEGER}, #{simpleTotal,jdbcType=INTEGER}, 
+      #{seq,jdbcType=INTEGER}, #{ownSimpleTotal,jdbcType=TINYINT}, #{simpleTotals,jdbcType=LONGVARBINARY}
+      )
+    ]]>
+  </insert>
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into `tb_dianya` (`car_vin`, `event_time`, `system_no`, 
+      `dianya`, `dianliu`, `simple_total`, 
+      `seq`, `own_simple_total`, `simple_totals`
+      )
+     values 
+    <foreach collection="list" item="item" index="index" separator=",">
+       (#{item.carVin,jdbcType=VARCHAR}, #{item.eventTime,jdbcType=TIMESTAMP}, #{item.systemNo,jdbcType=TINYINT}, 
+        #{item.dianya,jdbcType=INTEGER}, #{item.dianliu,jdbcType=INTEGER}, #{item.simpleTotal,jdbcType=INTEGER}, 
+        #{item.seq,jdbcType=INTEGER}, #{item.ownSimpleTotal,jdbcType=TINYINT}, #{item.simpleTotals,jdbcType=LONGVARBINARY}
+        )
+    </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.tyj.jhpt.bo.Dianya" useGeneratedKeys="true" keyProperty="id">
+    insert into `tb_dianya`
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="carVin != null">
+        `car_vin`,
+      </if>
+      <if test="eventTime != null">
+        `event_time`,
+      </if>
+      <if test="systemNo != null">
+        `system_no`,
+      </if>
+      <if test="dianya != null">
+        `dianya`,
+      </if>
+      <if test="dianliu != null">
+        `dianliu`,
+      </if>
+      <if test="simpleTotal != null">
+        `simple_total`,
+      </if>
+      <if test="seq != null">
+        `seq`,
+      </if>
+      <if test="ownSimpleTotal != null">
+        `own_simple_total`,
+      </if>
+      <if test="simpleTotals != null">
+        `simple_totals`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="carVin != null">
+        #{carVin,jdbcType=VARCHAR},
+      </if>
+      <if test="eventTime != null">
+        #{eventTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="systemNo != null">
+        #{systemNo,jdbcType=TINYINT},
+      </if>
+      <if test="dianya != null">
+        #{dianya,jdbcType=INTEGER},
+      </if>
+      <if test="dianliu != null">
+        #{dianliu,jdbcType=INTEGER},
+      </if>
+      <if test="simpleTotal != null">
+        #{simpleTotal,jdbcType=INTEGER},
+      </if>
+      <if test="seq != null">
+        #{seq,jdbcType=INTEGER},
+      </if>
+      <if test="ownSimpleTotal != null">
+        #{ownSimpleTotal,jdbcType=TINYINT},
+      </if>
+      <if test="simpleTotals != null">
+        #{simpleTotals,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from `tb_dianya`
+    where `id` = #{id,jdbcType=BIGINT}
+  </delete>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from `tb_dianya`
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    select count(*) from `tb_dianya`
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tyj.jhpt.bo.Dianya">
+    update `tb_dianya`
+    <set>
+      <if test="carVin != null">
+        `car_vin` = #{carVin,jdbcType=VARCHAR},
+      </if>
+      <if test="eventTime != null">
+        `event_time` = #{eventTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="systemNo != null">
+        `system_no` = #{systemNo,jdbcType=TINYINT},
+      </if>
+      <if test="dianya != null">
+        `dianya` = #{dianya,jdbcType=INTEGER},
+      </if>
+      <if test="dianliu != null">
+        `dianliu` = #{dianliu,jdbcType=INTEGER},
+      </if>
+      <if test="simpleTotal != null">
+        `simple_total` = #{simpleTotal,jdbcType=INTEGER},
+      </if>
+      <if test="seq != null">
+        `seq` = #{seq,jdbcType=INTEGER},
+      </if>
+      <if test="ownSimpleTotal != null">
+        `own_simple_total` = #{ownSimpleTotal,jdbcType=TINYINT},
+      </if>
+      <if test="simpleTotals != null">
+        `simple_totals` = #{simpleTotals,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where `id` = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tyj.jhpt.bo.Dianya">
+    update `tb_dianya`
+    set `car_vin` = #{carVin,jdbcType=VARCHAR},
+      `event_time` = #{eventTime,jdbcType=TIMESTAMP},
+      `system_no` = #{systemNo,jdbcType=TINYINT},
+      `dianya` = #{dianya,jdbcType=INTEGER},
+      `dianliu` = #{dianliu,jdbcType=INTEGER},
+      `simple_total` = #{simpleTotal,jdbcType=INTEGER},
+      `seq` = #{seq,jdbcType=INTEGER},
+      `own_simple_total` = #{ownSimpleTotal,jdbcType=TINYINT},
+      `simple_totals` = #{simpleTotals,jdbcType=LONGVARBINARY}
+    where `id` = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

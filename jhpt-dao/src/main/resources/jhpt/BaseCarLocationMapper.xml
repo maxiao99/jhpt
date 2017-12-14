@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ Copyright (c) 2017. CK. All rights reserved.
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyj.jhpt.dao.CarLocationMapper">
+  <resultMap id="BaseResultMap" type="com.tyj.jhpt.bo.CarLocation">
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="car_vin" property="carVin" jdbcType="VARCHAR" />
+    <result column="event_time" property="eventTime" jdbcType="TIMESTAMP" />
+    <result column="location_status" property="locationStatus" jdbcType="TINYINT" />
+    <result column="longitude" property="longitude" jdbcType="DOUBLE" />
+    <result column="latitude" property="latitude" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    `id`, `car_vin`, `event_time`, `location_status`, `longitude`, `latitude`
+  </sql>
+  <insert id="insert" parameterType="com.tyj.jhpt.bo.CarLocation" useGeneratedKeys="true" keyProperty="id">
+    <![CDATA[
+    insert into `tb_car_location` (`car_vin`, `event_time`, `location_status`, 
+      `longitude`, `latitude`)
+    values (#{carVin,jdbcType=VARCHAR}, #{eventTime,jdbcType=TIMESTAMP}, #{locationStatus,jdbcType=TINYINT}, 
+      #{longitude,jdbcType=DOUBLE}, #{latitude,jdbcType=DOUBLE})
+    ]]>
+  </insert>
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into `tb_car_location` (`car_vin`, `event_time`, `location_status`, 
+      `longitude`, `latitude`)
+     values 
+    <foreach collection="list" item="item" index="index" separator=",">
+       (#{item.carVin,jdbcType=VARCHAR}, #{item.eventTime,jdbcType=TIMESTAMP}, #{item.locationStatus,jdbcType=TINYINT}, 
+        #{item.longitude,jdbcType=DOUBLE}, #{item.latitude,jdbcType=DOUBLE})
+    </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.tyj.jhpt.bo.CarLocation" useGeneratedKeys="true" keyProperty="id">
+    insert into `tb_car_location`
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="carVin != null">
+        `car_vin`,
+      </if>
+      <if test="eventTime != null">
+        `event_time`,
+      </if>
+      <if test="locationStatus != null">
+        `location_status`,
+      </if>
+      <if test="longitude != null">
+        `longitude`,
+      </if>
+      <if test="latitude != null">
+        `latitude`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="carVin != null">
+        #{carVin,jdbcType=VARCHAR},
+      </if>
+      <if test="eventTime != null">
+        #{eventTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="locationStatus != null">
+        #{locationStatus,jdbcType=TINYINT},
+      </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from `tb_car_location`
+    where `id` = #{id,jdbcType=BIGINT}
+  </delete>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from `tb_car_location`
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    select count(*) from `tb_car_location`
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tyj.jhpt.bo.CarLocation">
+    update `tb_car_location`
+    <set>
+      <if test="carVin != null">
+        `car_vin` = #{carVin,jdbcType=VARCHAR},
+      </if>
+      <if test="eventTime != null">
+        `event_time` = #{eventTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="locationStatus != null">
+        `location_status` = #{locationStatus,jdbcType=TINYINT},
+      </if>
+      <if test="longitude != null">
+        `longitude` = #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="latitude != null">
+        `latitude` = #{latitude,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where `id` = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tyj.jhpt.bo.CarLocation">
+    update `tb_car_location`
+    set `car_vin` = #{carVin,jdbcType=VARCHAR},
+      `event_time` = #{eventTime,jdbcType=TIMESTAMP},
+      `location_status` = #{locationStatus,jdbcType=TINYINT},
+      `longitude` = #{longitude,jdbcType=DOUBLE},
+      `latitude` = #{latitude,jdbcType=DOUBLE}
+    where `id` = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

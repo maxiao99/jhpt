@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ Copyright (c) 2017. CK. All rights reserved.
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyj.jhpt.dao.RanliaoDianchiMapper">
+  <resultMap id="BaseResultMap" type="com.tyj.jhpt.bo.RanliaoDianchi">
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="car_vin" property="carVin" jdbcType="VARCHAR" />
+    <result column="event_time" property="eventTime" jdbcType="TIMESTAMP" />
+    <result column="dianya" property="dianya" jdbcType="INTEGER" />
+    <result column="dianliu" property="dianliu" jdbcType="INTEGER" />
+    <result column="xiaohaolv" property="xiaohaolv" jdbcType="INTEGER" />
+    <result column="tanzhen_total" property="tanzhenTotal" jdbcType="INTEGER" />
+    <result column="temperature" property="temperature" jdbcType="LONGVARBINARY" />
+    <result column="max_temperature" property="maxTemperature" jdbcType="INTEGER" />
+    <result column="max_tanzhen_no" property="maxTanzhenNo" jdbcType="TINYINT" />
+    <result column="max_concentration" property="maxConcentration" jdbcType="INTEGER" />
+    <result column="max_concentration_no" property="maxConcentrationNo" jdbcType="TINYINT" />
+    <result column="max_pressure" property="maxPressure" jdbcType="INTEGER" />
+    <result column="max_pressure_no" property="maxPressureNo" jdbcType="TINYINT" />
+    <result column="dc_status" property="dcStatus" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    `id`, `car_vin`, `event_time`, `dianya`, `dianliu`, `xiaohaolv`, `tanzhen_total`, `temperature`, `max_temperature`, `max_tanzhen_no`, 
+    `max_concentration`, `max_concentration_no`, `max_pressure`, `max_pressure_no`, `dc_status`
+  </sql>
+  <insert id="insert" parameterType="com.tyj.jhpt.bo.RanliaoDianchi" useGeneratedKeys="true" keyProperty="id">
+    <![CDATA[
+    insert into `tb_ranliao_dianchi` (`car_vin`, `event_time`, `dianya`, 
+      `dianliu`, `xiaohaolv`, `tanzhen_total`, 
+      `temperature`, `max_temperature`, `max_tanzhen_no`, 
+      `max_concentration`, `max_concentration_no`, `max_pressure`, 
+      `max_pressure_no`, `dc_status`)
+    values (#{carVin,jdbcType=VARCHAR}, #{eventTime,jdbcType=TIMESTAMP}, #{dianya,jdbcType=INTEGER}, 
+      #{dianliu,jdbcType=INTEGER}, #{xiaohaolv,jdbcType=INTEGER}, #{tanzhenTotal,jdbcType=INTEGER}, 
+      #{temperature,jdbcType=LONGVARBINARY}, #{maxTemperature,jdbcType=INTEGER}, #{maxTanzhenNo,jdbcType=TINYINT}, 
+      #{maxConcentration,jdbcType=INTEGER}, #{maxConcentrationNo,jdbcType=TINYINT}, #{maxPressure,jdbcType=INTEGER}, 
+      #{maxPressureNo,jdbcType=TINYINT}, #{dcStatus,jdbcType=TINYINT})
+    ]]>
+  </insert>
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into `tb_ranliao_dianchi` (`car_vin`, `event_time`, `dianya`, 
+      `dianliu`, `xiaohaolv`, `tanzhen_total`, 
+      `temperature`, `max_temperature`, 
+      `max_tanzhen_no`, `max_concentration`, 
+      `max_concentration_no`, `max_pressure`, 
+      `max_pressure_no`, `dc_status`)
+     values 
+    <foreach collection="list" item="item" index="index" separator=",">
+       (#{item.carVin,jdbcType=VARCHAR}, #{item.eventTime,jdbcType=TIMESTAMP}, #{item.dianya,jdbcType=INTEGER}, 
+        #{item.dianliu,jdbcType=INTEGER}, #{item.xiaohaolv,jdbcType=INTEGER}, #{item.tanzhenTotal,jdbcType=INTEGER}, 
+        #{item.temperature,jdbcType=LONGVARBINARY}, #{item.maxTemperature,jdbcType=INTEGER}, 
+        #{item.maxTanzhenNo,jdbcType=TINYINT}, #{item.maxConcentration,jdbcType=INTEGER}, 
+        #{item.maxConcentrationNo,jdbcType=TINYINT}, #{item.maxPressure,jdbcType=INTEGER}, 
+        #{item.maxPressureNo,jdbcType=TINYINT}, #{item.dcStatus,jdbcType=TINYINT})
+    </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.tyj.jhpt.bo.RanliaoDianchi" useGeneratedKeys="true" keyProperty="id">
+    insert into `tb_ranliao_dianchi`
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="carVin != null">
+        `car_vin`,
+      </if>
+      <if test="eventTime != null">
+        `event_time`,
+      </if>
+      <if test="dianya != null">
+        `dianya`,
+      </if>
+      <if test="dianliu != null">
+        `dianliu`,
+      </if>
+      <if test="xiaohaolv != null">
+        `xiaohaolv`,
+      </if>
+      <if test="tanzhenTotal != null">
+        `tanzhen_total`,
+      </if>
+      <if test="temperature != null">
+        `temperature`,
+      </if>
+      <if test="maxTemperature != null">
+        `max_temperature`,
+      </if>
+      <if test="maxTanzhenNo != null">
+        `max_tanzhen_no`,
+      </if>
+      <if test="maxConcentration != null">
+        `max_concentration`,
+      </if>
+      <if test="maxConcentrationNo != null">
+        `max_concentration_no`,
+      </if>
+      <if test="maxPressure != null">
+        `max_pressure`,
+      </if>
+      <if test="maxPressureNo != null">
+        `max_pressure_no`,
+      </if>
+      <if test="dcStatus != null">
+        `dc_status`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="carVin != null">
+        #{carVin,jdbcType=VARCHAR},
+      </if>
+      <if test="eventTime != null">
+        #{eventTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dianya != null">
+        #{dianya,jdbcType=INTEGER},
+      </if>
+      <if test="dianliu != null">
+        #{dianliu,jdbcType=INTEGER},
+      </if>
+      <if test="xiaohaolv != null">
+        #{xiaohaolv,jdbcType=INTEGER},
+      </if>
+      <if test="tanzhenTotal != null">
+        #{tanzhenTotal,jdbcType=INTEGER},
+      </if>
+      <if test="temperature != null">
+        #{temperature,jdbcType=LONGVARBINARY},
+      </if>
+      <if test="maxTemperature != null">
+        #{maxTemperature,jdbcType=INTEGER},
+      </if>
+      <if test="maxTanzhenNo != null">
+        #{maxTanzhenNo,jdbcType=TINYINT},
+      </if>
+      <if test="maxConcentration != null">
+        #{maxConcentration,jdbcType=INTEGER},
+      </if>
+      <if test="maxConcentrationNo != null">
+        #{maxConcentrationNo,jdbcType=TINYINT},
+      </if>
+      <if test="maxPressure != null">
+        #{maxPressure,jdbcType=INTEGER},
+      </if>
+      <if test="maxPressureNo != null">
+        #{maxPressureNo,jdbcType=TINYINT},
+      </if>
+      <if test="dcStatus != null">
+        #{dcStatus,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from `tb_ranliao_dianchi`
+    where `id` = #{id,jdbcType=BIGINT}
+  </delete>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from `tb_ranliao_dianchi`
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    select count(*) from `tb_ranliao_dianchi`
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tyj.jhpt.bo.RanliaoDianchi">
+    update `tb_ranliao_dianchi`
+    <set>
+      <if test="carVin != null">
+        `car_vin` = #{carVin,jdbcType=VARCHAR},
+      </if>
+      <if test="eventTime != null">
+        `event_time` = #{eventTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dianya != null">
+        `dianya` = #{dianya,jdbcType=INTEGER},
+      </if>
+      <if test="dianliu != null">
+        `dianliu` = #{dianliu,jdbcType=INTEGER},
+      </if>
+      <if test="xiaohaolv != null">
+        `xiaohaolv` = #{xiaohaolv,jdbcType=INTEGER},
+      </if>
+      <if test="tanzhenTotal != null">
+        `tanzhen_total` = #{tanzhenTotal,jdbcType=INTEGER},
+      </if>
+      <if test="temperature != null">
+        `temperature` = #{temperature,jdbcType=LONGVARBINARY},
+      </if>
+      <if test="maxTemperature != null">
+        `max_temperature` = #{maxTemperature,jdbcType=INTEGER},
+      </if>
+      <if test="maxTanzhenNo != null">
+        `max_tanzhen_no` = #{maxTanzhenNo,jdbcType=TINYINT},
+      </if>
+      <if test="maxConcentration != null">
+        `max_concentration` = #{maxConcentration,jdbcType=INTEGER},
+      </if>
+      <if test="maxConcentrationNo != null">
+        `max_concentration_no` = #{maxConcentrationNo,jdbcType=TINYINT},
+      </if>
+      <if test="maxPressure != null">
+        `max_pressure` = #{maxPressure,jdbcType=INTEGER},
+      </if>
+      <if test="maxPressureNo != null">
+        `max_pressure_no` = #{maxPressureNo,jdbcType=TINYINT},
+      </if>
+      <if test="dcStatus != null">
+        `dc_status` = #{dcStatus,jdbcType=TINYINT},
+      </if>
+    </set>
+    where `id` = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tyj.jhpt.bo.RanliaoDianchi">
+    update `tb_ranliao_dianchi`
+    set `car_vin` = #{carVin,jdbcType=VARCHAR},
+      `event_time` = #{eventTime,jdbcType=TIMESTAMP},
+      `dianya` = #{dianya,jdbcType=INTEGER},
+      `dianliu` = #{dianliu,jdbcType=INTEGER},
+      `xiaohaolv` = #{xiaohaolv,jdbcType=INTEGER},
+      `tanzhen_total` = #{tanzhenTotal,jdbcType=INTEGER},
+      `temperature` = #{temperature,jdbcType=LONGVARBINARY},
+      `max_temperature` = #{maxTemperature,jdbcType=INTEGER},
+      `max_tanzhen_no` = #{maxTanzhenNo,jdbcType=TINYINT},
+      `max_concentration` = #{maxConcentration,jdbcType=INTEGER},
+      `max_concentration_no` = #{maxConcentrationNo,jdbcType=TINYINT},
+      `max_pressure` = #{maxPressure,jdbcType=INTEGER},
+      `max_pressure_no` = #{maxPressureNo,jdbcType=TINYINT},
+      `dc_status` = #{dcStatus,jdbcType=TINYINT}
+    where `id` = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

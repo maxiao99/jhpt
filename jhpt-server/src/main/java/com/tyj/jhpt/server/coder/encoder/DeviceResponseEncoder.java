@@ -21,6 +21,12 @@ import java.util.List;
 public class DeviceResponseEncoder extends MessageToMessageEncoder<MessageBean> {
     protected void encode(ChannelHandlerContext ctx, MessageBean msg, List<Object> out) throws Exception {
         ByteBuf buffer = ctx.alloc().buffer();
+        buffer.writeBytes(msg.getStart().getBytes());
+        buffer.writeByte(msg.getCommandFlag());
+        buffer.writeByte(msg.getRespFlag());
+        buffer.writeBytes(msg.getVin().getBytes());
+        buffer.writeByte(msg.getEncrypt());
+        buffer.writeByte(msg.getContent().length);
         buffer.writeBytes(msg.getContent());
         byte b = ByteUtils.calculate(msg.getBytes());
         buffer.writeByte(b);

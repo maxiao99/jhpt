@@ -24,7 +24,7 @@ public class MessageBean {
      */
     private byte respFlag;
     /**
-     * 由 17 位字码构成，车辆唯一标识，应符合GB16735的规定
+     * 由 17 位字码构成，车辆唯一标识，应符合ASCII的规定
      */
     private String vin;
     /**
@@ -97,25 +97,19 @@ public class MessageBean {
     }
 
     public byte[] getBytes() {
-        byte[] bs = init();
+        byte[] bs = new byte[22 + content.length];
         int offset = 0;
         System.arraycopy(commandFlag, 0, bs, offset, 1);
         offset += 1;
         System.arraycopy(respFlag, 0, bs, offset, 1);
-        offset += 17;
-        System.arraycopy(vin, 0, bs, offset, 17);
         offset += 1;
+        System.arraycopy(vin, 0, bs, offset, 17);
+        offset += 17;
         System.arraycopy(encrypt, 0, bs, offset, 1);
-        offset += 2;
+        offset += 1;
         System.arraycopy(length, 0, bs, offset, 2);
-        offset += content.length;
+        offset += 2;
         System.arraycopy(content, 0, bs, offset, content.length);
         return bs;
-    }
-
-    private byte[] init() {
-        int length = 22;
-        length += content.length;
-        return new byte[length]; // add checksum length
     }
 }

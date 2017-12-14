@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ Copyright (c) 2017. CK. All rights reserved.
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyj.jhpt.dao.AllCarMapper">
+  <resultMap id="BaseResultMap" type="com.tyj.jhpt.bo.AllCar">
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="car_vin" property="carVin" jdbcType="VARCHAR" />
+    <result column="event_time" property="eventTime" jdbcType="TIMESTAMP" />
+    <result column="car_status" property="carStatus" jdbcType="TINYINT" />
+    <result column="change_status" property="changeStatus" jdbcType="TINYINT" />
+    <result column="run_mode" property="runMode" jdbcType="TINYINT" />
+    <result column="speed" property="speed" jdbcType="INTEGER" />
+    <result column="total_km" property="totalKm" jdbcType="INTEGER" />
+    <result column="total_voltage" property="totalVoltage" jdbcType="INTEGER" />
+    <result column="total_electricity" property="totalElectricity" jdbcType="INTEGER" />
+    <result column="soc" property="soc" jdbcType="TINYINT" />
+    <result column="dc_status" property="dcStatus" jdbcType="TINYINT" />
+    <result column="dangwei" property="dangwei" jdbcType="TINYINT" />
+    <result column="insulation_resistance" property="insulationResistance" jdbcType="INTEGER" />
+    <result column="up_footplate_km" property="upFootplateKm" jdbcType="TINYINT" />
+    <result column="footplate_status" property="footplateStatus" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    `id`, `car_vin`, `event_time`, `car_status`, `change_status`, `run_mode`, `speed`, `total_km`, `total_voltage`, `total_electricity`, 
+    `soc`, `dc_status`, `dangwei`, `insulation_resistance`, `up_footplate_km`, `footplate_status`
+  </sql>
+  <insert id="insert" parameterType="com.tyj.jhpt.bo.AllCar" useGeneratedKeys="true" keyProperty="id">
+    <![CDATA[
+    insert into `tb_all_car` (`car_vin`, `event_time`, `car_status`, 
+      `change_status`, `run_mode`, `speed`, 
+      `total_km`, `total_voltage`, `total_electricity`, 
+      `soc`, `dc_status`, `dangwei`, 
+      `insulation_resistance`, `up_footplate_km`, `footplate_status`
+      )
+    values (#{carVin,jdbcType=VARCHAR}, #{eventTime,jdbcType=TIMESTAMP}, #{carStatus,jdbcType=TINYINT}, 
+      #{changeStatus,jdbcType=TINYINT}, #{runMode,jdbcType=TINYINT}, #{speed,jdbcType=INTEGER}, 
+      #{totalKm,jdbcType=INTEGER}, #{totalVoltage,jdbcType=INTEGER}, #{totalElectricity,jdbcType=INTEGER}, 
+      #{soc,jdbcType=TINYINT}, #{dcStatus,jdbcType=TINYINT}, #{dangwei,jdbcType=TINYINT}, 
+      #{insulationResistance,jdbcType=INTEGER}, #{upFootplateKm,jdbcType=TINYINT}, #{footplateStatus,jdbcType=TINYINT}
+      )
+    ]]>
+  </insert>
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into `tb_all_car` (`car_vin`, `event_time`, `car_status`, 
+      `change_status`, `run_mode`, `speed`, 
+      `total_km`, `total_voltage`, `total_electricity`, 
+      `soc`, `dc_status`, `dangwei`, 
+      `insulation_resistance`, `up_footplate_km`, 
+      `footplate_status`)
+     values 
+    <foreach collection="list" item="item" index="index" separator=",">
+       (#{item.carVin,jdbcType=VARCHAR}, #{item.eventTime,jdbcType=TIMESTAMP}, #{item.carStatus,jdbcType=TINYINT}, 
+        #{item.changeStatus,jdbcType=TINYINT}, #{item.runMode,jdbcType=TINYINT}, #{item.speed,jdbcType=INTEGER}, 
+        #{item.totalKm,jdbcType=INTEGER}, #{item.totalVoltage,jdbcType=INTEGER}, #{item.totalElectricity,jdbcType=INTEGER}, 
+        #{item.soc,jdbcType=TINYINT}, #{item.dcStatus,jdbcType=TINYINT}, #{item.dangwei,jdbcType=TINYINT}, 
+        #{item.insulationResistance,jdbcType=INTEGER}, #{item.upFootplateKm,jdbcType=TINYINT}, 
+        #{item.footplateStatus,jdbcType=TINYINT})
+    </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.tyj.jhpt.bo.AllCar" useGeneratedKeys="true" keyProperty="id">
+    insert into `tb_all_car`
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="carVin != null">
+        `car_vin`,
+      </if>
+      <if test="eventTime != null">
+        `event_time`,
+      </if>
+      <if test="carStatus != null">
+        `car_status`,
+      </if>
+      <if test="changeStatus != null">
+        `change_status`,
+      </if>
+      <if test="runMode != null">
+        `run_mode`,
+      </if>
+      <if test="speed != null">
+        `speed`,
+      </if>
+      <if test="totalKm != null">
+        `total_km`,
+      </if>
+      <if test="totalVoltage != null">
+        `total_voltage`,
+      </if>
+      <if test="totalElectricity != null">
+        `total_electricity`,
+      </if>
+      <if test="soc != null">
+        `soc`,
+      </if>
+      <if test="dcStatus != null">
+        `dc_status`,
+      </if>
+      <if test="dangwei != null">
+        `dangwei`,
+      </if>
+      <if test="insulationResistance != null">
+        `insulation_resistance`,
+      </if>
+      <if test="upFootplateKm != null">
+        `up_footplate_km`,
+      </if>
+      <if test="footplateStatus != null">
+        `footplate_status`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="carVin != null">
+        #{carVin,jdbcType=VARCHAR},
+      </if>
+      <if test="eventTime != null">
+        #{eventTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="carStatus != null">
+        #{carStatus,jdbcType=TINYINT},
+      </if>
+      <if test="changeStatus != null">
+        #{changeStatus,jdbcType=TINYINT},
+      </if>
+      <if test="runMode != null">
+        #{runMode,jdbcType=TINYINT},
+      </if>
+      <if test="speed != null">
+        #{speed,jdbcType=INTEGER},
+      </if>
+      <if test="totalKm != null">
+        #{totalKm,jdbcType=INTEGER},
+      </if>
+      <if test="totalVoltage != null">
+        #{totalVoltage,jdbcType=INTEGER},
+      </if>
+      <if test="totalElectricity != null">
+        #{totalElectricity,jdbcType=INTEGER},
+      </if>
+      <if test="soc != null">
+        #{soc,jdbcType=TINYINT},
+      </if>
+      <if test="dcStatus != null">
+        #{dcStatus,jdbcType=TINYINT},
+      </if>
+      <if test="dangwei != null">
+        #{dangwei,jdbcType=TINYINT},
+      </if>
+      <if test="insulationResistance != null">
+        #{insulationResistance,jdbcType=INTEGER},
+      </if>
+      <if test="upFootplateKm != null">
+        #{upFootplateKm,jdbcType=TINYINT},
+      </if>
+      <if test="footplateStatus != null">
+        #{footplateStatus,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from `tb_all_car`
+    where `id` = #{id,jdbcType=BIGINT}
+  </delete>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from `tb_all_car`
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    select count(*) from `tb_all_car`
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tyj.jhpt.bo.AllCar">
+    update `tb_all_car`
+    <set>
+      <if test="carVin != null">
+        `car_vin` = #{carVin,jdbcType=VARCHAR},
+      </if>
+      <if test="eventTime != null">
+        `event_time` = #{eventTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="carStatus != null">
+        `car_status` = #{carStatus,jdbcType=TINYINT},
+      </if>
+      <if test="changeStatus != null">
+        `change_status` = #{changeStatus,jdbcType=TINYINT},
+      </if>
+      <if test="runMode != null">
+        `run_mode` = #{runMode,jdbcType=TINYINT},
+      </if>
+      <if test="speed != null">
+        `speed` = #{speed,jdbcType=INTEGER},
+      </if>
+      <if test="totalKm != null">
+        `total_km` = #{totalKm,jdbcType=INTEGER},
+      </if>
+      <if test="totalVoltage != null">
+        `total_voltage` = #{totalVoltage,jdbcType=INTEGER},
+      </if>
+      <if test="totalElectricity != null">
+        `total_electricity` = #{totalElectricity,jdbcType=INTEGER},
+      </if>
+      <if test="soc != null">
+        `soc` = #{soc,jdbcType=TINYINT},
+      </if>
+      <if test="dcStatus != null">
+        `dc_status` = #{dcStatus,jdbcType=TINYINT},
+      </if>
+      <if test="dangwei != null">
+        `dangwei` = #{dangwei,jdbcType=TINYINT},
+      </if>
+      <if test="insulationResistance != null">
+        `insulation_resistance` = #{insulationResistance,jdbcType=INTEGER},
+      </if>
+      <if test="upFootplateKm != null">
+        `up_footplate_km` = #{upFootplateKm,jdbcType=TINYINT},
+      </if>
+      <if test="footplateStatus != null">
+        `footplate_status` = #{footplateStatus,jdbcType=TINYINT},
+      </if>
+    </set>
+    where `id` = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tyj.jhpt.bo.AllCar">
+    update `tb_all_car`
+    set `car_vin` = #{carVin,jdbcType=VARCHAR},
+      `event_time` = #{eventTime,jdbcType=TIMESTAMP},
+      `car_status` = #{carStatus,jdbcType=TINYINT},
+      `change_status` = #{changeStatus,jdbcType=TINYINT},
+      `run_mode` = #{runMode,jdbcType=TINYINT},
+      `speed` = #{speed,jdbcType=INTEGER},
+      `total_km` = #{totalKm,jdbcType=INTEGER},
+      `total_voltage` = #{totalVoltage,jdbcType=INTEGER},
+      `total_electricity` = #{totalElectricity,jdbcType=INTEGER},
+      `soc` = #{soc,jdbcType=TINYINT},
+      `dc_status` = #{dcStatus,jdbcType=TINYINT},
+      `dangwei` = #{dangwei,jdbcType=TINYINT},
+      `insulation_resistance` = #{insulationResistance,jdbcType=INTEGER},
+      `up_footplate_km` = #{upFootplateKm,jdbcType=TINYINT},
+      `footplate_status` = #{footplateStatus,jdbcType=TINYINT}
+    where `id` = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
