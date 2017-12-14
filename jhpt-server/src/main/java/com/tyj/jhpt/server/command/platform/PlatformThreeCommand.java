@@ -5,9 +5,9 @@
 package com.tyj.jhpt.server.command.platform;
 
 import com.tyj.jhpt.server.message.PlatformCommandEnum;
-import com.tyj.jhpt.server.handler.DeviceManagerServerHandler;
 import com.tyj.jhpt.server.message.MessageBean;
 import com.tyj.jhpt.server.util.DeviceMsgUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -27,16 +27,19 @@ public class PlatformThreeCommand extends PlatformAbstractCommand {
         super(PlatformCommandEnum.CAR_TERMINAL_CONTROL.getType());
     }
 
-    public void deal(DeviceManagerServerHandler handler, MessageBean mb) {
-        // 参数设置时间
-        byte[] content = mb.getContent();
-        Date time = DeviceMsgUtils.resolveTime(content, TIME.length);
-        int offset = TIME.length;
+    public MessageBean finish(MessageBean mb) {
+        int length = 0;
+        byte[] data = new byte[length];
+        // 参数查询时间
+        byte[] date = DeviceMsgUtils.getTime();
+        int offset = 0;
+        System.arraycopy(date, 0, data, offset, TIME.length);
+        offset += length;
 
-        // 命令ID
-        byte commandId = content[offset + COMMAND_ID.length];
-        offset += COMMAND_ID.length;
-
+        MessageBean bean = new MessageBean();
+        BeanUtils.copyProperties(mb, bean, "content");
+        bean.setContent(data);
+        return bean;
     }
 
     public static enum DataEnum {

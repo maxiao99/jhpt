@@ -31,4 +31,8 @@ public class DeviceInfoServiceImpl extends GenericSqlMapServiceImpl<DeviceInfo, 
     public List<DeviceInfo> findPageDeviceInfo(Map<String, Object> map) {
         return deviceInfoDao.findPageDeviceInfo(map);
     }
+
+    public DeviceInfo findByVin(String vin) {
+        return deviceInfoDao.findByVin(vin);
+    }
 }

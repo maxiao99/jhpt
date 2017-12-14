@@ -5,12 +5,16 @@
 package com.tyj.jhpt.server.command.device;
 
 import com.tyj.jhpt.bo.CarLoginLogout;
+import com.tyj.jhpt.bo.DeviceInfo;
+import com.tyj.jhpt.server.command.platform.PlatformThreeCommand;
+import com.tyj.jhpt.server.command.platform.PlatformTwoCommand;
 import com.tyj.jhpt.server.message.CommandEnum;
 import com.tyj.jhpt.server.handler.DeviceManagerServerHandler;
 import com.tyj.jhpt.server.message.MessageBean;
 import com.tyj.jhpt.server.util.ByteUtils;
 import com.tyj.jhpt.server.util.DeviceMsgUtils;
 import com.tyj.jhpt.service.CarLoginLogoutService;
+import com.tyj.jhpt.service.DeviceInfoService;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -37,6 +41,12 @@ public class OneCommand extends DeviceAbstractCommand {
 
     @Resource(name = "carLoginLogoutService")
     CarLoginLogoutService carLoginLogoutService;
+
+    @Resource(name = "deviceInfoService")
+    DeviceInfoService deviceInfoService;
+
+    @Resource
+    PlatformTwoCommand platformTwoCommand;
 
     public void deal(DeviceManagerServerHandler handler, MessageBean mb) {
         byte[] content = mb.getContent();
@@ -72,6 +82,14 @@ public class OneCommand extends DeviceAbstractCommand {
         carLoginLogout.setSystemCode(systemCode);
 
         carLoginLogoutService.saveEntitySelective(carLoginLogout);
+    }
+
+    public MessageBean finish(MessageBean mb) {
+        DeviceInfo deviceInfo = deviceInfoService.findByVin(mb.getVin());
+        if (Byte.valueOf("1").equals(deviceInfo.getIfActive())) {
+            return platformTwoCommand.finish(mb);
+        }
+        return super.finish(mb);
     }
 
     public static enum DataEnum {

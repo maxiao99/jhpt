@@ -4,8 +4,8 @@
 
 package com.tyj.jhpt.server.command;
 
-import com.tyj.jhpt.server.handler.DeviceManagerServerHandler;
-import com.tyj.jhpt.server.message.MessageBean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by IntelliJ IDEA .
@@ -13,6 +13,8 @@ import com.tyj.jhpt.server.message.MessageBean;
  * Date: 2016/7/1
  */
 public abstract class AbstractCommand implements DeviceCommand {
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     protected byte type;
 
     public AbstractCommand(byte type) {
@@ -21,14 +23,5 @@ public abstract class AbstractCommand implements DeviceCommand {
 
     public boolean support(byte type) {
         return this.type == type;
-    }
-
-    public void deal(DeviceManagerServerHandler handler, MessageBean mb) {
-
-    }
-
-    public MessageBean finish(MessageBean mb) {
-        mb.setContent(new byte[]{0x00});
-        return mb;
     }
 }

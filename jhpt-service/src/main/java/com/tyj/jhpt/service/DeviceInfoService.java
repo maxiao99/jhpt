@@ -16,4 +16,6 @@ import java.util.Map;
 public interface DeviceInfoService extends GenericService<DeviceInfo, Long> {
 
     List<DeviceInfo> findPageDeviceInfo(Map<String, Object> map);
+
+    DeviceInfo findByVin(String vin);
 }

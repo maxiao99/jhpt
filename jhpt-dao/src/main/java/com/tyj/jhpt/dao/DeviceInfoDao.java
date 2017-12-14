@@ -16,4 +16,6 @@ import java.util.Map;
 public interface DeviceInfoDao extends SqlMapDao<DeviceInfo, Long> {
 
     List<DeviceInfo> findPageDeviceInfo(Map<String, Object> map);
+
+    DeviceInfo findByVin(String vin);
 }

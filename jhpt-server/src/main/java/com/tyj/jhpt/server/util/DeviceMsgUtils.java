@@ -38,6 +38,29 @@ public class DeviceMsgUtils {
     }
 
     /**
+     * 获取当前服务器时间
+     * @return byte[]
+     */
+    public static byte[] getTime() {
+        byte[] date = new byte[6];
+        Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR) - 2000;
+        date[0] = (byte) year;
+        int month = c.get(Calendar.MONTH) + 1;
+        date[1] = (byte) month;
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        date[2] = (byte) day;
+        int hour = c.get(Calendar.HOUR_OF_DAY);
+        date[3] = (byte) hour;
+        int minute = c.get(Calendar.MINUTE);
+        date[4] = (byte) minute;
+        int second = c.get(Calendar.SECOND);
+        date[5] = (byte) second;
+        return date;
+    }
+
+
+    /**
      * 计算经纬度
      * @param content byte数组
      * @param offset 位置

@@ -27,4 +27,9 @@
             </if>
         </where>
     </select>
+    <select id="findByVin" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from `device_info` where car_vin = #{vin}
+    </select>
 </mapper>

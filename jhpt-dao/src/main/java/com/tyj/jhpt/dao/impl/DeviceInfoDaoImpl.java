@@ -38,4 +38,8 @@ public class DeviceInfoDaoImpl extends ConfigurableBaseSqlMapDao<DeviceInfo, Lon
     public List<DeviceInfo> findPageDeviceInfo(Map<String, Object> map) {
         return deviceInfoMapper.findPageDeviceInfo(map);
     }
+
+    public DeviceInfo findByVin(String vin) {
+        return deviceInfoMapper.findByVin(vin);
+    }
 }

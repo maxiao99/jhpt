@@ -18,4 +18,6 @@ import java.util.Map;
 public interface DeviceInfoMapper extends DaoMapper<DeviceInfo, Long> {
 
     List<DeviceInfo> findPageDeviceInfo(Map<String, Object> map);
+
+    DeviceInfo findByVin(String vin);
 }
