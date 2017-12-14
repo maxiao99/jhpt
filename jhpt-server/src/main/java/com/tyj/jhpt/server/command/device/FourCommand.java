@@ -4,12 +4,15 @@
 
 package com.tyj.jhpt.server.command.device;
 
+import com.tyj.jhpt.bo.CarLoginLogout;
 import com.tyj.jhpt.server.message.CommandEnum;
 import com.tyj.jhpt.server.handler.DeviceManagerServerHandler;
 import com.tyj.jhpt.server.message.MessageBean;
 import com.tyj.jhpt.server.util.DeviceMsgUtils;
+import com.tyj.jhpt.service.CarLoginLogoutService;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.math.BigInteger;
 import java.util.Date;
 
@@ -28,6 +31,9 @@ public class FourCommand extends DeviceAbstractCommand {
         super(CommandEnum.CAR_LOGOUT.getType());
     }
 
+    @Resource(name = "carLoginLogoutService")
+    CarLoginLogoutService carLoginLogoutService;
+
     public void deal(DeviceManagerServerHandler handler, MessageBean mb) {
         // 登出时间
         byte[] content = mb.getContent();
@@ -41,6 +47,9 @@ public class FourCommand extends DeviceAbstractCommand {
         BigInteger bigInteger = new BigInteger(bytes);
         int traceNo = bigInteger.intValue();
 
+        CarLoginLogout carLoginLogout = carLoginLogoutService.findByVinAndTraceNo(mb.getVin(), traceNo);
+        carLoginLogout.setLogoutTime(time);
+        carLoginLogoutService.updateEntitySelective(carLoginLogout);
     }
 
     public static enum DataEnum {

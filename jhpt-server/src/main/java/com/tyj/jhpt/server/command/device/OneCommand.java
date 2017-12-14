@@ -4,14 +4,16 @@
 
 package com.tyj.jhpt.server.command.device;
 
-import com.github.fartherp.framework.common.util.ISOUtil;
+import com.tyj.jhpt.bo.CarLoginLogout;
 import com.tyj.jhpt.server.message.CommandEnum;
 import com.tyj.jhpt.server.handler.DeviceManagerServerHandler;
 import com.tyj.jhpt.server.message.MessageBean;
 import com.tyj.jhpt.server.util.ByteUtils;
 import com.tyj.jhpt.server.util.DeviceMsgUtils;
+import com.tyj.jhpt.service.CarLoginLogoutService;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.math.BigInteger;
 import java.util.Date;
 
@@ -33,11 +35,16 @@ public class OneCommand extends DeviceAbstractCommand {
         super(CommandEnum.CAR_LOGIN.getType());
     }
 
+    @Resource(name = "carLoginLogoutService")
+    CarLoginLogoutService carLoginLogoutService;
+
     public void deal(DeviceManagerServerHandler handler, MessageBean mb) {
         byte[] content = mb.getContent();
+        CarLoginLogout carLoginLogout = new CarLoginLogout();
         // 数据采集时间
         Date time = DeviceMsgUtils.resolveTime(content, TIME.length);
         int offset = TIME.length;
+        carLoginLogout.setLoginTime(time);
 
         // 登入流水号
         byte [] bytes = new byte[TRACE_NO.length];
@@ -45,10 +52,12 @@ public class OneCommand extends DeviceAbstractCommand {
         offset += TRACE_NO.length;
         BigInteger bigInteger = new BigInteger(bytes);
         int traceNo = bigInteger.intValue();
+        carLoginLogout.setTraceNo(traceNo);
 
         // ICCID
         String iccid = ByteUtils.getAsciiString(content, offset, ICCID.length);
         offset += ICCID.length;
+        carLoginLogout.setIccid(iccid);
 
         // 可充电储能子系统数
         byte systemNum = content[offset + SYSTEM_NUM.length];
@@ -60,7 +69,9 @@ public class OneCommand extends DeviceAbstractCommand {
 
         // 可充电储能系统编码
         String systemCode = ByteUtils.getAsciiString(content, offset, systemCodeLength);
+        carLoginLogout.setSystemCode(systemCode);
 
+        carLoginLogoutService.saveEntitySelective(carLoginLogout);
     }
 
     public static enum DataEnum {

@@ -15,7 +15,7 @@
     <import resource="classpath:conf/applicationContext-persistence.xml"/>
     <import resource="classpath:conf/applicationContext-service.xml"/>
     <import resource="classpath:conf/applicationContext-kv.xml"/>
-    <context:component-scan base-package="com.tyj.jhpt.service;com.tyj.jhpt.dao;">
+    <context:component-scan base-package="com.tyj.jhpt.dao;com.tyj.jhpt.service;com.tyj.jhpt.server;">
     </context:component-scan>
     <bean id="sessionProvider" class="com.github.fartherp.framework.core.web.http.session.HttpSessionProvider"/>
     <!-- 定时任务注解扫描@Scheduled -->

@@ -4,11 +4,16 @@
 
 package com.tyj.jhpt.server.body;
 
+import com.tyj.jhpt.bo.CarLocation;
 import com.tyj.jhpt.server.body.dto.CarLocationDto;
 import com.tyj.jhpt.server.message.MessageBean;
 import com.tyj.jhpt.server.message.type.RealTimeMessage;
 import com.tyj.jhpt.server.util.DeviceMsgUtils;
+import com.tyj.jhpt.service.CarLocationService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 
 import static com.tyj.jhpt.server.body.FiveBody.DataEnum.locationStatus;
 import static com.tyj.jhpt.server.body.FiveBody.DataEnum.LONGITUDE;
@@ -25,6 +30,9 @@ public class FiveBody extends AbstractBody<CarLocationDto> {
     public FiveBody() {
         super(RealTimeMessage.CAR_LOCATION.getCode());
     }
+
+    @Resource(name = "carLocationService")
+    CarLocationService carLocationService;
 
     public CarLocationDto deal(MessageBean mb) {
         CarLocationDto dto = new CarLocationDto();
@@ -45,6 +53,9 @@ public class FiveBody extends AbstractBody<CarLocationDto> {
         offset += LATITUDE.length;
         dto.setLatitude(latitude);
 
+        CarLocation bo = new CarLocation();
+        BeanUtils.copyProperties(dto, bo);
+        carLocationService.saveEntitySelective(bo);
         return dto;
     }
 

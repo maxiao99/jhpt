@@ -4,13 +4,20 @@
 
 package com.tyj.jhpt.server.body;
 
+import com.tyj.jhpt.bo.Wendu;
 import com.tyj.jhpt.server.body.dto.WenDuDto;
 import com.tyj.jhpt.server.body.dto.WenDusDto;
 import com.tyj.jhpt.server.message.MessageBean;
 import com.tyj.jhpt.server.message.type.RealTimeMessage;
+import com.tyj.jhpt.service.WenduService;
+import org.apache.commons.collections.CollectionUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.tyj.jhpt.server.body.NineBody.DataEnum.count;
 import static com.tyj.jhpt.server.body.NineBody.DataEnum.systemNo;
@@ -26,6 +33,9 @@ public class NineBody extends AbstractBody<WenDusDto> {
     public NineBody() {
         super(RealTimeMessage.WENDU.getCode());
     }
+
+    @Resource(name = "wenduService")
+    WenduService wenduService;
 
     public WenDusDto deal(MessageBean mb) {
         WenDusDto dtos = new WenDusDto();
@@ -56,6 +66,16 @@ public class NineBody extends AbstractBody<WenDusDto> {
             dto.setValues(bytes);
 
             dtos.addDto(dto);
+        }
+
+        if (CollectionUtils.isNotEmpty(dtos.getList())) {
+            List<Wendu> list = new ArrayList<Wendu>();
+            for (WenDuDto dto : dtos.getList()) {
+                Wendu bo = new Wendu();
+                BeanUtils.copyProperties(dto, bo);
+                list.add(bo);
+            }
+            wenduService.saveBatch(list);
         }
         return dtos;
     }

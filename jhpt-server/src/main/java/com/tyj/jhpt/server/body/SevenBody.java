@@ -4,11 +4,15 @@
 
 package com.tyj.jhpt.server.body;
 
+import com.tyj.jhpt.bo.Alarm;
 import com.tyj.jhpt.server.body.dto.AlarmDto;
 import com.tyj.jhpt.server.message.MessageBean;
 import com.tyj.jhpt.server.message.type.RealTimeMessage;
+import com.tyj.jhpt.service.AlarmService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.math.BigInteger;
 
 import static com.tyj.jhpt.server.body.SevenBody.DataEnum.generalAlarm;
@@ -29,6 +33,9 @@ public class SevenBody extends AbstractBody<AlarmDto> {
     public SevenBody() {
         super(RealTimeMessage.ALARM.getCode());
     }
+
+    @Resource(name = "alarmService")
+    AlarmService alarmService;
 
     public AlarmDto deal(MessageBean mb) {
         AlarmDto dto = new AlarmDto();
@@ -91,6 +98,9 @@ public class SevenBody extends AbstractBody<AlarmDto> {
         System.arraycopy(content, offset, bytes, 0, dto.getTotalN4());
         dto.setBytes4(bytes);
 
+        Alarm bo = new Alarm();
+        BeanUtils.copyProperties(dto, bo);
+        alarmService.saveEntitySelective(bo);
         return dto;
     }
 

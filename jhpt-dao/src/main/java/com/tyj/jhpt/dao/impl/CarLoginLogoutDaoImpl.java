@@ -31,4 +31,8 @@ public class CarLoginLogoutDaoImpl extends ConfigurableBaseSqlMapDao<CarLoginLog
     public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
         setSqlSessionFactoryInternal(sqlSessionFactory);
     }
+
+    public CarLoginLogout findByVinAndTraceNo(String vin, int traceNo) {
+        return carLoginLogoutMapper.findByVinAndTraceNo(vin, traceNo);
+    }
 }

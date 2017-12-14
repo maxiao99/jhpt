@@ -4,13 +4,20 @@
 
 package com.tyj.jhpt.server.body;
 
+import com.tyj.jhpt.bo.QudongDianji;
 import com.tyj.jhpt.server.body.dto.QuDongDianJiDto;
 import com.tyj.jhpt.server.body.dto.QuDongDianJisDto;
 import com.tyj.jhpt.server.message.MessageBean;
 import com.tyj.jhpt.server.message.type.RealTimeMessage;
+import com.tyj.jhpt.service.QudongDianjiService;
+import org.apache.commons.collections.CollectionUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.tyj.jhpt.server.body.TwoBody.DataEnum.dianliu;
 import static com.tyj.jhpt.server.body.TwoBody.DataEnum.dianya;
@@ -32,6 +39,9 @@ public class TwoBody extends AbstractBody<QuDongDianJisDto> {
     public TwoBody() {
         super(RealTimeMessage.QUDONG_DIANJI.getCode());
     }
+
+    @Resource(name = "qudongDianjiService")
+    QudongDianjiService qudongDianjiService;
 
     public QuDongDianJisDto deal(MessageBean mb) {
         QuDongDianJisDto dtos = new QuDongDianJisDto();
@@ -93,6 +103,16 @@ public class TwoBody extends AbstractBody<QuDongDianJisDto> {
             dto.setDianliu(dianliu);
 
             dtos.addDto(dto);
+        }
+
+        if (CollectionUtils.isNotEmpty(dtos.getList())) {
+            List<QudongDianji> list = new ArrayList<QudongDianji>();
+            for (QuDongDianJiDto dto : dtos.getList()) {
+                QudongDianji bo = new QudongDianji();
+                BeanUtils.copyProperties(dto, bo);
+                list.add(bo);
+            }
+            qudongDianjiService.saveBatch(list);
         }
         return dtos;
     }

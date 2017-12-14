@@ -4,11 +4,15 @@
 
 package com.tyj.jhpt.server.body;
 
+import com.tyj.jhpt.bo.RanliaoDianchi;
 import com.tyj.jhpt.server.body.dto.RanLiaoDianChiDto;
 import com.tyj.jhpt.server.message.MessageBean;
 import com.tyj.jhpt.server.message.type.RealTimeMessage;
+import com.tyj.jhpt.service.RanliaoDianchiService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.math.BigInteger;
 
 import static com.tyj.jhpt.server.body.ThreeBody.DataEnum.dcStatus;
@@ -34,6 +38,9 @@ public class ThreeBody extends AbstractBody<RanLiaoDianChiDto> {
     public ThreeBody() {
         super(RealTimeMessage.RANLIAO_DIANCHI.getCode());
     }
+
+    @Resource(name = "ranliaoDianchiService")
+    RanliaoDianchiService ranliaoDianchiService;
 
     public RanLiaoDianChiDto deal(MessageBean mb) {
         RanLiaoDianChiDto dto = new RanLiaoDianChiDto();
@@ -116,6 +123,9 @@ public class ThreeBody extends AbstractBody<RanLiaoDianChiDto> {
         // 高压DC/DC状态
         dto.setDcStatus(content[offset + dcStatus.length]);
 
+        RanliaoDianchi bo = new RanliaoDianchi();
+        BeanUtils.copyProperties(dto, bo);
+        ranliaoDianchiService.saveEntitySelective(bo);
         return dto;
     }
 

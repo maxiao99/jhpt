@@ -4,11 +4,15 @@
 
 package com.tyj.jhpt.server.body;
 
+import com.tyj.jhpt.bo.Supers;
 import com.tyj.jhpt.server.body.dto.SuperDto;
 import com.tyj.jhpt.server.message.MessageBean;
 import com.tyj.jhpt.server.message.type.RealTimeMessage;
+import com.tyj.jhpt.service.SupersService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.math.BigInteger;
 
 import static com.tyj.jhpt.server.body.SixBody.DataEnum.max;
@@ -35,6 +39,9 @@ public class SixBody extends AbstractBody<SuperDto> {
     public SixBody() {
         super(RealTimeMessage.SUPER.getCode());
     }
+
+    @Resource(name = "supersService")
+    SupersService supersService;
 
     public SuperDto deal(MessageBean mb) {
         SuperDto dto = new SuperDto();
@@ -96,6 +103,9 @@ public class SixBody extends AbstractBody<SuperDto> {
         // 最低温度值
         dto.setMinTemperature(content[offset + minTemperature.length]);
 
+        Supers bo = new Supers();
+        BeanUtils.copyProperties(dto, bo);
+        supersService.saveEntitySelective(bo);
         return dto;
     }
 

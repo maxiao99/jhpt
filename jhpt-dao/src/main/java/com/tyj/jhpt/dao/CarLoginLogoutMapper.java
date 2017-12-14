@@ -13,4 +13,5 @@ import com.tyj.jhpt.bo.CarLoginLogout;
  */
 @SqlMapper
 public interface CarLoginLogoutMapper extends DaoMapper<CarLoginLogout, Long> {
+    CarLoginLogout findByVinAndTraceNo(String vin, int traceNo);
 }

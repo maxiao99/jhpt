@@ -205,7 +205,7 @@ public abstract class DeviceGpsInfoBase extends FieldAccessVo implements TableDa
      * This field corresponds to the database column `tb_device_gps_info`.acceleration
      */
     @ColumnDescription(desc = PROPERTY_REMARK_ACCELERATION)
-    private Float acceleration;
+    private Integer acceleration;
 
     /**
      * This method returns the value of the database column `tb_device_gps_info`.id
@@ -410,7 +410,7 @@ public abstract class DeviceGpsInfoBase extends FieldAccessVo implements TableDa
      *
      * @return the value of `tb_device_gps_info`.acceleration
      */
-    public Float getAcceleration() {
+    public Integer getAcceleration() {
         return acceleration;
     }
 
@@ -419,7 +419,7 @@ public abstract class DeviceGpsInfoBase extends FieldAccessVo implements TableDa
      *
      * @param acceleration the value for `tb_device_gps_info`.acceleration
      */
-    public void setAcceleration(Float acceleration) {
+    public void setAcceleration(Integer acceleration) {
         this.acceleration = acceleration;
     }
 }

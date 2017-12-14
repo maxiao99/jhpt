@@ -4,11 +4,15 @@
 
 package com.tyj.jhpt.server.body;
 
+import com.tyj.jhpt.bo.AllCar;
 import com.tyj.jhpt.server.body.dto.AllCarDto;
 import com.tyj.jhpt.server.message.MessageBean;
 import com.tyj.jhpt.server.message.type.RealTimeMessage;
+import com.tyj.jhpt.service.AllCarService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.math.BigInteger;
 
 import static com.tyj.jhpt.server.body.OneBody.DataEnum.carStatus;
@@ -36,6 +40,9 @@ public class OneBody extends AbstractBody<AllCarDto> {
     public OneBody() {
         super(RealTimeMessage.ALL_CAR.getCode());
     }
+
+    @Resource(name = "allCarService")
+    AllCarService allCarService;
 
     public AllCarDto deal(MessageBean mb) {
         AllCarDto dto = new AllCarDto();
@@ -112,6 +119,9 @@ public class OneBody extends AbstractBody<AllCarDto> {
         // 制动踏板状态
         dto.setFootplateStatus(content[offset + footplateStatus.length]);
 
+        AllCar bo = new AllCar();
+        BeanUtils.copyProperties(dto, bo);
+        allCarService.saveEntitySelective(bo);
         return dto;
     }
 

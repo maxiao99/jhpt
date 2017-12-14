@@ -4,11 +4,15 @@
 
 package com.tyj.jhpt.server.body;
 
+import com.tyj.jhpt.bo.Fadongji;
 import com.tyj.jhpt.server.body.dto.FaDongJiDto;
 import com.tyj.jhpt.server.message.MessageBean;
 import com.tyj.jhpt.server.message.type.RealTimeMessage;
+import com.tyj.jhpt.service.FadongjiService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.math.BigInteger;
 
 import static com.tyj.jhpt.server.body.FourBody.DataEnum.speed;
@@ -26,6 +30,9 @@ public class FourBody extends AbstractBody<FaDongJiDto> {
     public FourBody() {
         super(RealTimeMessage.FADONGJI.getCode());
     }
+
+    @Resource(name = "fadongjiService")
+    FadongjiService fadongjiService;
 
     public FaDongJiDto deal(MessageBean mb) {
         FaDongJiDto dto = new FaDongJiDto();
@@ -51,6 +58,9 @@ public class FourBody extends AbstractBody<FaDongJiDto> {
         int xiaohaolv = bigInteger.intValue();
         dto.setXiaohaolv(xiaohaolv);
 
+        Fadongji bo = new Fadongji();
+        BeanUtils.copyProperties(dto, bo);
+        fadongjiService.saveEntitySelective(bo);
         return dto;
     }
 

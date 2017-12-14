@@ -4,14 +4,16 @@
 
 package com.tyj.jhpt.server.command.device;
 
-import com.github.fartherp.framework.common.util.ISOUtil;
+import com.tyj.jhpt.bo.DeviceGpsInfo;
 import com.tyj.jhpt.server.message.CommandEnum;
 import com.tyj.jhpt.server.message.type.CarAlarmMessage;
 import com.tyj.jhpt.server.handler.DeviceManagerServerHandler;
 import com.tyj.jhpt.server.message.MessageBean;
 import com.tyj.jhpt.server.util.DeviceMsgUtils;
+import com.tyj.jhpt.service.DeviceGpsInfoService;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.math.BigInteger;
 import java.util.Date;
 
@@ -37,11 +39,17 @@ public class SevenCommand extends DeviceAbstractCommand {
         super(CommandEnum.CAR_ALARM_MESSAGE_UPLOAD.getType());
     }
 
+    @Resource(name = "deviceGpsInfoService")
+    DeviceGpsInfoService deviceGpsInfoService;
+
     public void deal(DeviceManagerServerHandler handler, MessageBean mb) {
         byte[] content = mb.getContent();
+
+        DeviceGpsInfo deviceGpsInfo = new DeviceGpsInfo();
         // 数据采集时间
         Date time = DeviceMsgUtils.resolveTime(content, TIME.length);
         int offset = TIME.length;
+        deviceGpsInfo.setEventTime(time);
 
         // 告警消息ID
         byte[] bytes = new byte[ALARM_ID.length];
@@ -49,24 +57,30 @@ public class SevenCommand extends DeviceAbstractCommand {
         offset += ALARM_ID.length;
         BigInteger bigInteger = new BigInteger(bytes);
         int alarmId = bigInteger.intValue();
+        deviceGpsInfo.setMsgId(alarmId);
 
         // 驾驶员ID
         bytes = new byte[DRIVER_ID.length];
         System.arraycopy(content, offset, bytes, 0, DRIVER_ID.length);
         offset += DRIVER_ID.length;
-        String driverId = ISOUtil.byte2hex(bytes);
+        bigInteger = new BigInteger(bytes);
+        int driverId = bigInteger.intValue();
+        deviceGpsInfo.setDriverPersonId(driverId);
 
         // 定位状态
         byte locationStatus = content[offset + LOCATION_STATUS.length];
         offset += LOCATION_STATUS.length;
+        deviceGpsInfo.setLocationStatus(locationStatus);
 
         // 经度
         double longitude = DeviceMsgUtils.readLatLongInfo(content, offset);
         offset += LONGITUDE.length;
+        deviceGpsInfo.setLongitude(longitude);
 
         // 纬度
         double latitude = DeviceMsgUtils.readLatLongInfo(content, offset);
         offset += LATITUDE.length;
+        deviceGpsInfo.setLatitude(latitude);
 
         // 当前车辆行驶速度
         bytes = new byte[CURRENT_CAR_DRIVER_SPEED.length];
@@ -74,10 +88,12 @@ public class SevenCommand extends DeviceAbstractCommand {
         offset += CURRENT_CAR_DRIVER_SPEED.length;
         bigInteger = new BigInteger(bytes);
         int speed = bigInteger.intValue();
+        deviceGpsInfo.setSpeed(speed);
 
         // 信息类型标志
         byte alarmType = content[offset + MESSAGE_TYPE.length];
         offset += MESSAGE_TYPE.length;
+        deviceGpsInfo.setMsgType(alarmType);
 
         // 信息体
         if (CarAlarmMessage.LIMIT_SPEED_ALARM.getCode() == alarmType
@@ -87,8 +103,9 @@ public class SevenCommand extends DeviceAbstractCommand {
                 || CarAlarmMessage.RIGHT_UP.getCode() == alarmType) {
             byte alarmBody = content[offset + MESSAGE_BODY.length];
             offset += MESSAGE_BODY.length;
-
+            deviceGpsInfo.setAcceleration(0xff & alarmBody);
         }
+        deviceGpsInfoService.saveEntitySelective(deviceGpsInfo);
     }
 
     public static enum DataEnum {

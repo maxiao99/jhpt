@@ -4,13 +4,20 @@
 
 package com.tyj.jhpt.server.body;
 
+import com.tyj.jhpt.bo.Dianya;
 import com.tyj.jhpt.server.body.dto.DianYaDto;
 import com.tyj.jhpt.server.body.dto.DianYasDto;
 import com.tyj.jhpt.server.message.MessageBean;
 import com.tyj.jhpt.server.message.type.RealTimeMessage;
+import com.tyj.jhpt.service.DianyaService;
+import org.apache.commons.collections.CollectionUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.tyj.jhpt.server.body.EightBody.DataEnum.dianliu;
 import static com.tyj.jhpt.server.body.EightBody.DataEnum.dianya;
@@ -30,6 +37,9 @@ public class EightBody extends AbstractBody<DianYasDto> {
     public EightBody() {
         super(RealTimeMessage.DIANYA.getCode());
     }
+
+    @Resource(name = "dianyaService")
+    DianyaService dianyaService;
 
     public DianYasDto deal(MessageBean mb) {
         DianYasDto dtos = new DianYasDto();
@@ -89,6 +99,15 @@ public class EightBody extends AbstractBody<DianYasDto> {
             dtos.addDto(dto);
         }
 
+        if (CollectionUtils.isNotEmpty(dtos.getList())) {
+            List<Dianya> list = new ArrayList<Dianya>();
+            for (DianYaDto dto : dtos.getList()) {
+                Dianya bo = new Dianya();
+                BeanUtils.copyProperties(dto, bo);
+                list.add(bo);
+            }
+            dianyaService.saveBatch(list);
+        }
         return dtos;
     }
 
