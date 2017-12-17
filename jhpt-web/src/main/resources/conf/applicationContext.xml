@@ -11,6 +11,7 @@
         http://www.springframework.org/schema/task
         http://www.springframework.org/schema/task/spring-task-3.0.xsd"
             default-autowire="byName">
+    <bean name="beanLocator" class="com.github.fartherp.framework.core.bean.ServiceLocator"/>
     <import resource="classpath:conf/applicationContext-properties.xml"/>
     <import resource="classpath:conf/applicationContext-persistence.xml"/>
     <import resource="classpath:conf/applicationContext-service.xml"/>

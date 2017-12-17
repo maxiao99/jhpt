@@ -22,7 +22,7 @@ import java.util.Collection;
 public class DeviceManagerServerHandler extends ChannelInboundHandlerAdapter {
     private static final Logger logger = LoggerFactory.getLogger(DeviceManagerServerHandler.class);
 
-    Collection<DeviceCommand> beans = ServiceLocator.getInstance().getBeansOfType(DeviceCommand.class).values();
+    Collection<DeviceCommand> beans = ServiceLocator.getBeansOfType(DeviceCommand.class).values();
 
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         MessageBean mb = (MessageBean) msg;

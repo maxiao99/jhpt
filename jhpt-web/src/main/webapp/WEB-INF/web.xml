@@ -25,9 +25,6 @@
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
     <listener>
-        <listener-class>com.github.fartherp.framework.core.bean.web.InitSystemListener</listener-class>
-    </listener>
-    <listener>
         <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
     </listener>
     <listener>

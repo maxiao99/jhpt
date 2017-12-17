@@ -20,7 +20,7 @@ import java.util.Collection;
 public abstract class DeviceAbstractCommand extends AbstractCommand {
     protected byte type;
 
-    protected Collection<Body> bodyList = ServiceLocator.getInstance().getBeansOfType(Body.class).values();
+    protected Collection<Body> bodyList = ServiceLocator.getBeansOfType(Body.class).values();
 
     public DeviceAbstractCommand(byte type) {
         super(type);
