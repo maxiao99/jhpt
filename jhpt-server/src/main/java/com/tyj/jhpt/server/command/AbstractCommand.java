@@ -12,8 +12,8 @@ import org.slf4j.LoggerFactory;
  * Auth: CK
  * Date: 2016/7/1
  */
-public abstract class AbstractCommand implements DeviceCommand {
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+public abstract class AbstractCommand implements Command {
+    protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
     protected byte type;
 

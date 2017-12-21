@@ -5,6 +5,7 @@
 package com.tyj.jhpt.server.command.platform;
 
 import com.tyj.jhpt.server.command.AbstractCommand;
+import com.tyj.jhpt.server.command.PlatformCommand;
 import com.tyj.jhpt.server.handler.DeviceManagerServerHandler;
 import com.tyj.jhpt.server.message.MessageBean;
 
@@ -14,7 +15,7 @@ import com.tyj.jhpt.server.message.MessageBean;
  * @author: CK
  * @date: 2017/12/8
  */
-public abstract class PlatformAbstractCommand extends AbstractCommand {
+public abstract class PlatformAbstractCommand extends AbstractCommand implements PlatformCommand {
     protected byte type;
 
     public PlatformAbstractCommand(byte type) {
