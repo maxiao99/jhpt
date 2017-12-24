@@ -13,6 +13,9 @@ import com.tyj.jhpt.dao.SupersDao;
 import com.tyj.jhpt.service.SupersService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * This class corresponds to the database table `tb_supers`
  */
@@ -23,5 +26,9 @@ public class SupersServiceImpl extends GenericSqlMapServiceImpl<Supers, Long> im
 
     public SqlMapDao<Supers, Long> getDao() {
         return supersDao;
+    }
+
+    public List<Supers> findPageSupers(Map<String, Object> map) {
+        return supersDao.findPageSupers(map);
     }
 }

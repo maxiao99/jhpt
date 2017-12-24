@@ -4,6 +4,8 @@
 
 package com.tyj.jhpt.server.message;
 
+import java.util.Date;
+
 /**
  * Created by IntelliJ IDEA.
  *
@@ -39,6 +41,8 @@ public class MessageBean {
      * 数据单元
      */
     private byte[] content;
+
+    private Date eventTime;
 
     public String getStart() {
         return start;
@@ -94,6 +98,14 @@ public class MessageBean {
 
     public void setContent(byte[] content) {
         this.content = content;
+    }
+
+    public Date getEventTime() {
+        return eventTime;
+    }
+
+    public void setEventTime(Date eventTime) {
+        this.eventTime = eventTime;
     }
 
     public byte[] getBytes() {

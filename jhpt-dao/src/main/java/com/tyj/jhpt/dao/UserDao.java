@@ -17,4 +17,6 @@ public interface UserDao extends SqlMapDao<User, Long> {
     User findUserByMap(Map<String, Object> map);
 
     List<User> findPageUser(Map<String, Object> params);
+
+    User findByUserName(String userName);
 }

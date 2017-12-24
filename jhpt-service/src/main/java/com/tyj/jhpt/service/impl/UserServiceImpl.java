@@ -35,4 +35,8 @@ public class UserServiceImpl extends GenericSqlMapServiceImpl<User, Long> implem
     public List<User> findPageUser(Map<String, Object> params) {
         return userDao.findPageUser(params);
     }
+
+    public User findByUserName(String userName) {
+        return userDao.findByUserName(userName);
+    }
 }

@@ -53,6 +53,8 @@ public class TwoBody extends AbstractBody<QuDongDianJisDto> {
         offset += 1;
         for (int i = 0; i < dtos.getNumber(); i++) {
             QuDongDianJiDto dto = new QuDongDianJiDto();
+            dto.setCarVin(mb.getVin());
+            dto.setEventTime(mb.getEventTime());
 
             // 驱动电机序号
             dto.setSeq(content[offset + seq.length]);

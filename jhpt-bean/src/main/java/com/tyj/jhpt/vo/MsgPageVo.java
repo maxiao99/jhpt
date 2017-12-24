@@ -13,16 +13,16 @@ import com.tyj.jhpt.bo.DeviceGpsInfo;
  * Date: 2016/5/4
  */
 public class MsgPageVo extends BaseVo<DeviceGpsInfo> {
-    private Integer deviceId;
+    private String plateNo;
     private String startDate;
     private String endDate;
 
-    public Integer getDeviceId() {
-        return deviceId;
+    public String getPlateNo() {
+        return plateNo;
     }
 
-    public void setDeviceId(Integer deviceId) {
-        this.deviceId = deviceId;
+    public void setPlateNo(String plateNo) {
+        this.plateNo = plateNo;
     }
 
     public String getStartDate() {

@@ -10,8 +10,8 @@
         <table id="list"></table>
         <div id="toolbar">
             <form id="queryForm">
-                <b>设备编号：</b>
-                <input class="easyui-textbox" type="text" id="deviceId" size="20"/>
+                <b>车牌号：</b>
+                <input class="easyui-textbox" type="text" id="plateNo" size="20"/>
                 <b>开始时间：</b>
                 <input class="easyui-my97" type="text" id="startDate" data-options="skin:'whyGreen',maxDate:'#F{$dp.$D(\'endDate\')||\'%y-%M-{%d-1}\'}',dateFmt:'yyyy-MM-dd HH:mm'">
                 <b>结束时间：</b>

@@ -8,18 +8,8 @@
     <select id="findPageDeviceInfo" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
-        from `device_info`
+        from `tb_device_info`
         <where>
-            outofdate_time
-            <choose>
-                <when test="type != null and type == 1">
-                    <![CDATA[ <= ]]>
-                </when>
-                <otherwise>
-                    <![CDATA[ > ]]>
-                </otherwise>
-            </choose>
-            create_time
             <if test="keyword != null and keyword != ''">
                 and (`name` like CONCAT('%', #{keyword}, '%')
                 or `plate_no` like CONCAT('%', #{keyword}, '%')
@@ -30,6 +20,12 @@
     <select id="findByVin" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
-        from `device_info` where car_vin = #{vin}
+        from `tb_device_info` where car_vin = #{vin}
+    </select>
+
+    <select id="findByIdentityNo" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from `tb_device_info` where identity_no = #{identityNo}
     </select>
 </mapper>

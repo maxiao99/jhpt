@@ -42,4 +42,8 @@ public class UserDaoImpl extends ConfigurableBaseSqlMapDao<User, Long> implement
     public List<User> findPageUser(Map<String, Object> params) {
         return userMapper.findPageUser(params);
     }
+
+    public User findByUserName(String userName) {
+        return userMapper.findByUserName(userName);
+    }
 }

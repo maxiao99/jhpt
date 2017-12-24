@@ -1,7 +1,7 @@
 var colModel = [[
     {
-        field: 'deviceId',
-        title: '设备号'
+        field: 'plateNo',
+        title: '车牌号'
     },
     {
         field: 'driverPersonId',

@@ -19,4 +19,6 @@ public interface UserMapper extends DaoMapper<User, Long> {
     User findUserByMap(Map<String, Object> map);
 
     List<User> findPageUser(Map<String, Object> params);
+
+    User findByUserName(String userName);
 }

@@ -51,6 +51,9 @@ public class EightBody extends AbstractBody<DianYasDto> {
 
         for (int i = 0; i < dtos.getNumber(); i++) {
             DianYaDto dto = new DianYaDto();
+            dto.setCarVin(mb.getVin());
+            dto.setEventTime(mb.getEventTime());
+
             // 可充电储能子系统号
             dto.setSystemNo(content[offset + systemNo.length]);
             offset += systemNo.length;

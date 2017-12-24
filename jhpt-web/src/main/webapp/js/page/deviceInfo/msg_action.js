@@ -13,7 +13,7 @@ $(function () {
 
 function listLoader(param, success, error) {
     var params = {
-        deviceId: $("#deviceId").val(),
+        plateNo: $("#plateNo").val(),
         startDate: $("#startDate").val(),
         endDate: $("#endDate").val(),
         limit: param.rows,
@@ -31,13 +31,13 @@ function doDownload() {
     if (!queryForm.form("validate")) {
         return;
     }
-    var deviceId = $('#deviceId').val();
+    var plateNo = $('#plateNo').val();
     var startDate = $('#startDate').val();
     var endDate = $('#endDate').val();
     queryForm.form('submit', {
         url: "download_msg",
         onSubmit: function(param) {
-            param.deviceId = deviceId;
+            param.plateNo = plateNo;
             param.startDate = startDate;
             param.endDate = endDate;
         }

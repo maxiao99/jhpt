@@ -5,5 +5,40 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.tyj.jhpt.dao.SupersMapper">
-
+    <resultMap id="ExtBaseResultMap" type="com.tyj.jhpt.bo.Supers">
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="car_vin" property="carVin" jdbcType="VARCHAR" />
+        <result column="event_time" property="eventTime" jdbcType="TIMESTAMP" />
+        <result column="max_system_no" property="maxSystemNo" jdbcType="TINYINT" />
+        <result column="max_simple_no" property="maxSimpleNo" jdbcType="TINYINT" />
+        <result column="max" property="max" jdbcType="INTEGER" />
+        <result column="mix_system_no" property="mixSystemNo" jdbcType="TINYINT" />
+        <result column="mix_simple_no" property="mixSimpleNo" jdbcType="TINYINT" />
+        <result column="min" property="min" jdbcType="INTEGER" />
+        <result column="max_temperature_system_no" property="maxTemperatureSystemNo" jdbcType="TINYINT" />
+        <result column="max_seq" property="maxSeq" jdbcType="TINYINT" />
+        <result column="max_temperature" property="maxTemperature" jdbcType="TINYINT" />
+        <result column="min_temperature_system_no" property="minTemperatureSystemNo" jdbcType="TINYINT" />
+        <result column="min_seq" property="minSeq" jdbcType="TINYINT" />
+        <result column="min_temperature" property="minTemperature" jdbcType="TINYINT" />
+        <result column="plate_no" property="plateNo" jdbcType="VARCHAR" />
+    </resultMap>
+    <select id="findPageSupers" resultMap="ExtBaseResultMap">
+        select
+        a.`id`, a.`car_vin`, a.`event_time`, a.`max_system_no`, a.`max_simple_no`, a.`max`, a.`mix_system_no`, a.`mix_simple_no`, a.`min`, a.`max_temperature_system_no`,
+        a.`max_seq`, a.`max_temperature`, a.`min_temperature_system_no`, a.`min_seq`, a.`min_temperature`, b.`plate_no`
+        from `tb_supers` a
+        join `tb_device_info` b on a.`car_vin` = b.`car_vin`
+        <where>
+            <if test="plateNo != null and plateNo != ''">
+                and b.`plate_no` like CONCAT('%', #{plateNo}, '%')
+            </if>
+            <if test="startDate != null and startDate != ''">
+                AND a.`event_time` &gt;= #{startDate}
+            </if>
+            <if test="endDate != null and endDate != ''">
+                AND a.`event_time` &lt;= #{endDate}
+            </if>
+        </where>
+    </select>
 </mapper>

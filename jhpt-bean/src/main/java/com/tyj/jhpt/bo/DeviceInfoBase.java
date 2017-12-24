@@ -32,6 +32,38 @@ public abstract class DeviceInfoBase extends FieldAccessVo implements TableDataC
     private Long id;
 
     /**
+     * This field corresponds to the database column `tb_device_info`.iccid
+     */
+    private static final String PROPERTY_ICCID = "iccid";
+
+    /**
+     * This field corresponds to the database column `tb_device_info`.iccid
+     */
+    private static final String PROPERTY_REMARK_ICCID = "SIM卡ICCID号";
+
+    /**
+     * This field corresponds to the database column `tb_device_info`.iccid
+     */
+    @ColumnDescription(desc = PROPERTY_REMARK_ICCID)
+    private String iccid;
+
+    /**
+     * This field corresponds to the database column `tb_device_info`.terminal_seq
+     */
+    private static final String PROPERTY_TERMINALSEQ = "terminalSeq";
+
+    /**
+     * This field corresponds to the database column `tb_device_info`.terminal_seq
+     */
+    private static final String PROPERTY_REMARK_TERMINALSEQ = "终端序列号";
+
+    /**
+     * This field corresponds to the database column `tb_device_info`.terminal_seq
+     */
+    @ColumnDescription(desc = PROPERTY_REMARK_TERMINALSEQ)
+    private String terminalSeq;
+
+    /**
      * This field corresponds to the database column `tb_device_info`.car_vin
      */
     private static final String PROPERTY_CARVIN = "carVin";
@@ -46,6 +78,54 @@ public abstract class DeviceInfoBase extends FieldAccessVo implements TableDataC
      */
     @ColumnDescription(desc = PROPERTY_REMARK_CARVIN)
     private String carVin;
+
+    /**
+     * This field corresponds to the database column `tb_device_info`.terminal_no
+     */
+    private static final String PROPERTY_TERMINALNO = "terminalNo";
+
+    /**
+     * This field corresponds to the database column `tb_device_info`.terminal_no
+     */
+    private static final String PROPERTY_REMARK_TERMINALNO = "车载终端编号";
+
+    /**
+     * This field corresponds to the database column `tb_device_info`.terminal_no
+     */
+    @ColumnDescription(desc = PROPERTY_REMARK_TERMINALNO)
+    private String terminalNo;
+
+    /**
+     * This field corresponds to the database column `tb_device_info`.dianji_no
+     */
+    private static final String PROPERTY_DIANJINO = "dianjiNo";
+
+    /**
+     * This field corresponds to the database column `tb_device_info`.dianji_no
+     */
+    private static final String PROPERTY_REMARK_DIANJINO = "驱动电机型号";
+
+    /**
+     * This field corresponds to the database column `tb_device_info`.dianji_no
+     */
+    @ColumnDescription(desc = PROPERTY_REMARK_DIANJINO)
+    private String dianjiNo;
+
+    /**
+     * This field corresponds to the database column `tb_device_info`.fadongji_no
+     */
+    private static final String PROPERTY_FADONGJINO = "fadongjiNo";
+
+    /**
+     * This field corresponds to the database column `tb_device_info`.fadongji_no
+     */
+    private static final String PROPERTY_REMARK_FADONGJINO = "发动机编号";
+
+    /**
+     * This field corresponds to the database column `tb_device_info`.fadongji_no
+     */
+    @ColumnDescription(desc = PROPERTY_REMARK_FADONGJINO)
+    private String fadongjiNo;
 
     /**
      * This field corresponds to the database column `tb_device_info`.name
@@ -158,22 +238,6 @@ public abstract class DeviceInfoBase extends FieldAccessVo implements TableDataC
      */
     @ColumnDescription(desc = PROPERTY_REMARK_CARTYPE)
     private Byte carType;
-
-    /**
-     * This field corresponds to the database column `tb_device_info`.phone_of_device
-     */
-    private static final String PROPERTY_PHONEOFDEVICE = "phoneOfDevice";
-
-    /**
-     * This field corresponds to the database column `tb_device_info`.phone_of_device
-     */
-    private static final String PROPERTY_REMARK_PHONEOFDEVICE = "设备SIM卡号";
-
-    /**
-     * This field corresponds to the database column `tb_device_info`.phone_of_device
-     */
-    @ColumnDescription(desc = PROPERTY_REMARK_PHONEOFDEVICE)
-    private String phoneOfDevice;
 
     /**
      * This field corresponds to the database column `tb_device_info`.weixin_account
@@ -290,6 +354,42 @@ public abstract class DeviceInfoBase extends FieldAccessVo implements TableDataC
     }
 
     /**
+     * This method returns the value of the database column `tb_device_info`.iccid
+     *
+     * @return the value of `tb_device_info`.iccid
+     */
+    public String getIccid() {
+        return iccid;
+    }
+
+    /**
+     * This method sets the value of the database column `tb_device_info`.iccid
+     *
+     * @param iccid the value for `tb_device_info`.iccid
+     */
+    public void setIccid(String iccid) {
+        this.iccid = iccid;
+    }
+
+    /**
+     * This method returns the value of the database column `tb_device_info`.terminal_seq
+     *
+     * @return the value of `tb_device_info`.terminal_seq
+     */
+    public String getTerminalSeq() {
+        return terminalSeq;
+    }
+
+    /**
+     * This method sets the value of the database column `tb_device_info`.terminal_seq
+     *
+     * @param terminalSeq the value for `tb_device_info`.terminal_seq
+     */
+    public void setTerminalSeq(String terminalSeq) {
+        this.terminalSeq = terminalSeq;
+    }
+
+    /**
      * This method returns the value of the database column `tb_device_info`.car_vin
      *
      * @return the value of `tb_device_info`.car_vin
@@ -305,6 +405,60 @@ public abstract class DeviceInfoBase extends FieldAccessVo implements TableDataC
      */
     public void setCarVin(String carVin) {
         this.carVin = carVin;
+    }
+
+    /**
+     * This method returns the value of the database column `tb_device_info`.terminal_no
+     *
+     * @return the value of `tb_device_info`.terminal_no
+     */
+    public String getTerminalNo() {
+        return terminalNo;
+    }
+
+    /**
+     * This method sets the value of the database column `tb_device_info`.terminal_no
+     *
+     * @param terminalNo the value for `tb_device_info`.terminal_no
+     */
+    public void setTerminalNo(String terminalNo) {
+        this.terminalNo = terminalNo;
+    }
+
+    /**
+     * This method returns the value of the database column `tb_device_info`.dianji_no
+     *
+     * @return the value of `tb_device_info`.dianji_no
+     */
+    public String getDianjiNo() {
+        return dianjiNo;
+    }
+
+    /**
+     * This method sets the value of the database column `tb_device_info`.dianji_no
+     *
+     * @param dianjiNo the value for `tb_device_info`.dianji_no
+     */
+    public void setDianjiNo(String dianjiNo) {
+        this.dianjiNo = dianjiNo;
+    }
+
+    /**
+     * This method returns the value of the database column `tb_device_info`.fadongji_no
+     *
+     * @return the value of `tb_device_info`.fadongji_no
+     */
+    public String getFadongjiNo() {
+        return fadongjiNo;
+    }
+
+    /**
+     * This method sets the value of the database column `tb_device_info`.fadongji_no
+     *
+     * @param fadongjiNo the value for `tb_device_info`.fadongji_no
+     */
+    public void setFadongjiNo(String fadongjiNo) {
+        this.fadongjiNo = fadongjiNo;
     }
 
     /**
@@ -431,24 +585,6 @@ public abstract class DeviceInfoBase extends FieldAccessVo implements TableDataC
      */
     public void setCarType(Byte carType) {
         this.carType = carType;
-    }
-
-    /**
-     * This method returns the value of the database column `tb_device_info`.phone_of_device
-     *
-     * @return the value of `tb_device_info`.phone_of_device
-     */
-    public String getPhoneOfDevice() {
-        return phoneOfDevice;
-    }
-
-    /**
-     * This method sets the value of the database column `tb_device_info`.phone_of_device
-     *
-     * @param phoneOfDevice the value for `tb_device_info`.phone_of_device
-     */
-    public void setPhoneOfDevice(String phoneOfDevice) {
-        this.phoneOfDevice = phoneOfDevice;
     }
 
     /**

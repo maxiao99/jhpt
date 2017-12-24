@@ -15,6 +15,9 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * This class corresponds to the database table `tb_fadongji`
  */
@@ -30,5 +33,9 @@ public class FadongjiDaoImpl extends ConfigurableBaseSqlMapDao<Fadongji, Long> i
     @Resource(name = "sqlSessionFactory")
     public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
         setSqlSessionFactoryInternal(sqlSessionFactory);
+    }
+
+    public List<Fadongji> findPageFadongji(Map<String, Object> map) {
+        return fadongjiMapper.findPageFadongji(map);
     }
 }

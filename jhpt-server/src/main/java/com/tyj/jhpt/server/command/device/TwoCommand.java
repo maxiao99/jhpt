@@ -30,6 +30,7 @@ public class TwoCommand extends DeviceAbstractCommand {
         byte[] content = mb.getContent();
         Date time = DeviceMsgUtils.resolveTime(content, 6);
         int offset = 6;
+        mb.setEventTime(time);
 
         // 信息体
         byte typeFlag = content[offset + 1];

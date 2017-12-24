@@ -15,6 +15,9 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * This class corresponds to the database table `tb_wendu`
  */
@@ -30,5 +33,9 @@ public class WenduDaoImpl extends ConfigurableBaseSqlMapDao<Wendu, Long> impleme
     @Resource(name = "sqlSessionFactory")
     public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
         setSqlSessionFactoryInternal(sqlSessionFactory);
+    }
+
+    public List<Wendu> findPageWendu(Map<String, Object> map) {
+        return wenduMapper.findPageWendu(map);
     }
 }

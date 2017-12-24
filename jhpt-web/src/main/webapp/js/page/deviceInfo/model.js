@@ -4,8 +4,8 @@ var colModel = [[
         checkbox: true
     },
     {
-        field: 'deviceId',
-        title: '设备ID'
+        field: 'id',
+        title: 'ID'
     },
     {
         field: 'name',
@@ -53,8 +53,23 @@ var colModel = [[
         width: 50
     },
     {
-        field: 'phoneOfDevice',
-        title: '设备SIM卡号',
+        field: 'iccid',
+        title: 'SIM卡ICCID号',
+        width: 50
+    },
+    {
+        field: 'terminalSeq',
+        title: '终端序列号',
+        width: 50
+    },
+    {
+        field: 'carVin',
+        title: 'VIN',
+        width: 50
+    },
+    {
+        field: 'terminalNo',
+        title: '车载终端编号',
         width: 50
     },
     {
@@ -66,22 +81,5 @@ var colModel = [[
         field: 'weixinAccount',
         title: '微信账号',
         width: 50
-    },
-    {
-        field: 'outofdateTime',
-        title: '过期时间',
-        width: 40
-    },
-    {
-        field: 'type',
-        title: '激活状态',
-        width: 30,
-        formatter: function (value, row, index) {
-            if (value == '1') {
-                return '否';
-            } else {
-                return '是';
-            }
-        }
     }
 ]];

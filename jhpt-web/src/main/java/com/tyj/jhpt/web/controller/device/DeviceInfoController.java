@@ -11,14 +11,22 @@ import com.tyj.jhpt.bo.DeviceGpsInfo;
 import com.tyj.jhpt.bo.DeviceInfo;
 import com.tyj.jhpt.bo.MsgType;
 import com.tyj.jhpt.server.util.DeviceMsgUtils;
+import com.tyj.jhpt.service.AlarmService;
+import com.tyj.jhpt.service.AllCarService;
 import com.tyj.jhpt.service.DeviceGpsInfoService;
 import com.tyj.jhpt.service.CompositeDictionaryService;
+import com.tyj.jhpt.service.DianyaService;
+import com.tyj.jhpt.service.FadongjiService;
 import com.tyj.jhpt.service.IShortMsgSender;
 import com.tyj.jhpt.service.DeviceInfoService;
+import com.tyj.jhpt.service.QudongDianjiService;
+import com.tyj.jhpt.service.RanliaoDianchiService;
+import com.tyj.jhpt.service.SupersService;
+import com.tyj.jhpt.service.WenduService;
 import com.tyj.jhpt.vo.DeviceInfoPageVo;
 import com.tyj.jhpt.vo.MsgPageVo;
+import com.tyj.jhpt.vo.RealTimePageVo;
 import com.tyj.jhpt.web.controller.AbstractController;
-import com.tyj.jhpt.web.controller.general.KvVoExt;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,6 +58,30 @@ public class DeviceInfoController extends AbstractController {
     @Resource(name = "compositeDictionaryService")
     CompositeDictionaryService compositeDictionaryService;
 
+    @Resource(name = "allCarService")
+    AllCarService allCarService;
+
+    @Resource(name = "qudongDianjiService")
+    QudongDianjiService qudongDianjiService;
+
+    @Resource(name = "ranliaoDianchiService")
+    RanliaoDianchiService ranliaoDianchiService;
+
+    @Resource(name = "fadongjiService")
+    FadongjiService fadongjiService;
+
+    @Resource(name = "supersService")
+    SupersService supersService;
+
+    @Resource(name = "alarmService")
+    AlarmService alarmService;
+
+    @Resource(name = "dianyaService")
+    DianyaService dianyaService;
+
+    @Resource(name = "wenduService")
+    WenduService wenduService;
+
     /**
      * 录入用户列表
      * @param vo 分页对象
@@ -74,12 +106,9 @@ public class DeviceInfoController extends AbstractController {
     @ResponseBody
     @RequestMapping(value = "/add_device_info")
     public String add(DeviceInfo d) {
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("identity_no", d.getIdentityNo());
-        KvVoExt kvVoExt = new KvVoExt(1, "身份证号", params);
-        String result = validation(kvVoExt);
-        if (result != null) {
-            return result;
+        DeviceInfo deviceInfo = deviceInfoService.findByIdentityNo(d.getIdentityNo());
+        if (deviceInfo != null) {
+            return JsonResp.asData().error("身份证号已存在,请重新添加").toJson();
         }
         d.setCreateTime(new Date());
         deviceInfoService.saveEntitySelective(d);
@@ -94,12 +123,9 @@ public class DeviceInfoController extends AbstractController {
     @ResponseBody
     @RequestMapping(value = "/edit_device_info")
     public String edit(DeviceInfo d) {
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("identity_no", d.getIdentityNo());
-        KvVoExt kvVoExt = new KvVoExt(1, "身份证号", d.getId(), params);
-        String result = validation(kvVoExt);
-        if (result != null) {
-            return result;
+        DeviceInfo deviceInfo = deviceInfoService.findByIdentityNo(d.getIdentityNo());
+        if (deviceInfo != null && !deviceInfo.getId().equals(d.getId())) {
+            return JsonResp.asData().error("身份证号已存在,请重新编辑").toJson();
         }
         deviceInfoService.updateEntitySelective(d);
         return JsonResp.asData().success().toJson();
@@ -119,7 +145,7 @@ public class DeviceInfoController extends AbstractController {
         if (StringUtils.isNotBlank(testTime)) {
             dev.setOutofdateTime(DateUtil.parse(DateUtil.yyyy_MM_dd_HH_mm_ss, testTime));
         }
-        int send = shortMessageSender.send(dev.getPhoneOfDevice(), DeviceMsgUtils.formatActivateMsg(id));
+        int send = shortMessageSender.send(dev.getIccid(), DeviceMsgUtils.formatActivateMsg(id));
         if (send == 0) {
             return JsonResp.asData().success().toJson();
         }
@@ -181,5 +207,93 @@ public class DeviceInfoController extends AbstractController {
             list.add(ss);
         }
         CsvUtil.writeCsvFile(response, request, "设备数据", title, list);
+    }
+
+    /**
+     * 整车数据列表
+     */
+    @ResponseBody
+    @RequestMapping(value = "/page/all_car_list")
+    public String findPageAllCar(RealTimePageVo vo) {
+        List l = allCarService.findPageAllCar(vo.convertPageMap());
+        vo.setRows(l);
+        return JsonResp.asData(vo).setDatePattern(DateUtil.yyyy_MM_dd).toJson();
+    }
+
+    /**
+     * 驱动电机数据列表
+     */
+    @ResponseBody
+    @RequestMapping(value = "/page/qudong_dianji_list")
+    public String findPageQudongDianji(RealTimePageVo vo) {
+        List l = qudongDianjiService.findPageQudongDianji(vo.convertPageMap());
+        vo.setRows(l);
+        return JsonResp.asData(vo).setDatePattern(DateUtil.yyyy_MM_dd).toJson();
+    }
+
+    /**
+     * 燃料电池数据列表
+     */
+    @ResponseBody
+    @RequestMapping(value = "/page/ranliao_dianchi_list")
+    public String findPageRanliaoDianchi(RealTimePageVo vo) {
+        List l = ranliaoDianchiService.findPageRanliaoDianchi(vo.convertPageMap());
+        vo.setRows(l);
+        return JsonResp.asData(vo).setDatePattern(DateUtil.yyyy_MM_dd).toJson();
+    }
+
+    /**
+     * 发动机数据列表
+     */
+    @ResponseBody
+    @RequestMapping(value = "/page/fadongji_list")
+    public String findPageFadongji(RealTimePageVo vo) {
+        List l = fadongjiService.findPageFadongji(vo.convertPageMap());
+        vo.setRows(l);
+        return JsonResp.asData(vo).setDatePattern(DateUtil.yyyy_MM_dd).toJson();
+    }
+
+    /**
+     * 极值数据列表
+     */
+    @ResponseBody
+    @RequestMapping(value = "/page/supers_list")
+    public String findPageSupers(RealTimePageVo vo) {
+        List l = supersService.findPageSupers(vo.convertPageMap());
+        vo.setRows(l);
+        return JsonResp.asData(vo).setDatePattern(DateUtil.yyyy_MM_dd).toJson();
+    }
+
+    /**
+     * 报警数据列表
+     */
+    @ResponseBody
+    @RequestMapping(value = "/page/alarm_list")
+    public String findPageAlarm(RealTimePageVo vo) {
+        List l = alarmService.findPageAlarm(vo.convertPageMap());
+        vo.setRows(l);
+        return JsonResp.asData(vo).setDatePattern(DateUtil.yyyy_MM_dd).toJson();
+    }
+
+    /**
+     * 可充电储能装置电压数据列表
+     */
+    @ResponseBody
+    @RequestMapping(value = "/page/dianya_list")
+    public String findPageDianya(RealTimePageVo vo) {
+        List l = dianyaService.findPageDianya(vo.convertPageMap());
+        vo.setRows(l);
+        return JsonResp.asData(vo).setDatePattern(DateUtil.yyyy_MM_dd).toJson();
+    }
+
+    /**
+     * 可充电储能装置温度数据列表
+     */
+    @ResponseBody
+    @RequestMapping(value = "/page/wendu_list")
+    public String findPageWendu(RealTimePageVo vo) {
+        List l = wenduService.findPageWendu(vo.convertPageMap());
+        vo.setRows(l);
+        return JsonResp.asData(vo).setDatePattern(DateUtil.yyyy_MM_dd).toJson();
     }
 }

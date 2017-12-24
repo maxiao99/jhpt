@@ -13,6 +13,9 @@ import com.tyj.jhpt.dao.AllCarDao;
 import com.tyj.jhpt.service.AllCarService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * This class corresponds to the database table `tb_all_car`
  */
@@ -23,5 +26,9 @@ public class AllCarServiceImpl extends GenericSqlMapServiceImpl<AllCar, Long> im
 
     public SqlMapDao<AllCar, Long> getDao() {
         return allCarDao;
+    }
+
+    public List<AllCar> findPageAllCar(Map<String, Object> map) {
+        return allCarDao.findPageAllCar(map);
     }
 }

@@ -34,8 +34,8 @@ public class KvHandlerConfig {
 
     @PostConstruct
     void setup() {
-        addHandler(new SimpleKvHandler(1, "device_info", "identity_no",
-                "device_id", MapUtils.<String, Object>build().put("identity_no", ":identity_no").get(),
+        addHandler(new SimpleKvHandler(1, "tb_device_info", "identity_no",
+                "id", MapUtils.<String, Object>build().put("identity_no", ":identity_no").get(),
                 DefaultKvHandler.ALL));
         addHandler(new SimpleKvHandler(2, "td_composite_dictionary", "dic_name",
                 "dic_id", MapUtils.<String, Object>build().put("dic_type", 1).get(),
@@ -54,7 +54,7 @@ public class KvHandlerConfig {
                 DefaultKvHandler.ALL));
         addHandler(new SimpleKvHandler(7, "roles", "name",
                 "id", MapUtils.<String, Object>build().get(), DefaultKvHandler.ALL));
-        addHandler(new SimpleKvHandler(8, "user_infos", "user_name",
+        addHandler(new SimpleKvHandler(8, "tb_user", "user_name",
                 "id", MapUtils.<String, Object>build().put("user_name", ":user_name").get(),
                 DefaultKvHandler.ALL));
     }

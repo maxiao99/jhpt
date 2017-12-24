@@ -7,7 +7,12 @@
 <mapper namespace="com.tyj.jhpt.dao.DeviceInfoMapper">
   <resultMap id="BaseResultMap" type="com.tyj.jhpt.bo.DeviceInfo">
     <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="iccid" property="iccid" jdbcType="VARCHAR" />
+    <result column="terminal_seq" property="terminalSeq" jdbcType="VARCHAR" />
     <result column="car_vin" property="carVin" jdbcType="VARCHAR" />
+    <result column="terminal_no" property="terminalNo" jdbcType="VARCHAR" />
+    <result column="dianji_no" property="dianjiNo" jdbcType="VARCHAR" />
+    <result column="fadongji_no" property="fadongjiNo" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="age" property="age" jdbcType="TINYINT" />
     <result column="driving_license" property="drivingLicense" jdbcType="TINYINT" />
@@ -15,7 +20,6 @@
     <result column="telephone" property="telephone" jdbcType="VARCHAR" />
     <result column="plate_no" property="plateNo" jdbcType="VARCHAR" />
     <result column="car_type" property="carType" jdbcType="TINYINT" />
-    <result column="phone_of_device" property="phoneOfDevice" jdbcType="VARCHAR" />
     <result column="weixin_account" property="weixinAccount" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="recorder_id" property="recorderId" jdbcType="INTEGER" />
@@ -24,38 +28,43 @@
     <result column="if_active" property="ifActive" jdbcType="TINYINT" />
   </resultMap>
   <sql id="Base_Column_List">
-    `id`, `car_vin`, `name`, `age`, `driving_license`, `identity_no`, `telephone`, `plate_no`, `car_type`, `phone_of_device`, 
-    `weixin_account`, `create_time`, `recorder_id`, `outofdate_time`, `activate_times`, `if_active`
+    `id`, `iccid`, `terminal_seq`, `car_vin`, `terminal_no`, `dianji_no`, `fadongji_no`, `name`, `age`, `driving_license`, `identity_no`, 
+    `telephone`, `plate_no`, `car_type`, `weixin_account`, `create_time`, `recorder_id`, `outofdate_time`, `activate_times`, 
+    `if_active`
   </sql>
   <insert id="insert" parameterType="com.tyj.jhpt.bo.DeviceInfo" useGeneratedKeys="true" keyProperty="id">
     <![CDATA[
-    insert into `tb_device_info` (`car_vin`, `name`, `age`, 
-      `driving_license`, `identity_no`, `telephone`, 
-      `plate_no`, `car_type`, `phone_of_device`, 
-      `weixin_account`, `create_time`, `recorder_id`, 
-      `outofdate_time`, `activate_times`, `if_active`
-      )
-    values (#{carVin,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{age,jdbcType=TINYINT}, 
-      #{drivingLicense,jdbcType=TINYINT}, #{identityNo,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
-      #{plateNo,jdbcType=VARCHAR}, #{carType,jdbcType=TINYINT}, #{phoneOfDevice,jdbcType=VARCHAR}, 
-      #{weixinAccount,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{recorderId,jdbcType=INTEGER}, 
-      #{outofdateTime,jdbcType=TIMESTAMP}, #{activateTimes,jdbcType=INTEGER}, #{ifActive,jdbcType=TINYINT}
-      )
+    insert into `tb_device_info` (`iccid`, `terminal_seq`, `car_vin`, 
+      `terminal_no`, `dianji_no`, `fadongji_no`, 
+      `name`, `age`, `driving_license`, 
+      `identity_no`, `telephone`, `plate_no`, 
+      `car_type`, `weixin_account`, `create_time`, 
+      `recorder_id`, `outofdate_time`, `activate_times`, 
+      `if_active`)
+    values (#{iccid,jdbcType=VARCHAR}, #{terminalSeq,jdbcType=VARCHAR}, #{carVin,jdbcType=VARCHAR}, 
+      #{terminalNo,jdbcType=VARCHAR}, #{dianjiNo,jdbcType=VARCHAR}, #{fadongjiNo,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{age,jdbcType=TINYINT}, #{drivingLicense,jdbcType=TINYINT}, 
+      #{identityNo,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, #{plateNo,jdbcType=VARCHAR}, 
+      #{carType,jdbcType=TINYINT}, #{weixinAccount,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{recorderId,jdbcType=INTEGER}, #{outofdateTime,jdbcType=TIMESTAMP}, #{activateTimes,jdbcType=INTEGER}, 
+      #{ifActive,jdbcType=TINYINT})
     ]]>
   </insert>
   <insert id="insertBatch" parameterType="java.util.List">
-    insert into `tb_device_info` (`car_vin`, `name`, `age`, 
-      `driving_license`, `identity_no`, `telephone`, 
-      `plate_no`, `car_type`, `phone_of_device`, 
-      `weixin_account`, `create_time`, 
+    insert into `tb_device_info` (`iccid`, `terminal_seq`, `car_vin`, 
+      `terminal_no`, `dianji_no`, `fadongji_no`, 
+      `name`, `age`, `driving_license`, 
+      `identity_no`, `telephone`, `plate_no`, 
+      `car_type`, `weixin_account`, `create_time`, 
       `recorder_id`, `outofdate_time`, 
       `activate_times`, `if_active`)
      values 
     <foreach collection="list" item="item" index="index" separator=",">
-       (#{item.carVin,jdbcType=VARCHAR}, #{item.name,jdbcType=VARCHAR}, #{item.age,jdbcType=TINYINT}, 
-        #{item.drivingLicense,jdbcType=TINYINT}, #{item.identityNo,jdbcType=VARCHAR}, #{item.telephone,jdbcType=VARCHAR}, 
-        #{item.plateNo,jdbcType=VARCHAR}, #{item.carType,jdbcType=TINYINT}, #{item.phoneOfDevice,jdbcType=VARCHAR}, 
-        #{item.weixinAccount,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP}, 
+       (#{item.iccid,jdbcType=VARCHAR}, #{item.terminalSeq,jdbcType=VARCHAR}, #{item.carVin,jdbcType=VARCHAR}, 
+        #{item.terminalNo,jdbcType=VARCHAR}, #{item.dianjiNo,jdbcType=VARCHAR}, #{item.fadongjiNo,jdbcType=VARCHAR}, 
+        #{item.name,jdbcType=VARCHAR}, #{item.age,jdbcType=TINYINT}, #{item.drivingLicense,jdbcType=TINYINT}, 
+        #{item.identityNo,jdbcType=VARCHAR}, #{item.telephone,jdbcType=VARCHAR}, #{item.plateNo,jdbcType=VARCHAR}, 
+        #{item.carType,jdbcType=TINYINT}, #{item.weixinAccount,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP}, 
         #{item.recorderId,jdbcType=INTEGER}, #{item.outofdateTime,jdbcType=TIMESTAMP}, 
         #{item.activateTimes,jdbcType=INTEGER}, #{item.ifActive,jdbcType=TINYINT})
     </foreach>
@@ -63,8 +72,23 @@
   <insert id="insertSelective" parameterType="com.tyj.jhpt.bo.DeviceInfo" useGeneratedKeys="true" keyProperty="id">
     insert into `tb_device_info`
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="iccid != null">
+        `iccid`,
+      </if>
+      <if test="terminalSeq != null">
+        `terminal_seq`,
+      </if>
       <if test="carVin != null">
         `car_vin`,
+      </if>
+      <if test="terminalNo != null">
+        `terminal_no`,
+      </if>
+      <if test="dianjiNo != null">
+        `dianji_no`,
+      </if>
+      <if test="fadongjiNo != null">
+        `fadongji_no`,
       </if>
       <if test="name != null">
         `name`,
@@ -87,9 +111,6 @@
       <if test="carType != null">
         `car_type`,
       </if>
-      <if test="phoneOfDevice != null">
-        `phone_of_device`,
-      </if>
       <if test="weixinAccount != null">
         `weixin_account`,
       </if>
@@ -110,8 +131,23 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="iccid != null">
+        #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="terminalSeq != null">
+        #{terminalSeq,jdbcType=VARCHAR},
+      </if>
       <if test="carVin != null">
         #{carVin,jdbcType=VARCHAR},
+      </if>
+      <if test="terminalNo != null">
+        #{terminalNo,jdbcType=VARCHAR},
+      </if>
+      <if test="dianjiNo != null">
+        #{dianjiNo,jdbcType=VARCHAR},
+      </if>
+      <if test="fadongjiNo != null">
+        #{fadongjiNo,jdbcType=VARCHAR},
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
@@ -133,9 +169,6 @@
       </if>
       <if test="carType != null">
         #{carType,jdbcType=TINYINT},
-      </if>
-      <if test="phoneOfDevice != null">
-        #{phoneOfDevice,jdbcType=VARCHAR},
       </if>
       <if test="weixinAccount != null">
         #{weixinAccount,jdbcType=VARCHAR},
@@ -166,14 +199,35 @@
     <include refid="Base_Column_List" />
     from `tb_device_info`
   </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from `tb_device_info`
+    where `id` = #{id,jdbcType=BIGINT}
+  </select>
   <select id="count" resultType="java.lang.Integer">
     select count(*) from `tb_device_info`
   </select>
   <update id="updateByPrimaryKeySelective" parameterType="com.tyj.jhpt.bo.DeviceInfo">
     update `tb_device_info`
     <set>
+      <if test="iccid != null">
+        `iccid` = #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="terminalSeq != null">
+        `terminal_seq` = #{terminalSeq,jdbcType=VARCHAR},
+      </if>
       <if test="carVin != null">
         `car_vin` = #{carVin,jdbcType=VARCHAR},
+      </if>
+      <if test="terminalNo != null">
+        `terminal_no` = #{terminalNo,jdbcType=VARCHAR},
+      </if>
+      <if test="dianjiNo != null">
+        `dianji_no` = #{dianjiNo,jdbcType=VARCHAR},
+      </if>
+      <if test="fadongjiNo != null">
+        `fadongji_no` = #{fadongjiNo,jdbcType=VARCHAR},
       </if>
       <if test="name != null">
         `name` = #{name,jdbcType=VARCHAR},
@@ -195,9 +249,6 @@
       </if>
       <if test="carType != null">
         `car_type` = #{carType,jdbcType=TINYINT},
-      </if>
-      <if test="phoneOfDevice != null">
-        `phone_of_device` = #{phoneOfDevice,jdbcType=VARCHAR},
       </if>
       <if test="weixinAccount != null">
         `weixin_account` = #{weixinAccount,jdbcType=VARCHAR},
@@ -222,7 +273,12 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.tyj.jhpt.bo.DeviceInfo">
     update `tb_device_info`
-    set `car_vin` = #{carVin,jdbcType=VARCHAR},
+    set `iccid` = #{iccid,jdbcType=VARCHAR},
+      `terminal_seq` = #{terminalSeq,jdbcType=VARCHAR},
+      `car_vin` = #{carVin,jdbcType=VARCHAR},
+      `terminal_no` = #{terminalNo,jdbcType=VARCHAR},
+      `dianji_no` = #{dianjiNo,jdbcType=VARCHAR},
+      `fadongji_no` = #{fadongjiNo,jdbcType=VARCHAR},
       `name` = #{name,jdbcType=VARCHAR},
       `age` = #{age,jdbcType=TINYINT},
       `driving_license` = #{drivingLicense,jdbcType=TINYINT},
@@ -230,7 +286,6 @@
       `telephone` = #{telephone,jdbcType=VARCHAR},
       `plate_no` = #{plateNo,jdbcType=VARCHAR},
       `car_type` = #{carType,jdbcType=TINYINT},
-      `phone_of_device` = #{phoneOfDevice,jdbcType=VARCHAR},
       `weixin_account` = #{weixinAccount,jdbcType=VARCHAR},
       `create_time` = #{createTime,jdbcType=TIMESTAMP},
       `recorder_id` = #{recorderId,jdbcType=INTEGER},

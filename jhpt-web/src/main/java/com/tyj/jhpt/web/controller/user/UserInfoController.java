@@ -16,7 +16,6 @@ import com.tyj.jhpt.server.SystemConfig;
 import com.tyj.jhpt.service.UserService;
 import com.tyj.jhpt.vo.UserPageVo;
 import com.tyj.jhpt.web.controller.AbstractController;
-import com.tyj.jhpt.web.controller.general.KvVoExt;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -88,12 +87,9 @@ public class UserInfoController extends AbstractController {
     @ResponseBody
     @RequestMapping(value = "/add_user")
     public String addUser(User user) {
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("user_name", user.getUserName());
-        KvVoExt kvVoExt = new KvVoExt(8, "账户", params);
-        String result = validation(kvVoExt);
-        if (result != null) {
-            return result;
+        User u = userService.findByUserName(user.getUserName());
+        if (u != null) {
+            return JsonResp.asData().error("用户名已存在,请重新添加").toJson();
         }
         User userInfos = (User) sessionProvider.getAttribute(AuthWrapper.SESSION_USER_MESSAGE);
         user.setCreatorId(userInfos.getId());
@@ -104,13 +100,10 @@ public class UserInfoController extends AbstractController {
 
     @ResponseBody
     @RequestMapping(value = "/edit_user")
-    public String editUserInfos(User user) {
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("user_name", user.getUserName());
-        KvVoExt kvVoExt = new KvVoExt(8, "账户", user.getId(), params);
-        String result = validation(kvVoExt);
-        if (result != null) {
-            return result;
+    public String editUser(User user) {
+        User u = userService.findByUserName(user.getUserName());
+        if (u != null && !u.getId().equals(user.getId())) {
+            return JsonResp.asData().error("用户名已存在,请重新编辑").toJson();
         }
         userService.updateEntitySelective(user);
         return JsonResp.asData().success().toJson();

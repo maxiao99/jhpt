@@ -13,6 +13,9 @@ import com.tyj.jhpt.dao.WenduDao;
 import com.tyj.jhpt.service.WenduService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * This class corresponds to the database table `tb_wendu`
  */
@@ -23,5 +26,9 @@ public class WenduServiceImpl extends GenericSqlMapServiceImpl<Wendu, Long> impl
 
     public SqlMapDao<Wendu, Long> getDao() {
         return wenduDao;
+    }
+
+    public List<Wendu> findPageWendu(Map<String, Object> map) {
+        return wenduDao.findPageWendu(map);
     }
 }

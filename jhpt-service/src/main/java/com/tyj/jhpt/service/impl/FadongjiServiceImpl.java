@@ -13,6 +13,9 @@ import com.tyj.jhpt.dao.FadongjiDao;
 import com.tyj.jhpt.service.FadongjiService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * This class corresponds to the database table `tb_fadongji`
  */
@@ -23,5 +26,9 @@ public class FadongjiServiceImpl extends GenericSqlMapServiceImpl<Fadongji, Long
 
     public SqlMapDao<Fadongji, Long> getDao() {
         return fadongjiDao;
+    }
+
+    public List<Fadongji> findPageFadongji(Map<String, Object> map) {
+        return fadongjiDao.findPageFadongji(map);
     }
 }

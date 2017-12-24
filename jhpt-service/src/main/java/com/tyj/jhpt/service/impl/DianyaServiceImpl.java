@@ -13,6 +13,9 @@ import com.tyj.jhpt.dao.DianyaDao;
 import com.tyj.jhpt.service.DianyaService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * This class corresponds to the database table `tb_dianya`
  */
@@ -23,5 +26,9 @@ public class DianyaServiceImpl extends GenericSqlMapServiceImpl<Dianya, Long> im
 
     public SqlMapDao<Dianya, Long> getDao() {
         return dianyaDao;
+    }
+
+    public List<Dianya> findPageDianya(Map<String, Object> map) {
+        return dianyaDao.findPageDianya(map);
     }
 }

@@ -10,7 +10,7 @@
         <table id="list"></table>
         <div id="toolbar">
             <b>类型：</b>
-            <select class="easyui-combobox" id="type" data-options="panelHeight:'auto'" style="width:150px;">
+            <select class="easyui-combobox" id="type" data-options="panelHeight:'auto'" style="width:200px;">
                 <option value="0">已录入用户信息列表</option>
                 <option value="1">新录入用户信息列表</option>
             </select>
@@ -24,7 +24,7 @@
             <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" onclick="doEdit()">编辑</a>
             </auth:auth>
         </div>
-        <div id="a" class="easyui-window" title="新增用户" data-options="closed:true," style="width:500px;height:420px;padding:1px;">
+        <div id="a" class="easyui-window" title="新增用户" data-options="closed:true," style="width:500px;height:560px;padding:1px;">
             <div class="easyui-layout" data-options="fit:true">
                 <div data-options="region:'center'" style="padding:10px;">
                     <form id="f" class="easyui-form">
@@ -58,8 +58,28 @@
                                 <td><input class="easyui-combobox" id="aCarType" name="carType" data-options="required:true,panelHeight:'auto'"></td>
                             </tr>
                             <tr>
-                                <td>设备SIM卡号:</td>
-                                <td><input class="easyui-textbox" type="text" name="phoneOfDevice" data-options="required:true"/></td>
+                                <td>SIM卡ICCID号:</td>
+                                <td><input class="easyui-textbox" type="text" name="iccid" data-options="required:true"/></td>
+                            </tr>
+                            <tr>
+                                <td>终端序列号:</td>
+                                <td><input class="easyui-textbox" type="text" name="terminalSeq" data-options="required:true"/></td>
+                            </tr>
+                            <tr>
+                                <td>VIN:</td>
+                                <td><input class="easyui-textbox" type="text" name="carVin" data-options="required:true"/></td>
+                            </tr>
+                            <tr>
+                                <td>车载终端编号:</td>
+                                <td><input class="easyui-textbox" type="text" name="terminalNo" data-options="required:true"/></td>
+                            </tr>
+                            <tr>
+                                <td>驱动电机型号:</td>
+                                <td><input class="easyui-textbox" type="text" name="dianjiNo"/></td>
+                            </tr>
+                            <tr>
+                                <td>发动机编号:</td>
+                                <td><input class="easyui-textbox" type="text" name="fadongjiNo"/></td>
                             </tr>
                             <tr>
                                 <td>微信账号:</td>
@@ -74,12 +94,12 @@
                 </div>
             </div>
         </div>
-        <div id="e" class="easyui-window" title="编辑用户" data-options="closed:true," style="width:500px;height:420px;padding:1px;">
+        <div id="e" class="easyui-window" title="编辑用户" data-options="closed:true," style="width:500px;height:560px;padding:1px;">
             <div class="easyui-layout" data-options="fit:true">
                 <div data-options="region:'center'" style="padding:10px;">
                     <form id="ef" class="easyui-form">
                         <table cellpadding="5">
-                            <input type="hidden" name="deviceId"/>
+                            <input type="hidden" name="id"/>
                             <tr>
                                 <td>姓名:</td>
                                 <td><input class="easyui-textbox" type="text" name="name" data-options="required:true"/></td>
@@ -109,8 +129,28 @@
                                 <td><input class="easyui-combobox" id="eCarType" name="carType" data-options="required:true,panelHeight:'auto'"></td>
                             </tr>
                             <tr>
-                                <td>设备SIM卡号:</td>
-                                <td><input class="easyui-textbox" type="text" name="phoneOfDevice" data-options="required:true"/></td>
+                                <td>SIM卡ICCID号:</td>
+                                <td><input class="easyui-textbox" type="text" name="iccid" data-options="required:true"/></td>
+                            </tr>
+                            <tr>
+                                <td>终端序列号:</td>
+                                <td><input class="easyui-textbox" type="text" name="terminalSeq" data-options="required:true"/></td>
+                            </tr>
+                            <tr>
+                                <td>VIN:</td>
+                                <td><input class="easyui-textbox" type="text" name="carVin" data-options="required:true"/></td>
+                            </tr>
+                            <tr>
+                                <td>车载终端编号:</td>
+                                <td><input class="easyui-textbox" type="text" name="terminalNo" data-options="required:true"/></td>
+                            </tr>
+                            <tr>
+                                <td>驱动电机型号:</td>
+                                <td><input class="easyui-textbox" type="text" name="dianjiNo"/></td>
+                            </tr>
+                            <tr>
+                                <td>发动机编号:</td>
+                                <td><input class="easyui-textbox" type="text" name="fadongjiNo"/></td>
                             </tr>
                             <tr>
                                 <td>微信账号:</td>

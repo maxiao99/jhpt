@@ -13,6 +13,9 @@ import com.tyj.jhpt.dao.RanliaoDianchiDao;
 import com.tyj.jhpt.service.RanliaoDianchiService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * This class corresponds to the database table `tb_ranliao_dianchi`
  */
@@ -23,5 +26,9 @@ public class RanliaoDianchiServiceImpl extends GenericSqlMapServiceImpl<RanliaoD
 
     public SqlMapDao<RanliaoDianchi, Long> getDao() {
         return ranliaoDianchiDao;
+    }
+
+    public List<RanliaoDianchi> findPageRanliaoDianchi(Map<String, Object> map) {
+        return ranliaoDianchiDao.findPageRanliaoDianchi(map);
     }
 }

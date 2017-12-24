@@ -5,5 +5,41 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.tyj.jhpt.dao.AllCarMapper">
-
+    <resultMap id="ExtBaseResultMap" type="com.tyj.jhpt.bo.AllCar">
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="car_vin" property="carVin" jdbcType="VARCHAR" />
+        <result column="event_time" property="eventTime" jdbcType="TIMESTAMP" />
+        <result column="car_status" property="carStatus" jdbcType="TINYINT" />
+        <result column="change_status" property="changeStatus" jdbcType="TINYINT" />
+        <result column="run_mode" property="runMode" jdbcType="TINYINT" />
+        <result column="speed" property="speed" jdbcType="INTEGER" />
+        <result column="total_km" property="totalKm" jdbcType="INTEGER" />
+        <result column="total_voltage" property="totalVoltage" jdbcType="INTEGER" />
+        <result column="total_electricity" property="totalElectricity" jdbcType="INTEGER" />
+        <result column="soc" property="soc" jdbcType="TINYINT" />
+        <result column="dc_status" property="dcStatus" jdbcType="TINYINT" />
+        <result column="dangwei" property="dangwei" jdbcType="TINYINT" />
+        <result column="insulation_resistance" property="insulationResistance" jdbcType="INTEGER" />
+        <result column="up_footplate_km" property="upFootplateKm" jdbcType="TINYINT" />
+        <result column="footplate_status" property="footplateStatus" jdbcType="TINYINT" />
+        <result column="plate_no" property="plateNo" jdbcType="VARCHAR" />
+    </resultMap>
+    <select id="findPageAllCar" resultMap="ExtBaseResultMap">
+        select
+        a.`id`, a.`car_vin`, a.`event_time`, a.`car_status`, a.`change_status`, a.`run_mode`, a.`speed`, a.`total_km`, a.`total_voltage`, a.`total_electricity`,
+        a.`soc`, a.`dc_status`, a.`dangwei`, a.`insulation_resistance`, a.`up_footplate_km`, a.`footplate_status`, b.`plate_no`
+        from `tb_all_car` a
+        join `tb_device_info` b on a.`car_vin` = b.`car_vin`
+        <where>
+            <if test="plateNo != null and plateNo != ''">
+                and b.`plate_no` like CONCAT('%', #{plateNo}, '%')
+            </if>
+            <if test="startDate != null and startDate != ''">
+                AND a.`event_time` &gt;= #{startDate}
+            </if>
+            <if test="endDate != null and endDate != ''">
+                AND a.`event_time` &lt;= #{endDate}
+            </if>
+        </where>
+    </select>
 </mapper>

@@ -42,4 +42,8 @@ public class DeviceInfoDaoImpl extends ConfigurableBaseSqlMapDao<DeviceInfo, Lon
     public DeviceInfo findByVin(String vin) {
         return deviceInfoMapper.findByVin(vin);
     }
+
+    public DeviceInfo findByIdentityNo(String identityNo) {
+        return deviceInfoMapper.findByIdentityNo(identityNo);
+    }
 }

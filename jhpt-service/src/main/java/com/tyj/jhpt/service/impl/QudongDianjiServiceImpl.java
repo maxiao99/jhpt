@@ -13,6 +13,9 @@ import com.tyj.jhpt.dao.QudongDianjiDao;
 import com.tyj.jhpt.service.QudongDianjiService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * This class corresponds to the database table `tb_qudong_dianji`
  */
@@ -23,5 +26,9 @@ public class QudongDianjiServiceImpl extends GenericSqlMapServiceImpl<QudongDian
 
     public SqlMapDao<QudongDianji, Long> getDao() {
         return qudongDianjiDao;
+    }
+
+    public List<QudongDianji> findPageQudongDianji(Map<String, Object> map) {
+        return qudongDianjiDao.findPageQudongDianji(map);
     }
 }

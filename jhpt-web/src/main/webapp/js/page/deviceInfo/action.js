@@ -64,7 +64,7 @@ function doEdit() {
     if (row) {
         openWindow($('#e'));
         $('#ef').form('load', {
-            deviceId: row.deviceId,
+            id: row.id,
             name: row.name,
             age: row.age,
             drivingLicense: row.drivingLicense,
@@ -72,7 +72,12 @@ function doEdit() {
             telephone: row.telephone,
             plateNo: row.plateNo,
             carType: row.carType,
-            phoneOfDevice: row.phoneOfDevice,
+            iccid: row.iccid,
+            terminalSeq: row.terminalSeq,
+            carVin: row.carVin,
+            terminalNo: row.terminalNo,
+            dianjiNo: row.dianjiNo,
+            fadongjiNo: row.fadongjiNo,
             weixinAccount: row.weixinAccount
         });
         $.getJSON('../kv/hint?module=2&defaultValue=' + row.drivingLicense, function(json) {

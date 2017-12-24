@@ -5,45 +5,74 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.tyj.jhpt.dao.DeviceGpsInfoMapper">
-    <select id="findPageMsg" resultMap="BaseResultMap">
+    <resultMap id="ExtBaseResultMap" type="com.tyj.jhpt.bo.DeviceGpsInfo">
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="car_vin" property="carVin" jdbcType="VARCHAR" />
+        <result column="msg_id" property="msgId" jdbcType="INTEGER" />
+        <result column="event_time" property="eventTime" jdbcType="TIMESTAMP" />
+        <result column="driver_person_id" property="driverPersonId" jdbcType="INTEGER" />
+        <result column="location_status" property="locationStatus" jdbcType="TINYINT" />
+        <result column="longitude" property="longitude" jdbcType="DOUBLE" />
+        <result column="latitude" property="latitude" jdbcType="DOUBLE" />
+        <result column="speed" property="speed" jdbcType="INTEGER" />
+        <result column="msg_type" property="msgType" jdbcType="TINYINT" />
+        <result column="upload_time" property="uploadTime" jdbcType="TIMESTAMP" />
+        <result column="acceleration" property="acceleration" jdbcType="INTEGER" />
+        <result column="plate_no" property="plateNo" jdbcType="VARCHAR" />
+    </resultMap>
+    <select id="findPageMsg" resultMap="ExtBaseResultMap">
         select
-        <include refid="Base_Column_List" />
-        from `tb_device_gps_info`
+        a.`id`, a.`car_vin`, a.`msg_id`, a.`event_time`, a.`driver_person_id`, a.`location_status`, a.`longitude`, a.`latitude`, a.`speed`, a.`msg_type`,
+        a.`upload_time`, a.`acceleration`, b.`plate_no`
+        from `tb_device_gps_info` a
+        join `tb_device_info` b on a.`car_vin` = b.`car_vin`
         <where>
-            <if test="startDate != null and startDate != '' and endDate != null and endDate != ''">
-                AND `event_time` &gt;= #{startDate}
-                AND `event_time` &lt;= #{endDate}
+            <if test="plateNo != null and plateNo != ''">
+                AND b.`plate_no` like CONCAT('%', #{plateNo}, '%')
+            </if>
+            <if test="startDate != null and startDate != ''">
+                AND a.`event_time` &gt;= #{startDate}
+            </if>
+            <if test="endDate != null and endDate != ''">
+                AND a.`event_time` &lt;= #{endDate}
             </if>
             <if test="carVin != null and carVin != ''">
-                AND `car_vin` = #{carVin}
+                AND a.`car_vin` = #{carVin}
             </if>
             <if test="map != null">
-                AND `longitude` > 0 AND `latitude` > 0
+                AND a.`longitude` > 0 AND `latitude` > 0
             </if>
             <if test="msgType != null">
-                AND `msg_type` = #{msgType}
+                AND a.`msg_type` = #{msgType}
             </if>
         </where>
         ORDER BY `event_time` desc
     </select>
 
-    <select id="findMsg" resultMap="BaseResultMap">
+    <select id="findMsg" resultMap="ExtBaseResultMap">
         select
-        <include refid="Base_Column_List" />
-        from `tb_device_gps_info`
+        a.`id`, a.`car_vin`, a.`msg_id`, a.`event_time`, a.`driver_person_id`, a.`location_status`, a.`longitude`, a.`latitude`, a.`speed`, a.`msg_type`,
+        a.`upload_time`, a.`acceleration`, b.`plate_no`
+        from `tb_device_gps_info` a
+        join `tb_device_info` b on a.`car_vin` = b.`car_vin`
         <where>
-            <if test="startDate != null and startDate != '' and endDate != null and endDate != ''">
-                AND `event_time` &gt;= #{startDate}
-                AND `event_time` &lt;= #{endDate}
+            <if test="plateNo != null and plateNo != ''">
+                AND b.`plate_no` = #{plateNo}
+            </if>
+            <if test="startDate != null and startDate != ''">
+                AND a.`event_time` &gt;= #{startDate}
+            </if>
+            <if test="endDate != null and endDate != ''">
+                AND a.`event_time` &lt;= #{endDate}
             </if>
             <if test="carVin != null and carVin != ''">
-                AND `car_vin` = #{carVin}
+                AND a.`car_vin` = #{carVin}
             </if>
             <if test="map != null">
-                AND `longitude` > 0 AND `latitude` > 0
+                AND a.`longitude` > 0 AND `latitude` > 0
             </if>
             <if test="msgType != null">
-                AND `msg_type` = #{msgType}
+                AND a.`msg_type` = #{msgType}
             </if>
         </where>
     </select>
