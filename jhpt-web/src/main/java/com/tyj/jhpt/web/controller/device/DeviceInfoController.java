@@ -10,6 +10,9 @@ import com.github.fartherp.framework.core.util.JsonResp;
 import com.tyj.jhpt.bo.DeviceGpsInfo;
 import com.tyj.jhpt.bo.DeviceInfo;
 import com.tyj.jhpt.bo.MsgType;
+import com.tyj.jhpt.server.command.platform.PlatformThreeCommand;
+import com.tyj.jhpt.server.command.platform.PlatformTwoCommand;
+import com.tyj.jhpt.server.message.MessageBean;
 import com.tyj.jhpt.server.util.DeviceMsgUtils;
 import com.tyj.jhpt.service.AlarmService;
 import com.tyj.jhpt.service.AllCarService;
@@ -26,6 +29,8 @@ import com.tyj.jhpt.service.WenduService;
 import com.tyj.jhpt.vo.DeviceInfoPageVo;
 import com.tyj.jhpt.vo.MsgPageVo;
 import com.tyj.jhpt.vo.RealTimePageVo;
+import com.tyj.jhpt.vo.SettingConfigVo;
+import com.tyj.jhpt.vo.TerminalConfigVo;
 import com.tyj.jhpt.web.controller.AbstractController;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
@@ -81,6 +86,12 @@ public class DeviceInfoController extends AbstractController {
 
     @Resource(name = "wenduService")
     WenduService wenduService;
+
+    @Resource(name = "platformTwoCommand")
+    PlatformTwoCommand platformTwoCommand;
+
+    @Resource(name = "platformThreeCommand")
+    PlatformThreeCommand platformThreeCommand;
 
     /**
      * 录入用户列表
@@ -295,5 +306,27 @@ public class DeviceInfoController extends AbstractController {
         List l = wenduService.findPageWendu(vo.convertPageMap());
         vo.setRows(l);
         return JsonResp.asData(vo).setDatePattern(DateUtil.yyyy_MM_dd).toJson();
+    }
+
+    /**
+     * 平台参数设置指令
+     */
+    @ResponseBody
+    @RequestMapping(value = "/setting_config")
+    public String settingConfig(SettingConfigVo vo) {
+        MessageBean mb = new MessageBean();
+        platformTwoCommand.finish(mb);
+        return JsonResp.asData().success().toJson();
+    }
+
+    /**
+     * 平台车载终端控制指令
+     */
+    @ResponseBody
+    @RequestMapping(value = "/terminal_config")
+    public String terminalConfig(TerminalConfigVo vo) {
+        MessageBean mb = new MessageBean();
+        platformThreeCommand.finish(mb);
+        return JsonResp.asData().success().toJson();
     }
 }

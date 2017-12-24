@@ -21,7 +21,7 @@ import static com.tyj.jhpt.server.command.platform.PlatformThreeCommand.DataEnum
  * @author: CK
  * @date: 2017/12/8
  */
-@Component
+@Component("platformThreeCommand")
 public class PlatformThreeCommand extends PlatformAbstractCommand {
     public PlatformThreeCommand() {
         super(PlatformCommandEnum.CAR_TERMINAL_CONTROL.getType());

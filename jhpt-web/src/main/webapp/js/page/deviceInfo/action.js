@@ -98,3 +98,49 @@ function doEdit() {
         $.messager.alert('温馨提示', '请选择用户信息!');
     }
 }
+
+function doSettingEdits() {
+    var rows = $('#list').datagrid('getSelections');
+    if (isNullOrEmpty(rows) || rows.length == 0) {
+        $.messager.alert('温馨提示', '请选择设备信息!');
+        return;
+    }
+    openWindow($('#sa'));
+    var ds = [];
+    for (var i = 0; i < rows.length ;i++) {
+        ds.push(rows[i].id);
+    }
+    $('#saf').form('load', {
+        ids: ds
+    });
+}
+
+function doTerminalEdits() {
+    var rows = $('#list').datagrid('getSelections');
+    if (isNullOrEmpty(rows) || rows.length == 0) {
+        $.messager.alert('温馨提示', '请选择设备信息!');
+        return;
+    }
+    openWindow($('#ta'));
+    var ds = [];
+    for (var i = 0; i < rows.length ;i++) {
+        ds.push(rows[i].id);
+    }
+    $('#taf').form('load', {
+        ids: ds
+    });
+    $.getJSON('../kv/hint?module=9', function(json) {
+        $('#deviceControl').combobox({
+            data : json.dataList,
+            valueField: 'value',
+            textField: 'text'
+        });
+    });
+    $.getJSON('../kv/hint?module=10', function(json) {
+        $('#alarmLevel').combobox({
+            data : json.dataList,
+            valueField: 'value',
+            textField: 'text'
+        });
+    });
+}

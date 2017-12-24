@@ -19,7 +19,7 @@ import static com.tyj.jhpt.server.command.platform.PlatformOneCommand.DataEnum.T
  * @author: CK
  * @date: 2017/12/8
  */
-@Component
+@Component("platformOneCommand")
 public class PlatformOneCommand extends PlatformAbstractCommand {
     public PlatformOneCommand() {
         super(PlatformCommandEnum.PARAM_QUERY.getType());

@@ -19,7 +19,7 @@ import static com.tyj.jhpt.server.command.platform.PlatformTwoCommand.DataEnum.T
  * @author: CK
  * @date: 2017/12/8
  */
-@Component
+@Component("platformTwoCommand")
 public class PlatformTwoCommand extends PlatformAbstractCommand {
     public PlatformTwoCommand() {
         super(PlatformCommandEnum.PARAM_SET.getType());

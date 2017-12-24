@@ -57,5 +57,11 @@ public class KvHandlerConfig {
         addHandler(new SimpleKvHandler(8, "tb_user", "user_name",
                 "id", MapUtils.<String, Object>build().put("user_name", ":user_name").get(),
                 DefaultKvHandler.ALL));
+        addHandler(new SimpleKvHandler(9, "td_composite_dictionary", "dic_name",
+                "dic_id", MapUtils.<String, Object>build().put("dic_type", 7).get(),
+                DefaultKvHandler.ALL));
+        addHandler(new SimpleKvHandler(10, "td_composite_dictionary", "dic_name",
+                "dic_id", MapUtils.<String, Object>build().put("dic_type", 8).get(),
+                DefaultKvHandler.ALL));
     }
 }
