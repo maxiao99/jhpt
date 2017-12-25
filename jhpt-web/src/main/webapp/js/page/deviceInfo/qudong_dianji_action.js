@@ -21,25 +21,29 @@ function listLoader(param, success, error) {
         limit: param.rows,
         currentPage: param.page
     };
-    page_list('page/qudong_dianji_list', params, success, error);
+    special_page_list('page/qudong_dianji_list', params, success, error);
 }
 
 function onLoadSuccess(data) {
-    $(this).datagrid('mergeCells', {
-        index: 0,
-        field: 'id',
-        rowspan: 2
-    });
-    $(this).datagrid('mergeCells', {
-        index: 0,
-        field: 'plateNo',
-        rowspan: 2
-    });
-    $(this).datagrid('mergeCells', {
-        index: 0,
-        field: 'eventTime',
-        rowspan: 2
-    });
+    var merges = data.merges;
+    console.log(merges)
+    for(var i=0; i<merges.length; i++){
+        $(this).datagrid('mergeCells', {
+            index: merges[i].index,
+            field: 'id',
+            rowspan: merges[i].rowspan
+        });
+        $(this).datagrid('mergeCells', {
+            index: merges[i].index,
+            field: 'plateNo',
+            rowspan: merges[i].rowspan
+        });
+        $(this).datagrid('mergeCells', {
+            index: merges[i].index,
+            field: 'eventTime',
+            rowspan: merges[i].rowspan
+        });
+    }
 }
 
 function doSearch() {

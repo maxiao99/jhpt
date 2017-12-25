@@ -84,3 +84,14 @@ function page_list(url, params, success, error) {
         success(data);
     });
 }
+
+function special_page_list(url, params, success, error) {
+    $.getJSON(url, params, function (json) {
+        var data = {
+            total: json.data.total,
+            rows: json.data.rows,
+            merges: json.data.merges
+        };
+        success(data);
+    });
+}

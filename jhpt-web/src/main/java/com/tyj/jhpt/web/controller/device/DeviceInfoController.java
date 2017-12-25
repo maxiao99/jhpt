@@ -41,6 +41,7 @@ import com.tyj.jhpt.service.SupersService;
 import com.tyj.jhpt.service.WenduDetailService;
 import com.tyj.jhpt.service.WenduService;
 import com.tyj.jhpt.vo.DeviceInfoPageVo;
+import com.tyj.jhpt.vo.Merges;
 import com.tyj.jhpt.vo.MsgPageVo;
 import com.tyj.jhpt.vo.RealTimePageVo;
 import com.tyj.jhpt.vo.SettingConfigVo;
@@ -270,17 +271,38 @@ public class DeviceInfoController extends AbstractController {
                 longs.add(o.getId());
             }
             List<QudongDianjiDetail> details = qudongDianjiDetailService.findByIds(longs);
-            for (QudongDianjiDetail detail : details) {
+            Long front = -1L;
+            List<Merges> merges = new ArrayList<Merges>();
+            for (int i = 0; i < details.size(); i++) {
+                QudongDianjiDetail detail = details.get(i);
                 QudongDianji dto = new QudongDianji();
                 BeanUtils.copyProperties(detail, dto, "id");
                 for (QudongDianji bo : l) {
                     if (bo.getId().equals(detail.getQudongDianjiId())) {
-                        BeanUtils.copyProperties(bo, dto);
+                        dto.setId(bo.getId());
+                        dto.setCarVin(bo.getCarVin());
+                        dto.setEventTime(bo.getEventTime());
+                        dto.setPlateNo(bo.getPlateNo());
                         break;
                     }
                 }
                 list.add(dto);
+                Long current = detail.getQudongDianjiId();
+                if (!front.equals(current)) {
+                    Merges merge = new Merges();
+                    merge.setIndex(i);
+                    merge.setId(current);
+                    merges.add(merge);
+                }
+                front = current;
+                for (Merges merge : merges) {
+                    if (merge.getId().equals(current)) {
+                        merge.increaseByLong();
+                        break;
+                    }
+                }
             }
+            vo.setMerges(merges);
         }
         vo.setRows(list);
         return JsonResp.asData(vo).setDatePattern(DateUtil.yyyy_MM_dd).toJson();
@@ -344,17 +366,38 @@ public class DeviceInfoController extends AbstractController {
                 longs.add(o.getId());
             }
             List<DianyaDetail> details = dianyaDetailService.findByIds(longs);
-            for (DianyaDetail detail : details) {
+            Long front = -1L;
+            List<Merges> merges = new ArrayList<Merges>();
+            for (int i = 0; i < details.size(); i++) {
+                DianyaDetail detail = details.get(i);
                 Dianya dto = new Dianya();
                 BeanUtils.copyProperties(detail, dto, "id");
                 for (Dianya bo : l) {
                     if (bo.getId().equals(detail.getDianyaId())) {
-                        BeanUtils.copyProperties(bo, dto);
+                        dto.setId(bo.getId());
+                        dto.setCarVin(bo.getCarVin());
+                        dto.setEventTime(bo.getEventTime());
+                        dto.setPlateNo(bo.getPlateNo());
                         break;
                     }
                 }
                 list.add(dto);
+                Long current = detail.getDianyaId();
+                if (!front.equals(current)) {
+                    Merges merge = new Merges();
+                    merge.setIndex(i);
+                    merge.setId(current);
+                    merges.add(merge);
+                }
+                front = current;
+                for (Merges merge : merges) {
+                    if (merge.getId().equals(current)) {
+                        merge.increaseByLong();
+                        break;
+                    }
+                }
             }
+            vo.setMerges(merges);
         }
         vo.setRows(list);
         return JsonResp.asData(vo).setDatePattern(DateUtil.yyyy_MM_dd).toJson();
@@ -374,17 +417,38 @@ public class DeviceInfoController extends AbstractController {
                 longs.add(o.getId());
             }
             List<WenduDetail> details = wenduDetailService.findByIds(longs);
-            for (WenduDetail detail : details) {
+            Long front = -1L;
+            List<Merges> merges = new ArrayList<Merges>();
+            for (int i = 0; i < details.size(); i++) {
+                WenduDetail detail = details.get(i);
                 Wendu dto = new Wendu();
                 BeanUtils.copyProperties(detail, dto, "id");
                 for (Wendu bo : l) {
                     if (bo.getId().equals(detail.getWenduId())) {
-                        BeanUtils.copyProperties(bo, dto);
+                        dto.setId(bo.getId());
+                        dto.setCarVin(bo.getCarVin());
+                        dto.setEventTime(bo.getEventTime());
+                        dto.setPlateNo(bo.getPlateNo());
                         break;
                     }
                 }
                 list.add(dto);
+                Long current = detail.getWenduId();
+                if (!front.equals(current)) {
+                    Merges merge = new Merges();
+                    merge.setIndex(i);
+                    merge.setId(current);
+                    merges.add(merge);
+                }
+                front = current;
+                for (Merges merge : merges) {
+                    if (merge.getId().equals(current)) {
+                        merge.increaseByLong();
+                        break;
+                    }
+                }
             }
+            vo.setMerges(merges);
         }
         vo.setRows(list);
         return JsonResp.asData(vo).setDatePattern(DateUtil.yyyy_MM_dd).toJson();
