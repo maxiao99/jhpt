@@ -10,33 +10,31 @@
     <result column="system_no" property="systemNo" jdbcType="TINYINT" />
     <result column="count" property="count" jdbcType="INTEGER" />
     <result column="values" property="values" jdbcType="LONGVARBINARY" />
+    <result column="wendu_id" property="wenduId" jdbcType="BIGINT" />
   </resultMap>
   <sql id="Base_Column_List">
-    `id`, `system_no`, `count`, `values`
+    `id`, `system_no`, `count`, `values`, `wendu_id`
   </sql>
   <insert id="insert" parameterType="com.tyj.jhpt.bo.WenduDetail" useGeneratedKeys="true" keyProperty="id">
     <![CDATA[
-    insert into `tb_wendu_detail` (`id`, `system_no`, `count`, 
-      `values`)
-    values (#{id,jdbcType=BIGINT}, #{systemNo,jdbcType=TINYINT}, #{count,jdbcType=INTEGER}, 
-      #{values,jdbcType=LONGVARBINARY})
+    insert into `tb_wendu_detail` (`system_no`, `count`, `values`, 
+      `wendu_id`)
+    values (#{systemNo,jdbcType=TINYINT}, #{count,jdbcType=INTEGER}, #{values,jdbcType=LONGVARBINARY}, 
+      #{wenduId,jdbcType=BIGINT})
     ]]>
   </insert>
   <insert id="insertBatch" parameterType="java.util.List">
-    insert into `tb_wendu_detail` (`id`, `system_no`, `count`, 
-      `values`)
+    insert into `tb_wendu_detail` (`system_no`, `count`, `values`, 
+      `wendu_id`)
      values 
     <foreach collection="list" item="item" index="index" separator=",">
-       (#{item.id,jdbcType=BIGINT}, #{item.systemNo,jdbcType=TINYINT}, #{item.count,jdbcType=INTEGER}, 
-        #{item.values,jdbcType=LONGVARBINARY})
+       (#{item.systemNo,jdbcType=TINYINT}, #{item.count,jdbcType=INTEGER}, #{item.values,jdbcType=LONGVARBINARY}, 
+        #{item.wenduId,jdbcType=BIGINT})
     </foreach>
   </insert>
   <insert id="insertSelective" parameterType="com.tyj.jhpt.bo.WenduDetail" useGeneratedKeys="true" keyProperty="id">
     insert into `tb_wendu_detail`
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        `id`,
-      </if>
       <if test="systemNo != null">
         `system_no`,
       </if>
@@ -46,11 +44,11 @@
       <if test="values != null">
         `values`,
       </if>
+      <if test="wenduId != null">
+        `wendu_id`,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
       <if test="systemNo != null">
         #{systemNo,jdbcType=TINYINT},
       </if>
@@ -59,6 +57,9 @@
       </if>
       <if test="values != null">
         #{values,jdbcType=LONGVARBINARY},
+      </if>
+      <if test="wenduId != null">
+        #{wenduId,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -92,6 +93,9 @@
       <if test="values != null">
         `values` = #{values,jdbcType=LONGVARBINARY},
       </if>
+      <if test="wenduId != null">
+        `wendu_id` = #{wenduId,jdbcType=BIGINT},
+      </if>
     </set>
     where `id` = #{id,jdbcType=BIGINT}
   </update>
@@ -99,7 +103,8 @@
     update `tb_wendu_detail`
     set `system_no` = #{systemNo,jdbcType=TINYINT},
       `count` = #{count,jdbcType=INTEGER},
-      `values` = #{values,jdbcType=LONGVARBINARY}
+      `values` = #{values,jdbcType=LONGVARBINARY},
+      `wendu_id` = #{wenduId,jdbcType=BIGINT}
     where `id` = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

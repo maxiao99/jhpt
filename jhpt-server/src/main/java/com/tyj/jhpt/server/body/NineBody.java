@@ -84,7 +84,7 @@ public class NineBody extends AbstractBody<WenDusDto> {
             List<WenduDetail> list = new ArrayList<WenduDetail>();
             for (WenDuDto dto : dtos.getList()) {
                 WenduDetail bo = new WenduDetail();
-                bo.setId(wendu.getId());
+                bo.setWenduId(wendu.getId());
                 BeanUtils.copyProperties(dto, bo);
                 list.add(bo);
             }

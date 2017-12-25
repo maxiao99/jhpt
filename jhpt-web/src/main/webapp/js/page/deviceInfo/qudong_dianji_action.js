@@ -7,7 +7,8 @@ $(function () {
         singleSelect: true,
         pagination: true,
         columns: colModel,
-        toolbar: '#toolbar'
+        toolbar: '#toolbar',
+        onLoadSuccess: onLoadSuccess,
     });
 });
 
@@ -21,6 +22,24 @@ function listLoader(param, success, error) {
         currentPage: param.page
     };
     page_list('page/qudong_dianji_list', params, success, error);
+}
+
+function onLoadSuccess(data) {
+    $(this).datagrid('mergeCells', {
+        index: 0,
+        field: 'id',
+        rowspan: 2
+    });
+    $(this).datagrid('mergeCells', {
+        index: 0,
+        field: 'plateNo',
+        rowspan: 2
+    });
+    $(this).datagrid('mergeCells', {
+        index: 0,
+        field: 'eventTime',
+        rowspan: 2
+    });
 }
 
 function doSearch() {

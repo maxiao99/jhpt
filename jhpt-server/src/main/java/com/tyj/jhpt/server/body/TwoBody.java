@@ -119,7 +119,7 @@ public class TwoBody extends AbstractBody<QuDongDianJisDto> {
             List<QudongDianjiDetail> list = new ArrayList<QudongDianjiDetail>();
             for (QuDongDianJiDto dto : dtos.getList()) {
                 QudongDianjiDetail bo = new QudongDianjiDetail();
-                bo.setId(qudongDianji.getId());
+                bo.setQudongDianjiId(qudongDianji.getId());
                 BeanUtils.copyProperties(dto, bo);
                 list.add(bo);
             }

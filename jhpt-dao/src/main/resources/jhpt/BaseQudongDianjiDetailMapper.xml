@@ -15,41 +15,39 @@
     <result column="temperature" property="temperature" jdbcType="TINYINT" />
     <result column="dianya" property="dianya" jdbcType="INTEGER" />
     <result column="dianliu" property="dianliu" jdbcType="INTEGER" />
+    <result column="qudong_dianji_id" property="qudongDianjiId" jdbcType="BIGINT" />
   </resultMap>
   <sql id="Base_Column_List">
-    `id`, `seq`, `status`, `control_temperature`, `speed`, `zhuanju`, `temperature`, `dianya`, `dianliu`
+    `id`, `seq`, `status`, `control_temperature`, `speed`, `zhuanju`, `temperature`, `dianya`, `dianliu`, `qudong_dianji_id`
   </sql>
   <insert id="insert" parameterType="com.tyj.jhpt.bo.QudongDianjiDetail" useGeneratedKeys="true" keyProperty="id">
     <![CDATA[
-    insert into `tb_qudong_dianji_detail` (`id`, `seq`, `status`, 
-      `control_temperature`, `speed`, `zhuanju`, 
-      `temperature`, `dianya`, `dianliu`
+    insert into `tb_qudong_dianji_detail` (`seq`, `status`, `control_temperature`, 
+      `speed`, `zhuanju`, `temperature`, 
+      `dianya`, `dianliu`, `qudong_dianji_id`
       )
-    values (#{id,jdbcType=BIGINT}, #{seq,jdbcType=TINYINT}, #{status,jdbcType=TINYINT}, 
-      #{controlTemperature,jdbcType=TINYINT}, #{speed,jdbcType=INTEGER}, #{zhuanju,jdbcType=INTEGER}, 
-      #{temperature,jdbcType=TINYINT}, #{dianya,jdbcType=INTEGER}, #{dianliu,jdbcType=INTEGER}
+    values (#{seq,jdbcType=TINYINT}, #{status,jdbcType=TINYINT}, #{controlTemperature,jdbcType=TINYINT}, 
+      #{speed,jdbcType=INTEGER}, #{zhuanju,jdbcType=INTEGER}, #{temperature,jdbcType=TINYINT}, 
+      #{dianya,jdbcType=INTEGER}, #{dianliu,jdbcType=INTEGER}, #{qudongDianjiId,jdbcType=BIGINT}
       )
     ]]>
   </insert>
   <insert id="insertBatch" parameterType="java.util.List">
-    insert into `tb_qudong_dianji_detail` (`id`, `seq`, `status`, 
-      `control_temperature`, `speed`, `zhuanju`, 
-      `temperature`, `dianya`, `dianliu`
+    insert into `tb_qudong_dianji_detail` (`seq`, `status`, `control_temperature`, 
+      `speed`, `zhuanju`, `temperature`, 
+      `dianya`, `dianliu`, `qudong_dianji_id`
       )
      values 
     <foreach collection="list" item="item" index="index" separator=",">
-       (#{item.id,jdbcType=BIGINT}, #{item.seq,jdbcType=TINYINT}, #{item.status,jdbcType=TINYINT}, 
-        #{item.controlTemperature,jdbcType=TINYINT}, #{item.speed,jdbcType=INTEGER}, #{item.zhuanju,jdbcType=INTEGER}, 
-        #{item.temperature,jdbcType=TINYINT}, #{item.dianya,jdbcType=INTEGER}, #{item.dianliu,jdbcType=INTEGER}
+       (#{item.seq,jdbcType=TINYINT}, #{item.status,jdbcType=TINYINT}, #{item.controlTemperature,jdbcType=TINYINT}, 
+        #{item.speed,jdbcType=INTEGER}, #{item.zhuanju,jdbcType=INTEGER}, #{item.temperature,jdbcType=TINYINT}, 
+        #{item.dianya,jdbcType=INTEGER}, #{item.dianliu,jdbcType=INTEGER}, #{item.qudongDianjiId,jdbcType=BIGINT}
         )
     </foreach>
   </insert>
   <insert id="insertSelective" parameterType="com.tyj.jhpt.bo.QudongDianjiDetail" useGeneratedKeys="true" keyProperty="id">
     insert into `tb_qudong_dianji_detail`
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        `id`,
-      </if>
       <if test="seq != null">
         `seq`,
       </if>
@@ -74,11 +72,11 @@
       <if test="dianliu != null">
         `dianliu`,
       </if>
+      <if test="qudongDianjiId != null">
+        `qudong_dianji_id`,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
       <if test="seq != null">
         #{seq,jdbcType=TINYINT},
       </if>
@@ -103,6 +101,9 @@
       <if test="dianliu != null">
         #{dianliu,jdbcType=INTEGER},
       </if>
+      <if test="qudongDianjiId != null">
+        #{qudongDianjiId,jdbcType=BIGINT},
+      </if>
     </trim>
   </insert>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
@@ -113,12 +114,6 @@
     select 
     <include refid="Base_Column_List" />
     from `tb_qudong_dianji_detail`
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from `tb_qudong_dianji_detail`
-    where `id` = #{id,jdbcType=BIGINT}
   </select>
   <select id="count" resultType="java.lang.Integer">
     select count(*) from `tb_qudong_dianji_detail`
@@ -150,6 +145,9 @@
       <if test="dianliu != null">
         `dianliu` = #{dianliu,jdbcType=INTEGER},
       </if>
+      <if test="qudongDianjiId != null">
+        `qudong_dianji_id` = #{qudongDianjiId,jdbcType=BIGINT},
+      </if>
     </set>
     where `id` = #{id,jdbcType=BIGINT}
   </update>
@@ -162,7 +160,8 @@
       `zhuanju` = #{zhuanju,jdbcType=INTEGER},
       `temperature` = #{temperature,jdbcType=TINYINT},
       `dianya` = #{dianya,jdbcType=INTEGER},
-      `dianliu` = #{dianliu,jdbcType=INTEGER}
+      `dianliu` = #{dianliu,jdbcType=INTEGER},
+      `qudong_dianji_id` = #{qudongDianjiId,jdbcType=BIGINT}
     where `id` = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

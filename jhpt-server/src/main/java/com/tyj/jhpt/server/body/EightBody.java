@@ -115,7 +115,7 @@ public class EightBody extends AbstractBody<DianYasDto> {
             List<DianyaDetail> list = new ArrayList<DianyaDetail>();
             for (DianYaDto dto : dtos.getList()) {
                 DianyaDetail bo = new DianyaDetail();
-                bo.setId(pojo.getId());
+                bo.setDianyaId(pojo.getId());
                 BeanUtils.copyProperties(dto, bo);
                 list.add(bo);
             }

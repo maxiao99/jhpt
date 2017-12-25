@@ -79,6 +79,22 @@ public abstract class WenduDetailBase extends FieldAccessVo implements TableData
     private byte[] values;
 
     /**
+     * This field corresponds to the database column `tb_wendu_detail`.wendu_id
+     */
+    private static final String PROPERTY_WENDUID = "wenduId";
+
+    /**
+     * This field corresponds to the database column `tb_wendu_detail`.wendu_id
+     */
+    private static final String PROPERTY_REMARK_WENDUID = "tb_wendu的ID";
+
+    /**
+     * This field corresponds to the database column `tb_wendu_detail`.wendu_id
+     */
+    @ColumnDescription(desc = PROPERTY_REMARK_WENDUID)
+    private Long wenduId;
+
+    /**
      * This method returns the value of the database column `tb_wendu_detail`.id
      *
      * @return the value of `tb_wendu_detail`.id
@@ -148,5 +164,23 @@ public abstract class WenduDetailBase extends FieldAccessVo implements TableData
      */
     public void setValues(byte[] values) {
         this.values = values;
+    }
+
+    /**
+     * This method returns the value of the database column `tb_wendu_detail`.wendu_id
+     *
+     * @return the value of `tb_wendu_detail`.wendu_id
+     */
+    public Long getWenduId() {
+        return wenduId;
+    }
+
+    /**
+     * This method sets the value of the database column `tb_wendu_detail`.wendu_id
+     *
+     * @param wenduId the value for `tb_wendu_detail`.wendu_id
+     */
+    public void setWenduId(Long wenduId) {
+        this.wenduId = wenduId;
     }
 }

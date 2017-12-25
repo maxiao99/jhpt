@@ -21,7 +21,7 @@ public abstract class QudongDianjiDetailBase extends FieldAccessVo implements Ta
     /**
      * This field corresponds to the database column `tb_qudong_dianji_detail`.id
      */
-    private static final String PROPERTY_REMARK_ID = "tb_qudong_dianji的ID";
+    private static final String PROPERTY_REMARK_ID = "自增IDtb_qudong_dianji的ID";
 
     /**
      * This field corresponds to the database column `tb_qudong_dianji_detail`.id
@@ -157,6 +157,22 @@ public abstract class QudongDianjiDetailBase extends FieldAccessVo implements Ta
      */
     @ColumnDescription(desc = PROPERTY_REMARK_DIANLIU)
     private Integer dianliu;
+
+    /**
+     * This field corresponds to the database column `tb_qudong_dianji_detail`.qudong_dianji_id
+     */
+    private static final String PROPERTY_QUDONGDIANJIID = "qudongDianjiId";
+
+    /**
+     * This field corresponds to the database column `tb_qudong_dianji_detail`.qudong_dianji_id
+     */
+    private static final String PROPERTY_REMARK_QUDONGDIANJIID = "tb_qudong_dianji的ID";
+
+    /**
+     * This field corresponds to the database column `tb_qudong_dianji_detail`.qudong_dianji_id
+     */
+    @ColumnDescription(desc = PROPERTY_REMARK_QUDONGDIANJIID)
+    private Long qudongDianjiId;
 
     /**
      * This method returns the value of the database column `tb_qudong_dianji_detail`.id
@@ -318,5 +334,23 @@ public abstract class QudongDianjiDetailBase extends FieldAccessVo implements Ta
      */
     public void setDianliu(Integer dianliu) {
         this.dianliu = dianliu;
+    }
+
+    /**
+     * This method returns the value of the database column `tb_qudong_dianji_detail`.qudong_dianji_id
+     *
+     * @return the value of `tb_qudong_dianji_detail`.qudong_dianji_id
+     */
+    public Long getQudongDianjiId() {
+        return qudongDianjiId;
+    }
+
+    /**
+     * This method sets the value of the database column `tb_qudong_dianji_detail`.qudong_dianji_id
+     *
+     * @param qudongDianjiId the value for `tb_qudong_dianji_detail`.qudong_dianji_id
+     */
+    public void setQudongDianjiId(Long qudongDianjiId) {
+        this.qudongDianjiId = qudongDianjiId;
     }
 }

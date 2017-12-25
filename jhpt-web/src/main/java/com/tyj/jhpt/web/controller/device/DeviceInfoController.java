@@ -272,9 +272,9 @@ public class DeviceInfoController extends AbstractController {
             List<QudongDianjiDetail> details = qudongDianjiDetailService.findByIds(longs);
             for (QudongDianjiDetail detail : details) {
                 QudongDianji dto = new QudongDianji();
-                BeanUtils.copyProperties(detail, dto);
+                BeanUtils.copyProperties(detail, dto, "id");
                 for (QudongDianji bo : l) {
-                    if (bo.getId().equals(detail.getId())) {
+                    if (bo.getId().equals(detail.getQudongDianjiId())) {
                         BeanUtils.copyProperties(bo, dto);
                         break;
                     }
@@ -346,9 +346,9 @@ public class DeviceInfoController extends AbstractController {
             List<DianyaDetail> details = dianyaDetailService.findByIds(longs);
             for (DianyaDetail detail : details) {
                 Dianya dto = new Dianya();
-                BeanUtils.copyProperties(detail, dto);
+                BeanUtils.copyProperties(detail, dto, "id");
                 for (Dianya bo : l) {
-                    if (bo.getId().equals(detail.getId())) {
+                    if (bo.getId().equals(detail.getDianyaId())) {
                         BeanUtils.copyProperties(bo, dto);
                         break;
                     }
@@ -376,9 +376,9 @@ public class DeviceInfoController extends AbstractController {
             List<WenduDetail> details = wenduDetailService.findByIds(longs);
             for (WenduDetail detail : details) {
                 Wendu dto = new Wendu();
-                BeanUtils.copyProperties(detail, dto);
+                BeanUtils.copyProperties(detail, dto, "id");
                 for (Wendu bo : l) {
-                    if (bo.getId().equals(detail.getId())) {
+                    if (bo.getId().equals(detail.getWenduId())) {
                         BeanUtils.copyProperties(bo, dto);
                         break;
                     }

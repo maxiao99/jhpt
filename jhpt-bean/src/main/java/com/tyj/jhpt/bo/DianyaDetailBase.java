@@ -143,6 +143,22 @@ public abstract class DianyaDetailBase extends FieldAccessVo implements TableDat
     private byte[] simpleTotals;
 
     /**
+     * This field corresponds to the database column `tb_dianya_detail`.dianya_id
+     */
+    private static final String PROPERTY_DIANYAID = "dianyaId";
+
+    /**
+     * This field corresponds to the database column `tb_dianya_detail`.dianya_id
+     */
+    private static final String PROPERTY_REMARK_DIANYAID = "tb_dianya的ID";
+
+    /**
+     * This field corresponds to the database column `tb_dianya_detail`.dianya_id
+     */
+    @ColumnDescription(desc = PROPERTY_REMARK_DIANYAID)
+    private Long dianyaId;
+
+    /**
      * This method returns the value of the database column `tb_dianya_detail`.id
      *
      * @return the value of `tb_dianya_detail`.id
@@ -284,5 +300,23 @@ public abstract class DianyaDetailBase extends FieldAccessVo implements TableDat
      */
     public void setSimpleTotals(byte[] simpleTotals) {
         this.simpleTotals = simpleTotals;
+    }
+
+    /**
+     * This method returns the value of the database column `tb_dianya_detail`.dianya_id
+     *
+     * @return the value of `tb_dianya_detail`.dianya_id
+     */
+    public Long getDianyaId() {
+        return dianyaId;
+    }
+
+    /**
+     * This method sets the value of the database column `tb_dianya_detail`.dianya_id
+     *
+     * @param dianyaId the value for `tb_dianya_detail`.dianya_id
+     */
+    public void setDianyaId(Long dianyaId) {
+        this.dianyaId = dianyaId;
     }
 }

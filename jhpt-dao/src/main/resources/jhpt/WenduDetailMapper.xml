@@ -8,7 +8,7 @@
     <select id="findByIds" resultMap="BaseResultMap">
         SELECT
           <include refid="Base_Column_List" />
-        FROM `tb_wendu_detail` WHERE `id` IN
+        FROM `tb_wendu_detail` WHERE `wendu_id` IN
         <foreach collection="list" item="item" open="(" separator="," close=")">
             #{item}
         </foreach>
