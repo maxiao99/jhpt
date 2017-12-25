@@ -26,8 +26,7 @@ function listLoader(param, success, error) {
 
 function onLoadSuccess(data) {
     var merges = data.merges;
-    console.log(merges)
-    for(var i=0; i<merges.length; i++){
+    for (var i = 0; i < merges.length; i++) {
         $(this).datagrid('mergeCells', {
             index: merges[i].index,
             field: 'id',

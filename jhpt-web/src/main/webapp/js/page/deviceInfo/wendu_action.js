@@ -7,7 +7,8 @@ $(function () {
         singleSelect: true,
         pagination: true,
         columns: colModel,
-        toolbar: '#toolbar'
+        toolbar: '#toolbar',
+        onLoadSuccess: onLoadSuccess,
     });
 });
 
@@ -20,7 +21,28 @@ function listLoader(param, success, error) {
         limit: param.rows,
         currentPage: param.page
     };
-    page_list('page/wendu_list', params, success, error);
+    special_page_list('page/wendu_list', params, success, error);
+}
+
+function onLoadSuccess(data) {
+    var merges = data.merges;
+    for (var i = 0; i < merges.length; i++) {
+        $(this).datagrid('mergeCells', {
+            index: merges[i].index,
+            field: 'id',
+            rowspan: merges[i].rowspan
+        });
+        $(this).datagrid('mergeCells', {
+            index: merges[i].index,
+            field: 'plateNo',
+            rowspan: merges[i].rowspan
+        });
+        $(this).datagrid('mergeCells', {
+            index: merges[i].index,
+            field: 'eventTime',
+            rowspan: merges[i].rowspan
+        });
+    }
 }
 
 function doSearch() {
