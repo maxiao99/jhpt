@@ -7,9 +7,20 @@ package com.tyj.jhpt.web.controller.device;
 import com.github.fartherp.framework.common.util.CsvUtil;
 import com.github.fartherp.framework.common.util.DateUtil;
 import com.github.fartherp.framework.core.util.JsonResp;
+import com.tyj.jhpt.bo.Alarm;
+import com.tyj.jhpt.bo.AllCar;
 import com.tyj.jhpt.bo.DeviceGpsInfo;
 import com.tyj.jhpt.bo.DeviceInfo;
+import com.tyj.jhpt.bo.Dianya;
+import com.tyj.jhpt.bo.DianyaDetail;
+import com.tyj.jhpt.bo.Fadongji;
 import com.tyj.jhpt.bo.MsgType;
+import com.tyj.jhpt.bo.QudongDianji;
+import com.tyj.jhpt.bo.QudongDianjiDetail;
+import com.tyj.jhpt.bo.RanliaoDianchi;
+import com.tyj.jhpt.bo.Supers;
+import com.tyj.jhpt.bo.Wendu;
+import com.tyj.jhpt.bo.WenduDetail;
 import com.tyj.jhpt.server.command.platform.PlatformThreeCommand;
 import com.tyj.jhpt.server.command.platform.PlatformTwoCommand;
 import com.tyj.jhpt.server.message.MessageBean;
@@ -18,13 +29,16 @@ import com.tyj.jhpt.service.AlarmService;
 import com.tyj.jhpt.service.AllCarService;
 import com.tyj.jhpt.service.DeviceGpsInfoService;
 import com.tyj.jhpt.service.CompositeDictionaryService;
+import com.tyj.jhpt.service.DianyaDetailService;
 import com.tyj.jhpt.service.DianyaService;
 import com.tyj.jhpt.service.FadongjiService;
 import com.tyj.jhpt.service.IShortMsgSender;
 import com.tyj.jhpt.service.DeviceInfoService;
+import com.tyj.jhpt.service.QudongDianjiDetailService;
 import com.tyj.jhpt.service.QudongDianjiService;
 import com.tyj.jhpt.service.RanliaoDianchiService;
 import com.tyj.jhpt.service.SupersService;
+import com.tyj.jhpt.service.WenduDetailService;
 import com.tyj.jhpt.service.WenduService;
 import com.tyj.jhpt.vo.DeviceInfoPageVo;
 import com.tyj.jhpt.vo.MsgPageVo;
@@ -32,7 +46,9 @@ import com.tyj.jhpt.vo.RealTimePageVo;
 import com.tyj.jhpt.vo.SettingConfigVo;
 import com.tyj.jhpt.vo.TerminalConfigVo;
 import com.tyj.jhpt.web.controller.AbstractController;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -69,6 +85,9 @@ public class DeviceInfoController extends AbstractController {
     @Resource(name = "qudongDianjiService")
     QudongDianjiService qudongDianjiService;
 
+    @Resource(name = "qudongDianjiDetailService")
+    QudongDianjiDetailService qudongDianjiDetailService;
+
     @Resource(name = "ranliaoDianchiService")
     RanliaoDianchiService ranliaoDianchiService;
 
@@ -84,8 +103,14 @@ public class DeviceInfoController extends AbstractController {
     @Resource(name = "dianyaService")
     DianyaService dianyaService;
 
+    @Resource(name = "dianyaDetailService")
+    DianyaDetailService dianyaDetailService;
+
     @Resource(name = "wenduService")
     WenduService wenduService;
+
+    @Resource(name = "wenduDetailService")
+    WenduDetailService wenduDetailService;
 
     @Resource(name = "platformTwoCommand")
     PlatformTwoCommand platformTwoCommand;
@@ -225,8 +250,8 @@ public class DeviceInfoController extends AbstractController {
      */
     @ResponseBody
     @RequestMapping(value = "/page/all_car_list")
-    public String findPageAllCar(RealTimePageVo vo) {
-        List l = allCarService.findPageAllCar(vo.convertPageMap());
+    public String findPageAllCar(RealTimePageVo<AllCar> vo) {
+        List<AllCar> l = allCarService.findPageAllCar(vo.convertPageMap());
         vo.setRows(l);
         return JsonResp.asData(vo).setDatePattern(DateUtil.yyyy_MM_dd).toJson();
     }
@@ -236,9 +261,28 @@ public class DeviceInfoController extends AbstractController {
      */
     @ResponseBody
     @RequestMapping(value = "/page/qudong_dianji_list")
-    public String findPageQudongDianji(RealTimePageVo vo) {
-        List l = qudongDianjiService.findPageQudongDianji(vo.convertPageMap());
-        vo.setRows(l);
+    public String findPageQudongDianji(RealTimePageVo<QudongDianji> vo) {
+        List<QudongDianji> list = new ArrayList<QudongDianji>();
+        List<QudongDianji> l = qudongDianjiService.findPageQudongDianji(vo.convertPageMap());
+        if (CollectionUtils.isNotEmpty(l)) {
+            List<Long> longs = new ArrayList<Long>();
+            for (QudongDianji o : l) {
+                longs.add(o.getId());
+            }
+            List<QudongDianjiDetail> details = qudongDianjiDetailService.findByIds(longs);
+            for (QudongDianjiDetail detail : details) {
+                QudongDianji dto = new QudongDianji();
+                BeanUtils.copyProperties(detail, dto);
+                for (QudongDianji bo : l) {
+                    if (bo.getId().equals(detail.getId())) {
+                        BeanUtils.copyProperties(bo, dto);
+                        break;
+                    }
+                }
+                list.add(dto);
+            }
+        }
+        vo.setRows(list);
         return JsonResp.asData(vo).setDatePattern(DateUtil.yyyy_MM_dd).toJson();
     }
 
@@ -247,8 +291,8 @@ public class DeviceInfoController extends AbstractController {
      */
     @ResponseBody
     @RequestMapping(value = "/page/ranliao_dianchi_list")
-    public String findPageRanliaoDianchi(RealTimePageVo vo) {
-        List l = ranliaoDianchiService.findPageRanliaoDianchi(vo.convertPageMap());
+    public String findPageRanliaoDianchi(RealTimePageVo<RanliaoDianchi> vo) {
+        List<RanliaoDianchi> l = ranliaoDianchiService.findPageRanliaoDianchi(vo.convertPageMap());
         vo.setRows(l);
         return JsonResp.asData(vo).setDatePattern(DateUtil.yyyy_MM_dd).toJson();
     }
@@ -258,8 +302,8 @@ public class DeviceInfoController extends AbstractController {
      */
     @ResponseBody
     @RequestMapping(value = "/page/fadongji_list")
-    public String findPageFadongji(RealTimePageVo vo) {
-        List l = fadongjiService.findPageFadongji(vo.convertPageMap());
+    public String findPageFadongji(RealTimePageVo<Fadongji> vo) {
+        List<Fadongji> l = fadongjiService.findPageFadongji(vo.convertPageMap());
         vo.setRows(l);
         return JsonResp.asData(vo).setDatePattern(DateUtil.yyyy_MM_dd).toJson();
     }
@@ -269,8 +313,8 @@ public class DeviceInfoController extends AbstractController {
      */
     @ResponseBody
     @RequestMapping(value = "/page/supers_list")
-    public String findPageSupers(RealTimePageVo vo) {
-        List l = supersService.findPageSupers(vo.convertPageMap());
+    public String findPageSupers(RealTimePageVo<Supers> vo) {
+        List<Supers> l = supersService.findPageSupers(vo.convertPageMap());
         vo.setRows(l);
         return JsonResp.asData(vo).setDatePattern(DateUtil.yyyy_MM_dd).toJson();
     }
@@ -280,8 +324,8 @@ public class DeviceInfoController extends AbstractController {
      */
     @ResponseBody
     @RequestMapping(value = "/page/alarm_list")
-    public String findPageAlarm(RealTimePageVo vo) {
-        List l = alarmService.findPageAlarm(vo.convertPageMap());
+    public String findPageAlarm(RealTimePageVo<Alarm> vo) {
+        List<Alarm> l = alarmService.findPageAlarm(vo.convertPageMap());
         vo.setRows(l);
         return JsonResp.asData(vo).setDatePattern(DateUtil.yyyy_MM_dd).toJson();
     }
@@ -291,9 +335,28 @@ public class DeviceInfoController extends AbstractController {
      */
     @ResponseBody
     @RequestMapping(value = "/page/dianya_list")
-    public String findPageDianya(RealTimePageVo vo) {
-        List l = dianyaService.findPageDianya(vo.convertPageMap());
-        vo.setRows(l);
+    public String findPageDianya(RealTimePageVo<Dianya> vo) {
+        List<Dianya> list = new ArrayList<Dianya>();
+        List<Dianya> l = dianyaService.findPageDianya(vo.convertPageMap());
+        if (CollectionUtils.isNotEmpty(l)) {
+            List<Long> longs = new ArrayList<Long>();
+            for (Dianya o : l) {
+                longs.add(o.getId());
+            }
+            List<DianyaDetail> details = dianyaDetailService.findByIds(longs);
+            for (DianyaDetail detail : details) {
+                Dianya dto = new Dianya();
+                BeanUtils.copyProperties(detail, dto);
+                for (Dianya bo : l) {
+                    if (bo.getId().equals(detail.getId())) {
+                        BeanUtils.copyProperties(bo, dto);
+                        break;
+                    }
+                }
+                list.add(dto);
+            }
+        }
+        vo.setRows(list);
         return JsonResp.asData(vo).setDatePattern(DateUtil.yyyy_MM_dd).toJson();
     }
 
@@ -302,9 +365,28 @@ public class DeviceInfoController extends AbstractController {
      */
     @ResponseBody
     @RequestMapping(value = "/page/wendu_list")
-    public String findPageWendu(RealTimePageVo vo) {
-        List l = wenduService.findPageWendu(vo.convertPageMap());
-        vo.setRows(l);
+    public String findPageWendu(RealTimePageVo<Wendu> vo) {
+        List<Wendu> list = new ArrayList<Wendu>();
+        List<Wendu> l = wenduService.findPageWendu(vo.convertPageMap());
+        if (CollectionUtils.isNotEmpty(l)) {
+            List<Long> longs = new ArrayList<Long>();
+            for (Wendu o : l) {
+                longs.add(o.getId());
+            }
+            List<WenduDetail> details = wenduDetailService.findByIds(longs);
+            for (WenduDetail detail : details) {
+                Wendu dto = new Wendu();
+                BeanUtils.copyProperties(detail, dto);
+                for (Wendu bo : l) {
+                    if (bo.getId().equals(detail.getId())) {
+                        BeanUtils.copyProperties(bo, dto);
+                        break;
+                    }
+                }
+                list.add(dto);
+            }
+        }
+        vo.setRows(list);
         return JsonResp.asData(vo).setDatePattern(DateUtil.yyyy_MM_dd).toJson();
     }
 

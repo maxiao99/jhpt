@@ -4,8 +4,6 @@
 
 package com.tyj.jhpt.server.body.dto;
 
-import java.util.Date;
-
 /**
  * 可充电储能装置电压数据
  *
@@ -13,8 +11,6 @@ import java.util.Date;
  * @date: 2017/12/9
  */
 public class DianYaDto {
-    private String carVin;
-    private Date eventTime;
     // 可充电储能子系统号
     private byte systemNo;
     // 可充电储能装置电压
@@ -29,22 +25,6 @@ public class DianYaDto {
     private byte ownSimpleTotal;
     // 单体电池电压
     private byte[] simpleTotals;
-
-    public String getCarVin() {
-        return carVin;
-    }
-
-    public void setCarVin(String carVin) {
-        this.carVin = carVin;
-    }
-
-    public Date getEventTime() {
-        return eventTime;
-    }
-
-    public void setEventTime(Date eventTime) {
-        this.eventTime = eventTime;
-    }
 
     public byte getSystemNo() {
         return systemNo;

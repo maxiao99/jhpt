@@ -6,13 +6,15 @@ package com.tyj.jhpt.vo;
 
 import com.github.fartherp.framework.core.vo.BaseVo;
 
+import java.io.Serializable;
+
 /**
  * Created by IntelliJ IDEA.
  *
  * @author: CK
  * @date: 2017/12/24
  */
-public class RealTimePageVo extends BaseVo {
+public class RealTimePageVo<T extends Serializable> extends BaseVo<T> {
     private String plateNo;
     private String startDate;
     private String endDate;

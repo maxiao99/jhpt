@@ -5,10 +5,12 @@
 package com.tyj.jhpt.server.body;
 
 import com.tyj.jhpt.bo.Dianya;
+import com.tyj.jhpt.bo.DianyaDetail;
 import com.tyj.jhpt.server.body.dto.DianYaDto;
 import com.tyj.jhpt.server.body.dto.DianYasDto;
 import com.tyj.jhpt.server.message.MessageBean;
 import com.tyj.jhpt.server.message.type.RealTimeMessage;
+import com.tyj.jhpt.service.DianyaDetailService;
 import com.tyj.jhpt.service.DianyaService;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.BeanUtils;
@@ -41,6 +43,9 @@ public class EightBody extends AbstractBody<DianYasDto> {
     @Resource(name = "dianyaService")
     DianyaService dianyaService;
 
+    @Resource(name = "dianyaDetailService")
+    DianyaDetailService dianyaDetailService;
+
     public DianYasDto deal(MessageBean mb) {
         DianYasDto dtos = new DianYasDto();
         byte[] content = mb.getContent();
@@ -49,10 +54,14 @@ public class EightBody extends AbstractBody<DianYasDto> {
         dtos.setNumber(content[offset + 1]);
         offset += 1;
 
+        Dianya pojo = new Dianya();
+        pojo.setCarVin(mb.getVin());
+        pojo.setEventTime(mb.getEventTime());
+        dianyaService.saveEntitySelective(pojo);
+
         for (int i = 0; i < dtos.getNumber(); i++) {
             DianYaDto dto = new DianYaDto();
-            dto.setCarVin(mb.getVin());
-            dto.setEventTime(mb.getEventTime());
+
 
             // 可充电储能子系统号
             dto.setSystemNo(content[offset + systemNo.length]);
@@ -103,13 +112,14 @@ public class EightBody extends AbstractBody<DianYasDto> {
         }
 
         if (CollectionUtils.isNotEmpty(dtos.getList())) {
-            List<Dianya> list = new ArrayList<Dianya>();
+            List<DianyaDetail> list = new ArrayList<DianyaDetail>();
             for (DianYaDto dto : dtos.getList()) {
-                Dianya bo = new Dianya();
+                DianyaDetail bo = new DianyaDetail();
+                bo.setId(pojo.getId());
                 BeanUtils.copyProperties(dto, bo);
                 list.add(bo);
             }
-            dianyaService.saveBatch(list);
+            dianyaDetailService.saveBatch(list);
         }
         return dtos;
     }

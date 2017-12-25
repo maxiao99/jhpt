@@ -9,28 +9,21 @@
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="car_vin" property="carVin" jdbcType="VARCHAR" />
     <result column="event_time" property="eventTime" jdbcType="TIMESTAMP" />
-    <result column="system_no" property="systemNo" jdbcType="TINYINT" />
-    <result column="count" property="count" jdbcType="INTEGER" />
-    <result column="values" property="values" jdbcType="LONGVARBINARY" />
   </resultMap>
   <sql id="Base_Column_List">
-    `id`, `car_vin`, `event_time`, `system_no`, `count`, `values`
+    `id`, `car_vin`, `event_time`
   </sql>
   <insert id="insert" parameterType="com.tyj.jhpt.bo.Wendu" useGeneratedKeys="true" keyProperty="id">
     <![CDATA[
-    insert into `tb_wendu` (`car_vin`, `event_time`, `system_no`, 
-      `count`, `values`)
-    values (#{carVin,jdbcType=VARCHAR}, #{eventTime,jdbcType=TIMESTAMP}, #{systemNo,jdbcType=TINYINT}, 
-      #{count,jdbcType=INTEGER}, #{values,jdbcType=LONGVARBINARY})
+    insert into `tb_wendu` (`car_vin`, `event_time`)
+    values (#{carVin,jdbcType=VARCHAR}, #{eventTime,jdbcType=TIMESTAMP})
     ]]>
   </insert>
   <insert id="insertBatch" parameterType="java.util.List">
-    insert into `tb_wendu` (`car_vin`, `event_time`, `system_no`, 
-      `count`, `values`)
+    insert into `tb_wendu` (`car_vin`, `event_time`)
      values 
     <foreach collection="list" item="item" index="index" separator=",">
-       (#{item.carVin,jdbcType=VARCHAR}, #{item.eventTime,jdbcType=TIMESTAMP}, #{item.systemNo,jdbcType=TINYINT}, 
-        #{item.count,jdbcType=INTEGER}, #{item.values,jdbcType=LONGVARBINARY})
+       (#{item.carVin,jdbcType=VARCHAR}, #{item.eventTime,jdbcType=TIMESTAMP})
     </foreach>
   </insert>
   <insert id="insertSelective" parameterType="com.tyj.jhpt.bo.Wendu" useGeneratedKeys="true" keyProperty="id">
@@ -42,15 +35,6 @@
       <if test="eventTime != null">
         `event_time`,
       </if>
-      <if test="systemNo != null">
-        `system_no`,
-      </if>
-      <if test="count != null">
-        `count`,
-      </if>
-      <if test="values != null">
-        `values`,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="carVin != null">
@@ -58,15 +42,6 @@
       </if>
       <if test="eventTime != null">
         #{eventTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="systemNo != null">
-        #{systemNo,jdbcType=TINYINT},
-      </if>
-      <if test="count != null">
-        #{count,jdbcType=INTEGER},
-      </if>
-      <if test="values != null">
-        #{values,jdbcType=LONGVARBINARY},
       </if>
     </trim>
   </insert>
@@ -91,25 +66,13 @@
       <if test="eventTime != null">
         `event_time` = #{eventTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="systemNo != null">
-        `system_no` = #{systemNo,jdbcType=TINYINT},
-      </if>
-      <if test="count != null">
-        `count` = #{count,jdbcType=INTEGER},
-      </if>
-      <if test="values != null">
-        `values` = #{values,jdbcType=LONGVARBINARY},
-      </if>
     </set>
     where `id` = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.tyj.jhpt.bo.Wendu">
     update `tb_wendu`
     set `car_vin` = #{carVin,jdbcType=VARCHAR},
-      `event_time` = #{eventTime,jdbcType=TIMESTAMP},
-      `system_no` = #{systemNo,jdbcType=TINYINT},
-      `count` = #{count,jdbcType=INTEGER},
-      `values` = #{values,jdbcType=LONGVARBINARY}
+      `event_time` = #{eventTime,jdbcType=TIMESTAMP}
     where `id` = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

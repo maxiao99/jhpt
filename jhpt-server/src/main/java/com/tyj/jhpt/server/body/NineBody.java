@@ -5,10 +5,12 @@
 package com.tyj.jhpt.server.body;
 
 import com.tyj.jhpt.bo.Wendu;
+import com.tyj.jhpt.bo.WenduDetail;
 import com.tyj.jhpt.server.body.dto.WenDuDto;
 import com.tyj.jhpt.server.body.dto.WenDusDto;
 import com.tyj.jhpt.server.message.MessageBean;
 import com.tyj.jhpt.server.message.type.RealTimeMessage;
+import com.tyj.jhpt.service.WenduDetailService;
 import com.tyj.jhpt.service.WenduService;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.BeanUtils;
@@ -37,6 +39,9 @@ public class NineBody extends AbstractBody<WenDusDto> {
     @Resource(name = "wenduService")
     WenduService wenduService;
 
+    @Resource(name = "wenduDetailService")
+    WenduDetailService wenduDetailService;
+
     public WenDusDto deal(MessageBean mb) {
         WenDusDto dtos = new WenDusDto();
 
@@ -46,10 +51,14 @@ public class NineBody extends AbstractBody<WenDusDto> {
         dtos.setNumber(content[offset + 1]);
         offset += 1;
 
+        Wendu wendu = new Wendu();
+        wendu.setCarVin(mb.getVin());
+        wendu.setEventTime(mb.getEventTime());
+        wenduService.saveEntitySelective(wendu);
+
         for (int i = 0; i < dtos.getNumber(); i++) {
             WenDuDto dto = new WenDuDto();
-            dto.setCarVin(mb.getVin());
-            dto.setEventTime(mb.getEventTime());
+
 
             // 可充电储能子系统号
             dto.setSystemNo(content[offset + systemNo.length]);
@@ -72,13 +81,14 @@ public class NineBody extends AbstractBody<WenDusDto> {
         }
 
         if (CollectionUtils.isNotEmpty(dtos.getList())) {
-            List<Wendu> list = new ArrayList<Wendu>();
+            List<WenduDetail> list = new ArrayList<WenduDetail>();
             for (WenDuDto dto : dtos.getList()) {
-                Wendu bo = new Wendu();
+                WenduDetail bo = new WenduDetail();
+                bo.setId(wendu.getId());
                 BeanUtils.copyProperties(dto, bo);
                 list.add(bo);
             }
-            wenduService.saveBatch(list);
+            wenduDetailService.saveBatch(list);
         }
         return dtos;
     }

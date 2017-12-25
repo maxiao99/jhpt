@@ -4,8 +4,6 @@
 
 package com.tyj.jhpt.server.body.dto;
 
-import java.util.Date;
-
 /**
  * 驱动电机数据
  *
@@ -13,8 +11,6 @@ import java.util.Date;
  * @date: 2017/12/8
  */
 public class QuDongDianJiDto {
-    private String carVin;
-    private Date eventTime;
     // 驱动电机序号
     private byte seq;
     // 驱动电机状态
@@ -31,22 +27,6 @@ public class QuDongDianJiDto {
     private int dianya;
     // 电机控制器直流母线母线电流
     private int dianliu;
-
-    public String getCarVin() {
-        return carVin;
-    }
-
-    public void setCarVin(String carVin) {
-        this.carVin = carVin;
-    }
-
-    public Date getEventTime() {
-        return eventTime;
-    }
-
-    public void setEventTime(Date eventTime) {
-        this.eventTime = eventTime;
-    }
 
     public byte getSeq() {
         return seq;

@@ -5,10 +5,12 @@
 package com.tyj.jhpt.server.body;
 
 import com.tyj.jhpt.bo.QudongDianji;
+import com.tyj.jhpt.bo.QudongDianjiDetail;
 import com.tyj.jhpt.server.body.dto.QuDongDianJiDto;
 import com.tyj.jhpt.server.body.dto.QuDongDianJisDto;
 import com.tyj.jhpt.server.message.MessageBean;
 import com.tyj.jhpt.server.message.type.RealTimeMessage;
+import com.tyj.jhpt.service.QudongDianjiDetailService;
 import com.tyj.jhpt.service.QudongDianjiService;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.BeanUtils;
@@ -43,6 +45,9 @@ public class TwoBody extends AbstractBody<QuDongDianJisDto> {
     @Resource(name = "qudongDianjiService")
     QudongDianjiService qudongDianjiService;
 
+    @Resource(name = "qudongDianjiDetailService")
+    QudongDianjiDetailService qudongDianjiDetailService;
+
     public QuDongDianJisDto deal(MessageBean mb) {
         QuDongDianJisDto dtos = new QuDongDianJisDto();
 
@@ -51,10 +56,13 @@ public class TwoBody extends AbstractBody<QuDongDianJisDto> {
         // 车辆状态
         dtos.setNumber(content[offset + 1]);
         offset += 1;
+
+        QudongDianji qudongDianji = new QudongDianji();
+        qudongDianji.setCarVin(mb.getVin());
+        qudongDianji.setEventTime(mb.getEventTime());
+        qudongDianjiService.saveEntitySelective(qudongDianji);
         for (int i = 0; i < dtos.getNumber(); i++) {
             QuDongDianJiDto dto = new QuDongDianJiDto();
-            dto.setCarVin(mb.getVin());
-            dto.setEventTime(mb.getEventTime());
 
             // 驱动电机序号
             dto.setSeq(content[offset + seq.length]);
@@ -108,13 +116,14 @@ public class TwoBody extends AbstractBody<QuDongDianJisDto> {
         }
 
         if (CollectionUtils.isNotEmpty(dtos.getList())) {
-            List<QudongDianji> list = new ArrayList<QudongDianji>();
+            List<QudongDianjiDetail> list = new ArrayList<QudongDianjiDetail>();
             for (QuDongDianJiDto dto : dtos.getList()) {
-                QudongDianji bo = new QudongDianji();
+                QudongDianjiDetail bo = new QudongDianjiDetail();
+                bo.setId(qudongDianji.getId());
                 BeanUtils.copyProperties(dto, bo);
                 list.add(bo);
             }
-            qudongDianjiService.saveBatch(list);
+            qudongDianjiDetailService.saveBatch(list);
         }
         return dtos;
     }

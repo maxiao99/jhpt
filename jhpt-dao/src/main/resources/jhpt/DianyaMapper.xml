@@ -9,18 +9,11 @@
         <id column="id" property="id" jdbcType="BIGINT" />
         <result column="car_vin" property="carVin" jdbcType="VARCHAR" />
         <result column="event_time" property="eventTime" jdbcType="TIMESTAMP" />
-        <result column="system_no" property="systemNo" jdbcType="TINYINT" />
-        <result column="dianya" property="dianya" jdbcType="INTEGER" />
-        <result column="dianliu" property="dianliu" jdbcType="INTEGER" />
-        <result column="simple_total" property="simpleTotal" jdbcType="INTEGER" />
-        <result column="seq" property="seq" jdbcType="INTEGER" />
-        <result column="own_simple_total" property="ownSimpleTotal" jdbcType="TINYINT" />
-        <result column="simple_totals" property="simpleTotals" jdbcType="LONGVARBINARY" />
         <result column="plate_no" property="plateNo" jdbcType="VARCHAR" />
     </resultMap>
     <select id="findPageDianya" resultMap="ExtBaseResultMap">
         select
-        a.`id`, a.`car_vin`, a.`event_time`, a.`system_no`, a.`dianya`, a.`dianliu`, a.`simple_total`, a.`seq`, a.`own_simple_total`, a.`simple_totals`, b.`plate_no`
+        a.`id`, a.`car_vin`, a.`event_time`, b.`plate_no`
         from `tb_dianya` a
         join `tb_device_info` b on a.`car_vin` = b.`car_vin`
         <where>
