@@ -132,7 +132,7 @@ public class DeviceInfoController extends AbstractController {
             d.setType(vo.getType());
         }
         vo.setRows(l);
-        return JsonResp.asData(vo).setDatePattern(DateUtil.yyyy_MM_dd).toJson();
+        return JsonResp.asData(vo).setDatePattern(DateUtil.yyyy_MM_dd_HH_mm_ss).toJson();
     }
 
     /**
@@ -254,7 +254,7 @@ public class DeviceInfoController extends AbstractController {
     public String findPageAllCar(RealTimePageVo<AllCar> vo) {
         List<AllCar> l = allCarService.findPageAllCar(vo.convertPageMap());
         vo.setRows(l);
-        return JsonResp.asData(vo).setDatePattern(DateUtil.yyyy_MM_dd).toJson();
+        return JsonResp.asData(vo).setDatePattern(DateUtil.yyyy_MM_dd_HH_mm_ss).toJson();
     }
 
     /**
@@ -305,7 +305,7 @@ public class DeviceInfoController extends AbstractController {
             vo.setMerges(merges);
         }
         vo.setRows(list);
-        return JsonResp.asData(vo).setDatePattern(DateUtil.yyyy_MM_dd).toJson();
+        return JsonResp.asData(vo).setDatePattern(DateUtil.yyyy_MM_dd_HH_mm_ss).toJson();
     }
 
     /**
@@ -316,7 +316,7 @@ public class DeviceInfoController extends AbstractController {
     public String findPageRanliaoDianchi(RealTimePageVo<RanliaoDianchi> vo) {
         List<RanliaoDianchi> l = ranliaoDianchiService.findPageRanliaoDianchi(vo.convertPageMap());
         vo.setRows(l);
-        return JsonResp.asData(vo).setDatePattern(DateUtil.yyyy_MM_dd).toJson();
+        return JsonResp.asData(vo).setDatePattern(DateUtil.yyyy_MM_dd_HH_mm_ss).toJson();
     }
 
     /**
@@ -327,7 +327,7 @@ public class DeviceInfoController extends AbstractController {
     public String findPageFadongji(RealTimePageVo<Fadongji> vo) {
         List<Fadongji> l = fadongjiService.findPageFadongji(vo.convertPageMap());
         vo.setRows(l);
-        return JsonResp.asData(vo).setDatePattern(DateUtil.yyyy_MM_dd).toJson();
+        return JsonResp.asData(vo).setDatePattern(DateUtil.yyyy_MM_dd_HH_mm_ss).toJson();
     }
 
     /**
@@ -338,7 +338,7 @@ public class DeviceInfoController extends AbstractController {
     public String findPageSupers(RealTimePageVo<Supers> vo) {
         List<Supers> l = supersService.findPageSupers(vo.convertPageMap());
         vo.setRows(l);
-        return JsonResp.asData(vo).setDatePattern(DateUtil.yyyy_MM_dd).toJson();
+        return JsonResp.asData(vo).setDatePattern(DateUtil.yyyy_MM_dd_HH_mm_ss).toJson();
     }
 
     /**
@@ -349,7 +349,7 @@ public class DeviceInfoController extends AbstractController {
     public String findPageAlarm(RealTimePageVo<Alarm> vo) {
         List<Alarm> l = alarmService.findPageAlarm(vo.convertPageMap());
         vo.setRows(l);
-        return JsonResp.asData(vo).setDatePattern(DateUtil.yyyy_MM_dd).toJson();
+        return JsonResp.asData(vo).setDatePattern(DateUtil.yyyy_MM_dd_HH_mm_ss).toJson();
     }
 
     /**
@@ -400,7 +400,7 @@ public class DeviceInfoController extends AbstractController {
             vo.setMerges(merges);
         }
         vo.setRows(list);
-        return JsonResp.asData(vo).setDatePattern(DateUtil.yyyy_MM_dd).toJson();
+        return JsonResp.asData(vo).setDatePattern(DateUtil.yyyy_MM_dd_HH_mm_ss).toJson();
     }
 
     /**
@@ -451,7 +451,7 @@ public class DeviceInfoController extends AbstractController {
             vo.setMerges(merges);
         }
         vo.setRows(list);
-        return JsonResp.asData(vo).setDatePattern(DateUtil.yyyy_MM_dd).toJson();
+        return JsonResp.asData(vo).setDatePattern(DateUtil.yyyy_MM_dd_HH_mm_ss).toJson();
     }
 
     /**
