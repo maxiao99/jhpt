@@ -109,18 +109,25 @@ public class MessageBean {
     }
 
     public byte[] getBytes() {
-        byte[] bs = new byte[22 + content.length];
+        byte[] bs = new byte[24 + content.length];
         int offset = 0;
-        System.arraycopy(commandFlag, 0, bs, offset, 1);
+        bs[offset] = commandFlag;
         offset += 1;
-        System.arraycopy(respFlag, 0, bs, offset, 1);
+        bs[offset] = respFlag;
         offset += 1;
-        System.arraycopy(vin, 0, bs, offset, 17);
+        System.arraycopy(vin.getBytes(), 0, bs, offset, 17);
         offset += 17;
-        System.arraycopy(encrypt, 0, bs, offset, 1);
+        bs[offset] = encrypt;
         offset += 1;
-        System.arraycopy(length, 0, bs, offset, 2);
-        offset += 2;
+        // length
+        bs[offset] = (byte)(length >> 24);
+        offset += 1;
+        bs[offset] = (byte)(length >> 16);
+        offset += 1;
+        bs[offset] = (byte)(length >> 8);
+        offset += 1;
+        bs[offset] = (byte)length;
+        offset += 1;
         System.arraycopy(content, 0, bs, offset, content.length);
         return bs;
     }

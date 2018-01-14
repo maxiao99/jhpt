@@ -44,7 +44,7 @@ public class NineCommand extends DeviceAbstractCommand {
 
         DriverPerson driverPerson = new DriverPerson();
         // 数据采集时间
-        Date time = DeviceMsgUtils.resolveTime(content, TIME.length);
+        Date time = DeviceMsgUtils.resolveTime(content, 0);
         int offset = TIME.length;
         driverPerson.setEventTime(time);
 
@@ -57,7 +57,7 @@ public class NineCommand extends DeviceAbstractCommand {
         driverPerson.setDriverId(driverId);
 
         // 驾驶员姓名长度
-        byte driverNameLength = content[offset + DRIVER_NAME_LENGTH.length];
+        byte driverNameLength = content[offset];
         offset += DRIVER_NAME_LENGTH.length;
 
         // 驾驶员姓名
@@ -76,7 +76,7 @@ public class NineCommand extends DeviceAbstractCommand {
         driverPerson.setWorkQualification(workQualification);
 
         // 发证机构名称长度
-        byte sendCertificateNameLength = content[offset + SEND_CERTIFICATE_NAME_LENGTH.length];
+        byte sendCertificateNameLength = content[offset];
         offset += SEND_CERTIFICATE_NAME_LENGTH.length;
 
         // 发证机构名称

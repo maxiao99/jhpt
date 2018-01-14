@@ -4,6 +4,7 @@
 
 package com.tyj.jhpt.server.util;
 
+import com.github.fartherp.framework.common.util.ISOUtil;
 import com.github.fartherp.framework.security.symmetry.ThreeDES;
 import io.netty.buffer.ByteBuf;
 
@@ -168,6 +169,16 @@ public class ByteUtils {
         byte[] dest = new byte[length];
         in.readBytes(dest);
         return new String(dest);
+    }
+
+    public static String convertGBK(String dest) {
+        byte[] bytes = ISOUtil.hex2byte(dest);
+        try {
+            return new String(bytes, "GBK");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     /**

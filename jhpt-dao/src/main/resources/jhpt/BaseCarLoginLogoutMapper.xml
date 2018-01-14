@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-  ~ Copyright (c) 2017. CK. All rights reserved.
+  ~ Copyright (c) 2018. CK. All rights reserved.
   -->
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
@@ -12,30 +12,32 @@
     <result column="logout_time" property="logoutTime" jdbcType="TIMESTAMP" />
     <result column="trace_no" property="traceNo" jdbcType="INTEGER" />
     <result column="iccid" property="iccid" jdbcType="VARCHAR" />
+    <result column="system_num" property="systemNum" jdbcType="INTEGER" />
+    <result column="system_code_length" property="systemCodeLength" jdbcType="INTEGER" />
     <result column="system_code" property="systemCode" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List">
-    `id`, `car_vin`, `login_time`, `logout_time`, `trace_no`, `iccid`, `system_code`
+    `id`, `car_vin`, `login_time`, `logout_time`, `trace_no`, `iccid`, `system_num`, `system_code_length`, `system_code`
   </sql>
   <insert id="insert" parameterType="com.tyj.jhpt.bo.CarLoginLogout" useGeneratedKeys="true" keyProperty="id">
     <![CDATA[
     insert into `tb_car_login_logout` (`car_vin`, `login_time`, `logout_time`, 
-      `trace_no`, `iccid`, `system_code`
-      )
+      `trace_no`, `iccid`, `system_num`, 
+      `system_code_length`, `system_code`)
     values (#{carVin,jdbcType=VARCHAR}, #{loginTime,jdbcType=TIMESTAMP}, #{logoutTime,jdbcType=TIMESTAMP}, 
-      #{traceNo,jdbcType=INTEGER}, #{iccid,jdbcType=VARCHAR}, #{systemCode,jdbcType=VARCHAR}
-      )
+      #{traceNo,jdbcType=INTEGER}, #{iccid,jdbcType=VARCHAR}, #{systemNum,jdbcType=INTEGER}, 
+      #{systemCodeLength,jdbcType=INTEGER}, #{systemCode,jdbcType=VARCHAR})
     ]]>
   </insert>
   <insert id="insertBatch" parameterType="java.util.List">
     insert into `tb_car_login_logout` (`car_vin`, `login_time`, `logout_time`, 
-      `trace_no`, `iccid`, `system_code`
-      )
+      `trace_no`, `iccid`, `system_num`, 
+      `system_code_length`, `system_code`)
      values 
     <foreach collection="list" item="item" index="index" separator=",">
        (#{item.carVin,jdbcType=VARCHAR}, #{item.loginTime,jdbcType=TIMESTAMP}, #{item.logoutTime,jdbcType=TIMESTAMP}, 
-        #{item.traceNo,jdbcType=INTEGER}, #{item.iccid,jdbcType=VARCHAR}, #{item.systemCode,jdbcType=VARCHAR}
-        )
+        #{item.traceNo,jdbcType=INTEGER}, #{item.iccid,jdbcType=VARCHAR}, #{item.systemNum,jdbcType=INTEGER}, 
+        #{item.systemCodeLength,jdbcType=INTEGER}, #{item.systemCode,jdbcType=VARCHAR})
     </foreach>
   </insert>
   <insert id="insertSelective" parameterType="com.tyj.jhpt.bo.CarLoginLogout" useGeneratedKeys="true" keyProperty="id">
@@ -55,6 +57,12 @@
       </if>
       <if test="iccid != null">
         `iccid`,
+      </if>
+      <if test="systemNum != null">
+        `system_num`,
+      </if>
+      <if test="systemCodeLength != null">
+        `system_code_length`,
       </if>
       <if test="systemCode != null">
         `system_code`,
@@ -76,6 +84,12 @@
       <if test="iccid != null">
         #{iccid,jdbcType=VARCHAR},
       </if>
+      <if test="systemNum != null">
+        #{systemNum,jdbcType=INTEGER},
+      </if>
+      <if test="systemCodeLength != null">
+        #{systemCodeLength,jdbcType=INTEGER},
+      </if>
       <if test="systemCode != null">
         #{systemCode,jdbcType=VARCHAR},
       </if>
@@ -89,6 +103,12 @@
     select 
     <include refid="Base_Column_List" />
     from `tb_car_login_logout`
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from `tb_car_login_logout`
+    where `id` = #{id,jdbcType=BIGINT}
   </select>
   <select id="count" resultType="java.lang.Integer">
     select count(*) from `tb_car_login_logout`
@@ -111,6 +131,12 @@
       <if test="iccid != null">
         `iccid` = #{iccid,jdbcType=VARCHAR},
       </if>
+      <if test="systemNum != null">
+        `system_num` = #{systemNum,jdbcType=INTEGER},
+      </if>
+      <if test="systemCodeLength != null">
+        `system_code_length` = #{systemCodeLength,jdbcType=INTEGER},
+      </if>
       <if test="systemCode != null">
         `system_code` = #{systemCode,jdbcType=VARCHAR},
       </if>
@@ -124,6 +150,8 @@
       `logout_time` = #{logoutTime,jdbcType=TIMESTAMP},
       `trace_no` = #{traceNo,jdbcType=INTEGER},
       `iccid` = #{iccid,jdbcType=VARCHAR},
+      `system_num` = #{systemNum,jdbcType=INTEGER},
+      `system_code_length` = #{systemCodeLength,jdbcType=INTEGER},
       `system_code` = #{systemCode,jdbcType=VARCHAR}
     where `id` = #{id,jdbcType=BIGINT}
   </update>

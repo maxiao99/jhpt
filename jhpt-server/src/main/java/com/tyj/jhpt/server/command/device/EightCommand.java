@@ -30,11 +30,11 @@ public class EightCommand extends DeviceAbstractCommand {
     public void deal(DeviceManagerServerHandler handler, MessageBean mb) {
         // 数据采集时间
         byte[] content = mb.getContent();
-        Date time = DeviceMsgUtils.resolveTime(content, TIME.length);
+        Date time = DeviceMsgUtils.resolveTime(content, 0);
         int offset = TIME.length;
 
         // 信息类型标志
-        byte alarmType = content[offset + MESSAGE_TYPE.length];
+        byte alarmType = content[offset];
         offset += MESSAGE_TYPE.length;
 
     }

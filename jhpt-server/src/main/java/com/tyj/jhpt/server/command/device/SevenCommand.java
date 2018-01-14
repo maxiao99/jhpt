@@ -47,7 +47,7 @@ public class SevenCommand extends DeviceAbstractCommand {
 
         DeviceGpsInfo deviceGpsInfo = new DeviceGpsInfo();
         // 数据采集时间
-        Date time = DeviceMsgUtils.resolveTime(content, TIME.length);
+        Date time = DeviceMsgUtils.resolveTime(content, 0);
         int offset = TIME.length;
         deviceGpsInfo.setEventTime(time);
 
@@ -68,7 +68,7 @@ public class SevenCommand extends DeviceAbstractCommand {
         deviceGpsInfo.setDriverPersonId(driverId);
 
         // 定位状态
-        byte locationStatus = content[offset + LOCATION_STATUS.length];
+        byte locationStatus = content[offset];
         offset += LOCATION_STATUS.length;
         deviceGpsInfo.setLocationStatus(locationStatus);
 
@@ -91,7 +91,7 @@ public class SevenCommand extends DeviceAbstractCommand {
         deviceGpsInfo.setSpeed(speed);
 
         // 信息类型标志
-        byte alarmType = content[offset + MESSAGE_TYPE.length];
+        byte alarmType = content[offset];
         offset += MESSAGE_TYPE.length;
         deviceGpsInfo.setMsgType(alarmType);
 

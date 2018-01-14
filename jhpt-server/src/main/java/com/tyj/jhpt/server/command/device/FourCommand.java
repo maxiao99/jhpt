@@ -37,7 +37,7 @@ public class FourCommand extends DeviceAbstractCommand {
     public void deal(DeviceManagerServerHandler handler, MessageBean mb) {
         // 登出时间
         byte[] content = mb.getContent();
-        Date time = DeviceMsgUtils.resolveTime(content, TIME.length);
+        Date time = DeviceMsgUtils.resolveTime(content, 0);
         int offset = TIME.length;
 
         // 登出流水号

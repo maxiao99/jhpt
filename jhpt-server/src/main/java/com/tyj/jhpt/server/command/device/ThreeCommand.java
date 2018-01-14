@@ -28,7 +28,7 @@ public class ThreeCommand extends DeviceAbstractCommand {
     public void deal(DeviceManagerServerHandler handler, MessageBean mb) {
         // 数据采集时间
         byte[] content = mb.getContent();
-        Date time = DeviceMsgUtils.resolveTime(content, 6);
+        Date time = DeviceMsgUtils.resolveTime(content, 0);
         int offset = 6;
 
         // 信息体

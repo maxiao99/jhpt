@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017. CK. All rights reserved.
+ * Copyright (c) 2018. CK. All rights reserved.
  */
 
 package com.tyj.jhpt.bo;
@@ -110,6 +110,38 @@ public abstract class CarLoginLogoutBase extends FieldAccessVo implements TableD
      */
     @ColumnDescription(desc = PROPERTY_REMARK_ICCID)
     private String iccid;
+
+    /**
+     * This field corresponds to the database column `tb_car_login_logout`.system_num
+     */
+    private static final String PROPERTY_SYSTEMNUM = "systemNum";
+
+    /**
+     * This field corresponds to the database column `tb_car_login_logout`.system_num
+     */
+    private static final String PROPERTY_REMARK_SYSTEMNUM = "可充电储能子系统数";
+
+    /**
+     * This field corresponds to the database column `tb_car_login_logout`.system_num
+     */
+    @ColumnDescription(desc = PROPERTY_REMARK_SYSTEMNUM)
+    private Integer systemNum;
+
+    /**
+     * This field corresponds to the database column `tb_car_login_logout`.system_code_length
+     */
+    private static final String PROPERTY_SYSTEMCODELENGTH = "systemCodeLength";
+
+    /**
+     * This field corresponds to the database column `tb_car_login_logout`.system_code_length
+     */
+    private static final String PROPERTY_REMARK_SYSTEMCODELENGTH = "可充电储能系统编码长度";
+
+    /**
+     * This field corresponds to the database column `tb_car_login_logout`.system_code_length
+     */
+    @ColumnDescription(desc = PROPERTY_REMARK_SYSTEMCODELENGTH)
+    private Integer systemCodeLength;
 
     /**
      * This field corresponds to the database column `tb_car_login_logout`.system_code
@@ -233,6 +265,42 @@ public abstract class CarLoginLogoutBase extends FieldAccessVo implements TableD
      */
     public void setIccid(String iccid) {
         this.iccid = iccid;
+    }
+
+    /**
+     * This method returns the value of the database column `tb_car_login_logout`.system_num
+     *
+     * @return the value of `tb_car_login_logout`.system_num
+     */
+    public Integer getSystemNum() {
+        return systemNum;
+    }
+
+    /**
+     * This method sets the value of the database column `tb_car_login_logout`.system_num
+     *
+     * @param systemNum the value for `tb_car_login_logout`.system_num
+     */
+    public void setSystemNum(Integer systemNum) {
+        this.systemNum = systemNum;
+    }
+
+    /**
+     * This method returns the value of the database column `tb_car_login_logout`.system_code_length
+     *
+     * @return the value of `tb_car_login_logout`.system_code_length
+     */
+    public Integer getSystemCodeLength() {
+        return systemCodeLength;
+    }
+
+    /**
+     * This method sets the value of the database column `tb_car_login_logout`.system_code_length
+     *
+     * @param systemCodeLength the value for `tb_car_login_logout`.system_code_length
+     */
+    public void setSystemCodeLength(Integer systemCodeLength) {
+        this.systemCodeLength = systemCodeLength;
     }
 
     /**

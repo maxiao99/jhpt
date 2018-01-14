@@ -16,6 +16,9 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
+import static com.tyj.jhpt.server.util.ByteUtils.convertGBK;
+import static com.tyj.jhpt.server.util.ByteUtils.getAsciiString;
+
 /**
  * Created by IntelliJ IDEA.
  *
@@ -31,15 +34,15 @@ public class DeviceRequestDecoder extends ReplayingDecoder {
         logger.info("######### buff=[{}]", buff);
         in.markReaderIndex();
         MessageBean mb = new MessageBean();
-        mb.setStart(ByteUtils.getAsciiString(in, 2));
+        mb.setStart(convertGBK(getAsciiString(in, 4)));
         mb.setCommandFlag(ByteUtils.readBytes(in, 1)[0]);
         mb.setRespFlag(ByteUtils.readBytes(in, 1)[0]);
-        mb.setVin(ByteUtils.getAsciiString(in, 17));
+        mb.setVin(convertGBK(getAsciiString(in, 34)));
         mb.setEncrypt(ByteUtils.readBytes(in, 1)[0]);
-        mb.setLength(ByteUtils.readInt(in));
+        mb.setLength(Integer.parseInt(getAsciiString(in, 4), 16));
 
         int instructionSize = mb.getLength();
-        if (instructionSize < 0 || instructionSize > 5) {
+        if (instructionSize < 0 || instructionSize > 65531) {
             return;
         }
         byte[] content = ByteUtils.readBytes(in, instructionSize);

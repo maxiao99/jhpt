@@ -29,7 +29,7 @@ public class TenCommand extends DeviceAbstractCommand {
     public void deal(DeviceManagerServerHandler handler, MessageBean mb) {
         // 返回参数查询时间
         byte[] content = mb.getContent();
-        Date time = DeviceMsgUtils.resolveTime(content, TIME.length);
+        Date time = DeviceMsgUtils.resolveTime(content, 0);
         int offset = TIME.length;
 
     }

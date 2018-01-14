@@ -51,8 +51,9 @@ public class OneCommand extends DeviceAbstractCommand {
     public void deal(DeviceManagerServerHandler handler, MessageBean mb) {
         byte[] content = mb.getContent();
         CarLoginLogout carLoginLogout = new CarLoginLogout();
+        carLoginLogout.setCarVin(mb.getVin());
         // 数据采集时间
-        Date time = DeviceMsgUtils.resolveTime(content, TIME.length);
+        Date time = DeviceMsgUtils.resolveTime(content, 0);
         int offset = TIME.length;
         carLoginLogout.setLoginTime(time);
 
@@ -70,15 +71,18 @@ public class OneCommand extends DeviceAbstractCommand {
         carLoginLogout.setIccid(iccid);
 
         // 可充电储能子系统数
-        byte systemNum = content[offset + SYSTEM_NUM.length];
+        byte systemNum = content[offset];
         offset += SYSTEM_NUM.length;
+        carLoginLogout.setSystemNum(systemNum >= 0 ? systemNum : 255 + systemNum);
 
         // 可充电储能系统编码长度
-        byte systemCodeLength = content[offset + SYSTEM_CODE_LENGTH.length];
+        byte systemCodeLength = content[offset];
         offset += SYSTEM_CODE_LENGTH.length;
+        carLoginLogout.setSystemCodeLength(systemCodeLength >= 0 ? systemCodeLength :255 + systemCodeLength);
 
         // 可充电储能系统编码
-        String systemCode = ByteUtils.getAsciiString(content, offset, systemCodeLength);
+        int codeLength = systemCodeLength == 0 || systemNum == 0 ? 1 : carLoginLogout.getSystemNum() * carLoginLogout.getSystemCodeLength();
+        String systemCode = ByteUtils.getAsciiString(content, offset, codeLength);
         carLoginLogout.setSystemCode(systemCode);
 
         carLoginLogoutService.saveEntitySelective(carLoginLogout);
@@ -94,7 +98,7 @@ public class OneCommand extends DeviceAbstractCommand {
 
     public static enum DataEnum {
         TIME(6, "数据采集时间"),
-        TRACE_NO(4, "登入流水号"),
+        TRACE_NO(2, "登入流水号"),
         ICCID(20, "ICCID"),
         SYSTEM_NUM(1, "可充电储能子系统数"),
         SYSTEM_CODE_LENGTH(1, "可充电储能子系统编码长度"),
