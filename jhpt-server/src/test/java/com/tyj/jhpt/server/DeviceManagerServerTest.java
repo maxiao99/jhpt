@@ -25,7 +25,12 @@ import static org.testng.Assert.*;
  */
 public class DeviceManagerServerTest {
     @Test
-    public void testMain() throws Exception {
+    public void testOne() throws Exception {
+        String data = "23230CDD0F2C40601CE84D107170C365DA15603C07B14C09445EFFE5D3637EDF861CEF8FEBD77425E7EE160FE29F0355019317FC127056E252906C";
+        send(data);
+    }
+
+    public void send(String data) {
         try {
             //创建Socket对象
             Socket socket = new Socket("localhost", 1443);
@@ -34,7 +39,7 @@ public class DeviceManagerServerTest {
             OutputStream outputStream = socket.getOutputStream();//获取一个输出流，向服务端发送信息
             PrintWriter printWriter = new PrintWriter(outputStream);//将输出流包装成打印流
 //            printWriter.print("232301FE4C5244533650454233485230303233353002001F12010E091C0000013839383630304D465353595947313233343536500000308A");
-            printWriter.print("23230CDD0F2C40601CE84D107170C365DA15603C07B14C09445EFFE5D3637EDF861CEF8FEBD77425E7EE160FE29F0355019317FC1270564C");
+            printWriter.print(data);
             printWriter.flush();
             socket.shutdownOutput();//关闭输出流
 

@@ -21,9 +21,13 @@ public class DeviceRequestDecoderTest {
     @Test
     public void testDecode() throws Exception {
         String key = "23457A6256901B4676C89A1C2D4E2A46";
-        String data = "01FE4C5244533650454233485230303233353002001F12010E091C0000013839383630304D465353595947313233343536500000308A0000";
+        String data = "01FE4C5244533650454233485230303233353002001F12010E091C0000013839383630304D46535359594731323334353650000030000000";
         byte[] encryptD = ThreeDES.encrypt(ISOUtil.hex2byte(data), ISOUtil.hex2byte(key));
         System.out.println(ISOUtil.hexString(encryptD));
+        String decryptD = "0CDD0F2C40601CE84D107170C365DA15603C07B14C09445EFFE5D3637EDF861CEF8FEBD77425E7EE160FE29F0355019317FC127056E25290";
+        byte[] decrypt = ThreeDES.decrypt(ISOUtil.hex2byte(decryptD), ISOUtil.hex2byte(key));
+        System.out.println(ISOUtil.hexString(decrypt));
+
     }
 
 }

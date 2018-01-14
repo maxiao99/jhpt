@@ -6,7 +6,6 @@ package com.tyj.jhpt.server.command.device;
 
 import com.tyj.jhpt.bo.CarLoginLogout;
 import com.tyj.jhpt.bo.DeviceInfo;
-import com.tyj.jhpt.server.command.platform.PlatformThreeCommand;
 import com.tyj.jhpt.server.command.platform.PlatformTwoCommand;
 import com.tyj.jhpt.server.message.CommandEnum;
 import com.tyj.jhpt.server.handler.DeviceManagerServerHandler;
@@ -90,7 +89,7 @@ public class OneCommand extends DeviceAbstractCommand {
 
     public MessageBean finish(MessageBean mb) {
         DeviceInfo deviceInfo = deviceInfoService.findByVin(mb.getVin());
-        if (Byte.valueOf("1").equals(deviceInfo.getIfActive())) {
+        if (deviceInfo != null && Byte.valueOf("1").equals(deviceInfo.getIfActive())) {
             return platformTwoCommand.finish(mb);
         }
         return super.finish(mb);

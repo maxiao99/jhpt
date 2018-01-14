@@ -16,6 +16,9 @@ import java.io.UnsupportedEncodingException;
  * Date: 2016/5/3
  */
 public class ByteUtils {
+
+    public static final byte[] key = ISOUtil.hex2byte("23457A6256901B4676C89A1C2D4E2A46");
+
     /**
      * 字节转换成int，采用小端模式转换
      * @param content
@@ -169,16 +172,6 @@ public class ByteUtils {
         byte[] dest = new byte[length];
         in.readBytes(dest);
         return new String(dest);
-    }
-
-    public static String convertGBK(String dest) {
-        byte[] bytes = ISOUtil.hex2byte(dest);
-        try {
-            return new String(bytes, "GBK");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        return "";
     }
 
     /**
