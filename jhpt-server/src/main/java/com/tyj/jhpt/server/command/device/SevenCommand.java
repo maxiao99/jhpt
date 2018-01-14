@@ -46,6 +46,8 @@ public class SevenCommand extends DeviceAbstractCommand {
         byte[] content = mb.getContent();
 
         DeviceGpsInfo deviceGpsInfo = new DeviceGpsInfo();
+        deviceGpsInfo.setCarVin(mb.getVin());
+
         // 数据采集时间
         Date time = DeviceMsgUtils.resolveTime(content, 0);
         int offset = TIME.length;
@@ -68,9 +70,8 @@ public class SevenCommand extends DeviceAbstractCommand {
         deviceGpsInfo.setDriverPersonId(driverId);
 
         // 定位状态
-        byte locationStatus = content[offset];
+        deviceGpsInfo.setLocationStatus(content[offset]);
         offset += LOCATION_STATUS.length;
-        deviceGpsInfo.setLocationStatus(locationStatus);
 
         // 经度
         double longitude = DeviceMsgUtils.readLatLongInfo(content, offset);
@@ -101,7 +102,7 @@ public class SevenCommand extends DeviceAbstractCommand {
                 || CarAlarmMessage.SPEED_DOWN.getCode() == alarmType
                 || CarAlarmMessage.LEFT_UP.getCode() == alarmType
                 || CarAlarmMessage.RIGHT_UP.getCode() == alarmType) {
-            byte alarmBody = content[offset + MESSAGE_BODY.length];
+            byte alarmBody = content[offset];
             offset += MESSAGE_BODY.length;
             deviceGpsInfo.setAcceleration(0xff & alarmBody);
         }
@@ -115,7 +116,7 @@ public class SevenCommand extends DeviceAbstractCommand {
         LOCATION_STATUS(1, "定位状态"),
         LONGITUDE(4, "经度"),
         LATITUDE(4, "纬度"),
-        CURRENT_CAR_DRIVER_SPEED(4, "当前车辆行驶速度"),
+        CURRENT_CAR_DRIVER_SPEED(2, "当前车辆行驶速度"),
         MESSAGE_TYPE(1, "信息类型标志"),
         MESSAGE_BODY(1, "信息体"),
         ;

@@ -25,7 +25,6 @@ import static com.tyj.jhpt.server.body.SixBody.DataEnum.min;
 import static com.tyj.jhpt.server.body.SixBody.DataEnum.minSeq;
 import static com.tyj.jhpt.server.body.SixBody.DataEnum.minSimpleNo;
 import static com.tyj.jhpt.server.body.SixBody.DataEnum.minSystemNo;
-import static com.tyj.jhpt.server.body.SixBody.DataEnum.minTemperature;
 import static com.tyj.jhpt.server.body.SixBody.DataEnum.minTemperatureSystemNo;
 
 /**
@@ -46,14 +45,14 @@ public class SixBody extends AbstractBody<SuperDto> {
     public SuperDto deal(MessageBean mb) {
         SuperDto dto = new SuperDto();
         byte[] content = mb.getContent();
-        int offset = 0;
+        int offset = 7;
 
         // 最高电压电池系统号
-        dto.setMaxSystemNo(content[offset + maxSystemNo.length]);
+        dto.setMaxSystemNo(content[offset]);
         offset += maxSystemNo.length;
 
         // 最高电压电池单体代号
-        dto.setMaxSimpleNo(content[offset + maxSimpleNo.length]);
+        dto.setMaxSimpleNo(content[offset]);
         offset += maxSimpleNo.length;
 
         // 电池单体电压最高值
@@ -65,11 +64,11 @@ public class SixBody extends AbstractBody<SuperDto> {
         dto.setMax(max);
 
         // 最低电压电池系统号
-        dto.setMinSystemNo(content[offset + minSystemNo.length]);
+        dto.setMinSystemNo(content[offset]);
         offset += minSystemNo.length;
 
         // 最低电压电池单体代号
-        dto.setMinSimpleNo(content[offset + minSimpleNo.length]);
+        dto.setMinSimpleNo(content[offset]);
         offset += minSimpleNo.length;
 
         // 电池单体电压最低值
@@ -81,29 +80,31 @@ public class SixBody extends AbstractBody<SuperDto> {
         dto.setMin(min);
 
         // 最高温度子系统号
-        dto.setMaxTemperatureSystemNo(content[offset + maxTemperatureSystemNo.length]);
+        dto.setMaxTemperatureSystemNo(content[offset]);
         offset += maxTemperatureSystemNo.length;
 
         // 最高温度探针序号
-        dto.setMaxSeq(content[offset + maxSeq.length]);
+        dto.setMaxSeq(content[offset]);
         offset += maxSeq.length;
 
         // 最高温度值
-        dto.setMaxTemperature(content[offset + maxTemperature.length]);
+        dto.setMaxTemperature(content[offset]);
         offset += maxTemperature.length;
 
         // 最低温度子系统号
-        dto.setMinTemperatureSystemNo(content[offset + minTemperatureSystemNo.length]);
+        dto.setMinTemperatureSystemNo(content[offset]);
         offset += minTemperatureSystemNo.length;
 
         // 最低温度探针序号
-        dto.setMinSeq(content[offset + minSeq.length]);
+        dto.setMinSeq(content[offset]);
         offset += minSeq.length;
 
         // 最低温度值
-        dto.setMinTemperature(content[offset + minTemperature.length]);
+        dto.setMinTemperature(content[offset]);
 
         Supers bo = new Supers();
+        bo.setCarVin(mb.getVin());
+        bo.setEventTime(mb.getEventTime());
         BeanUtils.copyProperties(dto, bo);
         supersService.saveEntitySelective(bo);
         return dto;

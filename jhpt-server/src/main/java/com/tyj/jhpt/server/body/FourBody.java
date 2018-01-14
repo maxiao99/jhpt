@@ -37,10 +37,10 @@ public class FourBody extends AbstractBody<FaDongJiDto> {
     public FaDongJiDto deal(MessageBean mb) {
         FaDongJiDto dto = new FaDongJiDto();
         byte[] content = mb.getContent();
-        int offset = 0;
+        int offset = 7;
 
         // 发动机状态
-        dto.setStatus(content[offset + status.length]);
+        dto.setStatus(content[offset]);
         offset += status.length;
 
         // 曲轴转速
@@ -59,6 +59,8 @@ public class FourBody extends AbstractBody<FaDongJiDto> {
         dto.setXiaohaolv(xiaohaolv);
 
         Fadongji bo = new Fadongji();
+        bo.setCarVin(mb.getVin());
+        bo.setEventTime(mb.getEventTime());
         BeanUtils.copyProperties(dto, bo);
         fadongjiService.saveEntitySelective(bo);
         return dto;

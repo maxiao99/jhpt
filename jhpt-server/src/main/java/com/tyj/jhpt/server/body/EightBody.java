@@ -49,9 +49,9 @@ public class EightBody extends AbstractBody<DianYasDto> {
     public DianYasDto deal(MessageBean mb) {
         DianYasDto dtos = new DianYasDto();
         byte[] content = mb.getContent();
-        int offset = 0;
+        int offset = 7;
         // 可充电储能子系统个数
-        dtos.setNumber(content[offset + 1]);
+        dtos.setNumber(content[offset]);
         offset += 1;
 
         Dianya pojo = new Dianya();
@@ -62,9 +62,8 @@ public class EightBody extends AbstractBody<DianYasDto> {
         for (int i = 0; i < dtos.getNumber(); i++) {
             DianYaDto dto = new DianYaDto();
 
-
             // 可充电储能子系统号
-            dto.setSystemNo(content[offset + systemNo.length]);
+            dto.setSystemNo(content[offset]);
             offset += systemNo.length;
 
             // 可充电储能装置电压
@@ -100,7 +99,7 @@ public class EightBody extends AbstractBody<DianYasDto> {
             dto.setSeq(seq);
 
             // 本帧单体电池总数
-            dto.setOwnSimpleTotal(content[offset + ownSimpleTotal.length]);
+            dto.setOwnSimpleTotal(content[offset]);
             offset += ownSimpleTotal.length;
 
             bytes = new byte[dto.getOwnSimpleTotal()];

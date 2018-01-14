@@ -47,17 +47,17 @@ public class OneBody extends AbstractBody<AllCarDto> {
     public AllCarDto deal(MessageBean mb) {
         AllCarDto dto = new AllCarDto();
         byte[] content = mb.getContent();
-        int offset = 0;
+        int offset = 7;
         // 车辆状态
-        dto.setCarStatus(content[offset + carStatus.length]);
+        dto.setCarStatus(content[offset]);
         offset += carStatus.length;
 
         // 充电状态
-        dto.setChangeStatus(content[offset + changeStatus.length]);
+        dto.setChangeStatus(content[offset]);
         offset += changeStatus.length;
 
         // 运行模式
-        dto.setRunMode(content[offset + runMode.length]);
+        dto.setRunMode(content[offset]);
         offset += runMode.length;
 
         // 车速
@@ -93,15 +93,15 @@ public class OneBody extends AbstractBody<AllCarDto> {
         dto.setTotalElectricity(totalElectricity);
 
         // SOC
-        dto.setSoc(content[offset + soc.length]);
+        dto.setSoc(content[offset]);
         offset += soc.length;
 
         // DC-DC状态
-        dto.setDcStatus(content[offset + dcStatus.length]);
+        dto.setDcStatus(content[offset]);
         offset += dcStatus.length;
 
         // 挡位
-        dto.setDangwei(content[offset + dangwei.length]);
+        dto.setDangwei(content[offset]);
         offset += dangwei.length;
 
         // 绝缘电阻
@@ -113,13 +113,15 @@ public class OneBody extends AbstractBody<AllCarDto> {
         dto.setInsulationResistance(insulationResistance);
 
         // 加速踏板行程值
-        dto.setUpFootplateKm(content[offset + upFootplateKm.length]);
+        dto.setUpFootplateKm(content[offset]);
         offset += upFootplateKm.length;
 
         // 制动踏板状态
-        dto.setFootplateStatus(content[offset + footplateStatus.length]);
+        dto.setFootplateStatus(content[offset]);
 
         AllCar bo = new AllCar();
+        bo.setCarVin(mb.getVin());
+        bo.setEventTime(mb.getEventTime());
         BeanUtils.copyProperties(dto, bo);
         allCarService.saveEntitySelective(bo);
         return dto;

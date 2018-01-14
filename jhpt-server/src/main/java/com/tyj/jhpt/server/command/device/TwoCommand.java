@@ -29,11 +29,11 @@ public class TwoCommand extends DeviceAbstractCommand {
         // 数据采集时间
         byte[] content = mb.getContent();
         Date time = DeviceMsgUtils.resolveTime(content, 0);
-        int offset = 6;
         mb.setEventTime(time);
+        int offset = 6;
 
         // 信息体
-        byte typeFlag = content[offset + 1];
+        byte typeFlag = content[offset];
 
         for (Body body : bodyList) {
             if (body.support(typeFlag)) {

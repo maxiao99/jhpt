@@ -37,10 +37,10 @@ public class FiveBody extends AbstractBody<CarLocationDto> {
     public CarLocationDto deal(MessageBean mb) {
         CarLocationDto dto = new CarLocationDto();
         byte[] content = mb.getContent();
-        int offset = 0;
+        int offset = 7;
 
         // 定位状态
-        dto.setLocationStatus(content[offset + locationStatus.length]);
+        dto.setLocationStatus(content[offset]);
         offset += locationStatus.length;
 
         // 经度
@@ -54,6 +54,8 @@ public class FiveBody extends AbstractBody<CarLocationDto> {
         dto.setLatitude(latitude);
 
         CarLocation bo = new CarLocation();
+        bo.setCarVin(mb.getVin());
+        bo.setEventTime(mb.getEventTime());
         BeanUtils.copyProperties(dto, bo);
         carLocationService.saveEntitySelective(bo);
         return dto;

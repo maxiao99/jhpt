@@ -36,7 +36,7 @@ public class SixCommand extends DeviceAbstractCommand {
         byte hourb = Byte.parseByte(Integer.toHexString(hour));
         byte minuteb = Byte.parseByte(Integer.toHexString(minute));
         byte secondb = Byte.parseByte(Integer.toHexString(second));
-        mb.setContent(new byte[]{0x00, 0x06, yearb, monthb, dateb, hourb, minuteb, secondb});
+        mb.setContent(new byte[]{yearb, monthb, dateb, hourb, minuteb, secondb});
         return mb;
     }
 }

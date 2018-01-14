@@ -43,6 +43,8 @@ public class NineCommand extends DeviceAbstractCommand {
         byte[] content = mb.getContent();
 
         DriverPerson driverPerson = new DriverPerson();
+        driverPerson.setCarVin(mb.getVin());
+
         // 数据采集时间
         Date time = DeviceMsgUtils.resolveTime(content, 0);
         int offset = TIME.length;

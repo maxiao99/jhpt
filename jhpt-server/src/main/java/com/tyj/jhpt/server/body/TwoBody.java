@@ -52,9 +52,9 @@ public class TwoBody extends AbstractBody<QuDongDianJisDto> {
         QuDongDianJisDto dtos = new QuDongDianJisDto();
 
         byte[] content = mb.getContent();
-        int offset = 0;
+        int offset = 7;
         // 车辆状态
-        dtos.setNumber(content[offset + 1]);
+        dtos.setNumber(content[offset]);
         offset += 1;
 
         QudongDianji qudongDianji = new QudongDianji();
@@ -65,15 +65,15 @@ public class TwoBody extends AbstractBody<QuDongDianJisDto> {
             QuDongDianJiDto dto = new QuDongDianJiDto();
 
             // 驱动电机序号
-            dto.setSeq(content[offset + seq.length]);
+            dto.setSeq(content[offset]);
             offset += seq.length;
 
             // 驱动电机状态
-            dto.setStatus(content[offset + status.length]);
+            dto.setStatus(content[offset]);
             offset += status.length;
 
             // 驱动电机控制器温度
-            dto.setControlTemperature(content[offset + controlTemperature.length]);
+            dto.setControlTemperature(content[offset]);
             offset += controlTemperature.length;
 
             // 驱动电机转速
@@ -93,7 +93,7 @@ public class TwoBody extends AbstractBody<QuDongDianJisDto> {
             dto.setZhuanju(zhuanju);
 
             // 驱动电机温度
-            dto.setTemperature(content[offset + temperature.length]);
+            dto.setTemperature(content[offset]);
             offset += temperature.length;
 
             // 电机控制器输入电压

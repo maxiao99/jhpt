@@ -46,9 +46,9 @@ public class NineBody extends AbstractBody<WenDusDto> {
         WenDusDto dtos = new WenDusDto();
 
         byte[] content = mb.getContent();
-        int offset = 0;
+        int offset = 7;
         // 可充电储能子系统个数
-        dtos.setNumber(content[offset + 1]);
+        dtos.setNumber(content[offset]);
         offset += 1;
 
         Wendu wendu = new Wendu();
@@ -59,9 +59,8 @@ public class NineBody extends AbstractBody<WenDusDto> {
         for (int i = 0; i < dtos.getNumber(); i++) {
             WenDuDto dto = new WenDuDto();
 
-
             // 可充电储能子系统号
-            dto.setSystemNo(content[offset + systemNo.length]);
+            dto.setSystemNo(content[offset]);
             offset += systemNo.length;
 
             // 可充电储能温度探针个数

@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.math.BigInteger;
 
-import static com.tyj.jhpt.server.body.ThreeBody.DataEnum.dcStatus;
 import static com.tyj.jhpt.server.body.ThreeBody.DataEnum.dianliu;
 import static com.tyj.jhpt.server.body.ThreeBody.DataEnum.dianya;
 import static com.tyj.jhpt.server.body.ThreeBody.DataEnum.maxConcentration;
@@ -45,7 +44,7 @@ public class ThreeBody extends AbstractBody<RanLiaoDianChiDto> {
     public RanLiaoDianChiDto deal(MessageBean mb) {
         RanLiaoDianChiDto dto = new RanLiaoDianChiDto();
         byte[] content = mb.getContent();
-        int offset = 0;
+        int offset = 7;
         // 燃料电池电压
         byte[] bytes = new byte[dianya.length];
         System.arraycopy(content, offset, bytes, 0, dianya.length);
@@ -93,7 +92,7 @@ public class ThreeBody extends AbstractBody<RanLiaoDianChiDto> {
         dto.setMaxTemperature(maxTemperature);
 
         // 氢系统中最高温度探针代号
-        dto.setMaxTanzhenNo(content[offset + maxTanzhenNo.length]);
+        dto.setMaxTanzhenNo(content[offset]);
         offset += maxTanzhenNo.length;
 
         // 氢气最高浓度
@@ -105,7 +104,7 @@ public class ThreeBody extends AbstractBody<RanLiaoDianChiDto> {
         dto.setMaxConcentration(maxConcentration);
 
         // 氢气最高浓度传感器代号
-        dto.setMaxConcentrationNo(content[offset + maxConcentrationNo.length]);
+        dto.setMaxConcentrationNo(content[offset]);
         offset += maxConcentrationNo.length;
 
         // 氢气最高压力
@@ -117,13 +116,15 @@ public class ThreeBody extends AbstractBody<RanLiaoDianChiDto> {
         dto.setMaxPressure(maxPressure);
 
         // 氢气最高压力传感器代号
-        dto.setMaxPressureNo(content[offset + maxPressureNo.length]);
+        dto.setMaxPressureNo(content[offset]);
         offset += maxPressureNo.length;
 
         // 高压DC/DC状态
-        dto.setDcStatus(content[offset + dcStatus.length]);
+        dto.setDcStatus(content[offset]);
 
         RanliaoDianchi bo = new RanliaoDianchi();
+        bo.setCarVin(mb.getVin());
+        bo.setEventTime(mb.getEventTime());
         BeanUtils.copyProperties(dto, bo);
         ranliaoDianchiService.saveEntitySelective(bo);
         return dto;

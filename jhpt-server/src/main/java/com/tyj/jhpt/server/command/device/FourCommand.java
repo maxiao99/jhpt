@@ -54,7 +54,7 @@ public class FourCommand extends DeviceAbstractCommand {
 
     public static enum DataEnum {
         TIME(6, "登出时间"),
-        TRACE_NO(4, "登出流水号"),
+        TRACE_NO(2, "登出流水号"),
         ;
         private int length;
         private String desc;
