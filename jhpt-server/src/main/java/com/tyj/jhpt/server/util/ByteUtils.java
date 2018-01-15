@@ -105,34 +105,6 @@ public class ByteUtils {
     }
 
     /**
-     * 将协议数据里的内容解密后再传进来
-     *
-     * @param encryptIndex
-     * @param content
-     * @return
-     */
-    public static byte[] decode(byte encryptIndex, byte[] content) {
-        if (encryptIndex == 0) {
-            return content;
-        }
-        byte[] key = new byte[]{encryptIndex};
-        return ThreeDES.decrypt(content, key);
-    }
-
-    /**
-     * 使用给定的密钥序号对内容进行加密
-     *
-     * @param encryptIndex
-     * @param content
-     * @return
-     */
-    public static byte[] encrypt(byte encryptIndex, byte[] content) {
-        content = completeData(content);
-        byte[] key = new byte[]{encryptIndex};
-        return ThreeDES.encrypt(content, key);
-    }
-
-    /**
      * 按照加密算法的要求，加密的数据块必须是8个字节的整数倍。这里对加密的数据块进行补全
      *
      * @param content

@@ -21,7 +21,7 @@ import static com.tyj.jhpt.server.util.ByteUtils.getAsciiString;
 import static com.tyj.jhpt.server.util.ByteUtils.getGBKString;
 
 /**
- * Created by IntelliJ IDEA.
+ * 解析终端上送数据
  *
  * @author: CK
  * @date: 2017/12/7
@@ -50,7 +50,7 @@ public class DeviceRequestDecoder extends ReplayingDecoder {
         }
 
         byte[] bytes = ThreeDES.decrypt(encryptDataB, ByteUtils.key);
-        logger.info("actualLength:{} content: {}", ISOUtil.hexString(bytes));
+        logger.info("decrypt content: {}", ISOUtil.hexString(bytes));
 
         int offset = 0;
         // 命令标识
@@ -67,7 +67,7 @@ public class DeviceRequestDecoder extends ReplayingDecoder {
         offset += 1;
         // 数据单元长度
         byte[] tmp = new byte[2];
-        tmp[0] = bytes[offset ];
+        tmp[0] = bytes[offset];
         tmp[1] = bytes[offset + 1];;
         mb.setLength(Integer.parseInt(ISOUtil.hexString(tmp), 16));
         offset += 2;

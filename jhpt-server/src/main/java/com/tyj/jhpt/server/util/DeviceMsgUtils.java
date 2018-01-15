@@ -45,17 +45,17 @@ public class DeviceMsgUtils {
         byte[] date = new byte[6];
         Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR) - 2000;
-        date[0] = (byte) year;
+        date[0] = Byte.parseByte(Integer.toHexString(year));
         int month = c.get(Calendar.MONTH) + 1;
-        date[1] = (byte) month;
+        date[1] = Byte.parseByte(Integer.toHexString(month));
         int day = c.get(Calendar.DAY_OF_MONTH);
-        date[2] = (byte) day;
+        date[2] = Byte.parseByte(Integer.toHexString(day));
         int hour = c.get(Calendar.HOUR_OF_DAY);
-        date[3] = (byte) hour;
+        date[3] = Byte.parseByte(Integer.toHexString(hour));
         int minute = c.get(Calendar.MINUTE);
-        date[4] = (byte) minute;
+        date[4] = Byte.parseByte(Integer.toHexString(minute));
         int second = c.get(Calendar.SECOND);
-        date[5] = (byte) second;
+        date[5] = Byte.parseByte(Integer.toHexString(second));
         return date;
     }
 
@@ -83,29 +83,5 @@ public class DeviceMsgUtils {
     public static Float parseAcceleration(byte[] content, int offset) {
         int a = 0xff & content[offset];
         return (float) (a * 1.0 / 10);
-    }
-
-    public static String formatActivateMsg(Long deviceId) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("【天盈健】Act,");
-        sb.append(getFullHexString(deviceId));
-        sb.append(",$设备激活提醒，请输入激活码激活设备");
-        return sb.toString();
-    }
-
-    public static String getFullHexString(long deviceId) {
-        String x = Long.toHexString(deviceId);
-        if (x.length() < 8) {
-            x = repeat("0", 8 - x.length()) + x;
-        }
-        return x;
-    }
-
-    private static String repeat(String string, int i) {
-        String re = "";
-        for (int j = 0; j < i; j++) {
-            re += string;
-        }
-        return re;
     }
 }

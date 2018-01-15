@@ -24,7 +24,6 @@ import com.tyj.jhpt.bo.WenduDetail;
 import com.tyj.jhpt.server.command.platform.PlatformThreeCommand;
 import com.tyj.jhpt.server.command.platform.PlatformTwoCommand;
 import com.tyj.jhpt.server.message.MessageBean;
-import com.tyj.jhpt.server.util.DeviceMsgUtils;
 import com.tyj.jhpt.service.AlarmService;
 import com.tyj.jhpt.service.AllCarService;
 import com.tyj.jhpt.service.DeviceGpsInfoService;
@@ -32,7 +31,6 @@ import com.tyj.jhpt.service.CompositeDictionaryService;
 import com.tyj.jhpt.service.DianyaDetailService;
 import com.tyj.jhpt.service.DianyaService;
 import com.tyj.jhpt.service.FadongjiService;
-import com.tyj.jhpt.service.IShortMsgSender;
 import com.tyj.jhpt.service.DeviceInfoService;
 import com.tyj.jhpt.service.QudongDianjiDetailService;
 import com.tyj.jhpt.service.QudongDianjiService;
@@ -70,9 +68,6 @@ import java.util.*;
 public class DeviceInfoController extends AbstractController {
     @Resource(name = "deviceInfoService")
     DeviceInfoService deviceInfoService;
-
-    @Resource(name = "yunpianShortMessageSender")
-    IShortMsgSender shortMessageSender;
 
     @Resource(name = "deviceGpsInfoService")
     DeviceGpsInfoService deviceGpsInfoService;
@@ -179,11 +174,7 @@ public class DeviceInfoController extends AbstractController {
     public String activate(@RequestParam("carVin") Long id,
                            @RequestParam(value = "testTime", required = false) String testTime) {
         DeviceInfo dev = deviceInfoService.findById(id);
-        if (StringUtils.isNotBlank(testTime)) {
-            dev.setOutofdateTime(DateUtil.parse(DateUtil.yyyy_MM_dd_HH_mm_ss, testTime));
-        }
-        int send = shortMessageSender.send(dev.getIccid(), DeviceMsgUtils.formatActivateMsg(id));
-        if (send == 0) {
+        if (dev != null) {
             return JsonResp.asData().success().toJson();
         }
         return JsonResp.asData().error("激活短信发送失败").toJson();
