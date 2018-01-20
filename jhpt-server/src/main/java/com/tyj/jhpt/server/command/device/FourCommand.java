@@ -4,6 +4,7 @@
 
 package com.tyj.jhpt.server.command.device;
 
+import com.github.fartherp.framework.common.util.DateUtil;
 import com.tyj.jhpt.bo.CarLoginLogout;
 import com.tyj.jhpt.server.message.CommandEnum;
 import com.tyj.jhpt.server.handler.DeviceManagerServerHandler;
@@ -47,7 +48,8 @@ public class FourCommand extends DeviceAbstractCommand {
         BigInteger bigInteger = new BigInteger(bytes);
         int traceNo = bigInteger.intValue();
 
-        CarLoginLogout carLoginLogout = carLoginLogoutService.findByVinAndTraceNo(mb.getVin(), traceNo);
+        String date = DateUtil.format(DateUtil.yyyy_MM_dd, time);
+        CarLoginLogout carLoginLogout = carLoginLogoutService.findByVinAndTraceNo(mb.getVin(), traceNo, date);
         carLoginLogout.setLogoutTime(time);
         carLoginLogoutService.updateEntitySelective(carLoginLogout);
     }

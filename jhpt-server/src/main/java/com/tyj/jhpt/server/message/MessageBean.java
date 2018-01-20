@@ -109,7 +109,7 @@ public class MessageBean {
     }
 
     public byte[] getBytes() {
-        byte[] bs = new byte[24 + content.length];
+        byte[] bs = new byte[24];
         int offset = 0;
         bs[offset] = commandFlag;
         offset += 1;
@@ -128,7 +128,6 @@ public class MessageBean {
         offset += 1;
         bs[offset] = (byte)length;
         offset += 1;
-        System.arraycopy(content, 0, bs, offset, content.length);
         return bs;
     }
 }

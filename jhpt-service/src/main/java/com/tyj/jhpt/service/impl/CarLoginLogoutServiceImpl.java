@@ -25,7 +25,7 @@ public class CarLoginLogoutServiceImpl extends GenericSqlMapServiceImpl<CarLogin
         return carLoginLogoutDao;
     }
 
-    public CarLoginLogout findByVinAndTraceNo(String vin, int traceNo) {
-        return carLoginLogoutDao.findByVinAndTraceNo(vin, traceNo);
+    public CarLoginLogout findByVinAndTraceNo(String vin, int traceNo, String date) {
+        return carLoginLogoutDao.findByVinAndTraceNo(vin, traceNo, date);
     }
 }

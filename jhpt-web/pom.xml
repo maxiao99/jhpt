@@ -16,7 +16,7 @@
     </properties>
 
     <build>
-        <finalName>ROOT</finalName>
+        <finalName>jhpt</finalName>
         <defaultGoal>compile</defaultGoal>
         <resources>
             <resource>

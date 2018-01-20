@@ -128,7 +128,7 @@ public class ByteUtils {
             return 0;
         }
         byte re = content[0];
-        for (int i = 1; i < content.length; i++) {
+        for (int i = 1; i < content.length - 1; i++) {
             re ^= content[i];
         }
         return re;

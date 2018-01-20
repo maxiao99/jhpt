@@ -12,5 +12,5 @@ import com.tyj.jhpt.bo.CarLoginLogout;
  */
 public interface CarLoginLogoutService extends GenericService<CarLoginLogout, Long> {
 
-    CarLoginLogout findByVinAndTraceNo(String vin, int traceNo);
+    CarLoginLogout findByVinAndTraceNo(String vin, int traceNo, String date);
 }

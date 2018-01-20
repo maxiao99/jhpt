@@ -32,7 +32,6 @@ public abstract class DeviceAbstractCommand extends AbstractCommand implements D
     }
 
     public MessageBean finish(MessageBean mb) {
-        mb.setContent(new byte[]{0x00});
         return mb;
     }
 }

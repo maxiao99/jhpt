@@ -29,32 +29,34 @@ public class DeviceResponseEncoder extends MessageToMessageEncoder<MessageBean> 
         ByteBuf buffer = ctx.alloc().buffer();
         // 起始符
         buffer.writeBytes(msg.getStart().getBytes());
-        StringBuilder sb = new StringBuilder();
         // 命令标识
-        sb.append(ISOUtil.hexString(new byte[]{msg.getCommandFlag()}));
+        buffer.writeByte((byte)1);
         // 应答标致
-        sb.append(ISOUtil.hexString(new byte[]{msg.getRespFlag()}));
+        buffer.writeByte(msg.getRespFlag());
         // vin
-        sb.append(ISOUtil.hexString(msg.getVin().getBytes("GBK")));
+        buffer.writeBytes(msg.getVin().getBytes("GBK"));
         // 数据加密方式
-        sb.append(ISOUtil.hexString(new byte[]{msg.getEncrypt()}));
+        buffer.writeByte(msg.getEncrypt());
         // 数据单元长度
         String length = Integer.toHexString(msg.getContent().length);
-        sb.append(ISOUtil.zeropad(length, 4));
-        // 数据单元
-        sb.append(ISOUtil.hexString(msg.getContent()));
+        buffer.writeBytes(ISOUtil.zeropad(length, 4).getBytes());
+
+        byte[] content = msg.getContent();
         // 0补位
-        int diff = 8 - (sb.length() % 8);
-        for (int i = 0; i < diff; i++) {
-            sb.append("0");
-        }
-        String data = sb.toString();
-        logger.info("######### Response data=[{}]", data);
-        byte[] encryptD = ThreeDES.encrypt(ISOUtil.hex2byte(data), ByteUtils.key);
+        int diff = 8 - (content.length % 8);
+        diff = (diff == 8) ? 0 : diff;
+        byte[] data = new byte[content.length + diff];
+        System.arraycopy(content, 0, data, 0, content.length);
+        byte[] encryptD = ThreeDES.encrypt(data, ByteUtils.key);
         buffer.writeBytes(encryptD);
+
+        byte[] bytes = new byte[24 + encryptD.length + 1];
+        System.arraycopy(msg.getBytes(), 0, bytes, 0, 24);
+        System.arraycopy(encryptD, 0, bytes, 24, encryptD.length);
         // 检验码
-        byte b = ByteUtils.calculate(encryptD);
+        byte b = ByteUtils.calculate(bytes);
         buffer.writeByte(b);
+        logger.info("######### Response data=[{}]", ISOUtil.hexString(new byte[]{b}));
         out.add(buffer);
     }
 }

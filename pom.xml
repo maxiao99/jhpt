@@ -99,8 +99,8 @@
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <version>2.2</version>
                 <configuration>
-                    <url>http://localhost:80</url>
-                    <path>/</path>
+                    <url>http://localhost:80/jhpt</url>
+                    <path>/jhpt</path>
                     <uriEncoding>UTF-8</uriEncoding>
                     <port>80</port>
                 </configuration>
