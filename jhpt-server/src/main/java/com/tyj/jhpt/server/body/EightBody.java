@@ -46,10 +46,10 @@ public class EightBody extends AbstractBody<DianYasDto> {
     @Resource(name = "dianyaDetailService")
     DianyaDetailService dianyaDetailService;
 
-    public DianYasDto deal(MessageBean mb) {
+    public int deal(MessageBean mb, int offset) {
         DianYasDto dtos = new DianYasDto();
         byte[] content = mb.getContent();
-        int offset = 7;
+
         // 可充电储能子系统个数
         dtos.setNumber(content[offset]);
         offset += 1;
@@ -102,7 +102,7 @@ public class EightBody extends AbstractBody<DianYasDto> {
             dto.setOwnSimpleTotal(content[offset]);
             offset += ownSimpleTotal.length;
 
-            bytes = new byte[dto.getOwnSimpleTotal()];
+            bytes = new byte[dto.getOwnSimpleTotal() * 2];
             System.arraycopy(content, offset, bytes, 0, dto.getOwnSimpleTotal());
             offset += dto.getOwnSimpleTotal();
             dto.setSimpleTotals(bytes);
@@ -120,15 +120,15 @@ public class EightBody extends AbstractBody<DianYasDto> {
             }
             dianyaDetailService.saveBatch(list);
         }
-        return dtos;
+        return offset;
     }
 
     public static enum DataEnum {
         systemNo(1, "可充电储能子系统号"),
-        dianya(4, "可充电储能装置电压"),
-        dianliu(4, "可充电储能装置电流"),
-        simpleTotal(4, "单体电池总数"),
-        seq(4, "本帧起始电池序号"),
+        dianya(2, "可充电储能装置电压"),
+        dianliu(2, "可充电储能装置电流"),
+        simpleTotal(2, "单体电池总数"),
+        seq(2, "本帧起始电池序号"),
         ownSimpleTotal(1, "本帧单体电池总数"),
         ;
         private int length;

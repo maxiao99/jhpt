@@ -42,11 +42,11 @@ public class NineBody extends AbstractBody<WenDusDto> {
     @Resource(name = "wenduDetailService")
     WenduDetailService wenduDetailService;
 
-    public WenDusDto deal(MessageBean mb) {
+    public int deal(MessageBean mb, int offset) {
         WenDusDto dtos = new WenDusDto();
 
         byte[] content = mb.getContent();
-        int offset = 7;
+
         // 可充电储能子系统个数
         dtos.setNumber(content[offset]);
         offset += 1;
@@ -89,12 +89,12 @@ public class NineBody extends AbstractBody<WenDusDto> {
             }
             wenduDetailService.saveBatch(list);
         }
-        return dtos;
+        return offset;
     }
 
     public static enum DataEnum {
         systemNo(1, "可充电储能子系统号"),
-        count(4, "可充电储能温度探针个数"),
+        count(2, "可充电储能温度探针个数"),
         ;
         private int length;
         private String desc;

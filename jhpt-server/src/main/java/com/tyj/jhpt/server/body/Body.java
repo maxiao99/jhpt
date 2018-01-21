@@ -16,5 +16,5 @@ public interface Body<T> {
 
     boolean support(byte type);
 
-    T deal(MessageBean mb);
+    int deal(MessageBean mb, int offset);
 }

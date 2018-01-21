@@ -56,7 +56,7 @@ public class DeviceResponseEncoder extends MessageToMessageEncoder<MessageBean> 
         // 检验码
         byte b = ByteUtils.calculate(bytes);
         buffer.writeByte(b);
-        logger.info("######### Response data=[{}]", ISOUtil.hexString(new byte[]{b}));
+        logger.info("######### Response data=[{}] mac=[{}]", ISOUtil.hexString(content), ISOUtil.hexString(new byte[]{b}));
         out.add(buffer);
     }
 }

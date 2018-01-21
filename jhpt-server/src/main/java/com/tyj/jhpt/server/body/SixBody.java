@@ -25,6 +25,7 @@ import static com.tyj.jhpt.server.body.SixBody.DataEnum.min;
 import static com.tyj.jhpt.server.body.SixBody.DataEnum.minSeq;
 import static com.tyj.jhpt.server.body.SixBody.DataEnum.minSimpleNo;
 import static com.tyj.jhpt.server.body.SixBody.DataEnum.minSystemNo;
+import static com.tyj.jhpt.server.body.SixBody.DataEnum.minTemperature;
 import static com.tyj.jhpt.server.body.SixBody.DataEnum.minTemperatureSystemNo;
 
 /**
@@ -42,10 +43,9 @@ public class SixBody extends AbstractBody<SuperDto> {
     @Resource(name = "supersService")
     SupersService supersService;
 
-    public SuperDto deal(MessageBean mb) {
+    public int deal(MessageBean mb, int offset) {
         SuperDto dto = new SuperDto();
         byte[] content = mb.getContent();
-        int offset = 7;
 
         // 最高电压电池系统号
         dto.setMaxSystemNo(content[offset]);
@@ -101,22 +101,23 @@ public class SixBody extends AbstractBody<SuperDto> {
 
         // 最低温度值
         dto.setMinTemperature(content[offset]);
+        offset += minTemperature.length;
 
         Supers bo = new Supers();
         bo.setCarVin(mb.getVin());
         bo.setEventTime(mb.getEventTime());
         BeanUtils.copyProperties(dto, bo);
         supersService.saveEntitySelective(bo);
-        return dto;
+        return offset;
     }
 
     public static enum DataEnum {
         maxSystemNo(1, "最高电压电池系统号"),
         maxSimpleNo(1, "最高电压电池单体代号"),
-        max(4, "电池单体电压最高值"),
+        max(2, "电池单体电压最高值"),
         minSystemNo(1, "最低电压电池系统号"),
         minSimpleNo(1, "最低电压电池单体代号"),
-        min(4, "电池单体电压最低值"),
+        min(2, "电池单体电压最低值"),
         maxTemperatureSystemNo(1, "最高温度子系统号"),
         maxSeq(1, "最高温度探针序号"),
         maxTemperature(1, "最高温度值"),

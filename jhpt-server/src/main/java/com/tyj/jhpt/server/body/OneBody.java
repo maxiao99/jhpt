@@ -44,10 +44,10 @@ public class OneBody extends AbstractBody<AllCarDto> {
     @Resource(name = "allCarService")
     AllCarService allCarService;
 
-    public AllCarDto deal(MessageBean mb) {
+    public int deal(MessageBean mb, int offset) {
         AllCarDto dto = new AllCarDto();
         byte[] content = mb.getContent();
-        int offset = 7;
+
         // 车辆状态
         dto.setCarStatus(content[offset]);
         offset += carStatus.length;
@@ -66,7 +66,7 @@ public class OneBody extends AbstractBody<AllCarDto> {
         offset += speed.length;
         BigInteger bigInteger = new BigInteger(bytes);
         int speed = bigInteger.intValue();
-        dto.setSpeed(speed);
+        dto.setSpeed(speed / 10);
 
         // 累计里程
         bytes = new byte[totalKm.length];
@@ -74,7 +74,7 @@ public class OneBody extends AbstractBody<AllCarDto> {
         offset += totalKm.length;
         bigInteger = new BigInteger(bytes);
         int totalKm = bigInteger.intValue();
-        dto.setTotalKm(totalKm);
+        dto.setTotalKm(totalKm / 10);
 
         // 总电压
         bytes = new byte[totalVoltage.length];
@@ -82,7 +82,7 @@ public class OneBody extends AbstractBody<AllCarDto> {
         offset += totalVoltage.length;
         bigInteger = new BigInteger(bytes);
         int totalVoltage = bigInteger.intValue();
-        dto.setTotalVoltage(totalVoltage);
+        dto.setTotalVoltage(totalVoltage / 10);
 
         // 总电流
         bytes = new byte[totalElectricity.length];
@@ -90,7 +90,7 @@ public class OneBody extends AbstractBody<AllCarDto> {
         offset += totalElectricity.length;
         bigInteger = new BigInteger(bytes);
         int totalElectricity = bigInteger.intValue();
-        dto.setTotalElectricity(totalElectricity);
+        dto.setTotalElectricity(totalElectricity / 10);
 
         // SOC
         dto.setSoc(content[offset]);
@@ -118,27 +118,28 @@ public class OneBody extends AbstractBody<AllCarDto> {
 
         // 制动踏板状态
         dto.setFootplateStatus(content[offset]);
+        offset += footplateStatus.length;
 
         AllCar bo = new AllCar();
         bo.setCarVin(mb.getVin());
         bo.setEventTime(mb.getEventTime());
         BeanUtils.copyProperties(dto, bo);
         allCarService.saveEntitySelective(bo);
-        return dto;
+        return offset;
     }
 
     public static enum DataEnum {
         carStatus(1, "车辆状态"),
         changeStatus(1, "充电状态"),
         runMode(1, "运行模式"),
-        speed(4, "车速"),
+        speed(2, "车速"),
         totalKm(4, "累计里程"),
-        totalVoltage(4, "总电压"),
-        totalElectricity(4, "总电流"),
+        totalVoltage(2, "总电压"),
+        totalElectricity(2, "总电流"),
         soc(1, "SOC"),
         dcStatus(1, "DC-DC状态"),
         dangwei(1, "挡位"),
-        insulationResistance(4, "绝缘电阻"),
+        insulationResistance(2, "绝缘电阻"),
         upFootplateKm(1, "加速踏板行程值"),
         footplateStatus(1, "制动踏板状态"),
         ;

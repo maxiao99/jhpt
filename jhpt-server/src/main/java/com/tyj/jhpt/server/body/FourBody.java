@@ -34,10 +34,9 @@ public class FourBody extends AbstractBody<FaDongJiDto> {
     @Resource(name = "fadongjiService")
     FadongjiService fadongjiService;
 
-    public FaDongJiDto deal(MessageBean mb) {
+    public int deal(MessageBean mb, int offset) {
         FaDongJiDto dto = new FaDongJiDto();
         byte[] content = mb.getContent();
-        int offset = 7;
 
         // 发动机状态
         dto.setStatus(content[offset]);
@@ -54,6 +53,7 @@ public class FourBody extends AbstractBody<FaDongJiDto> {
         // 燃料消耗率
         bytes = new byte[xiaohaolv.length];
         System.arraycopy(content, offset, bytes, 0, xiaohaolv.length);
+        offset += xiaohaolv.length;
         bigInteger = new BigInteger(bytes);
         int xiaohaolv = bigInteger.intValue();
         dto.setXiaohaolv(xiaohaolv);
@@ -63,13 +63,13 @@ public class FourBody extends AbstractBody<FaDongJiDto> {
         bo.setEventTime(mb.getEventTime());
         BeanUtils.copyProperties(dto, bo);
         fadongjiService.saveEntitySelective(bo);
-        return dto;
+        return offset;
     }
 
     public static enum DataEnum {
         status(1, "发动机状态"),
-        speed(4, "曲轴转速"),
-        xiaohaolv(4, "燃料消耗率"),
+        speed(2, "曲轴转速"),
+        xiaohaolv(2, "燃料消耗率"),
         ;
         private int length;
         private String desc;

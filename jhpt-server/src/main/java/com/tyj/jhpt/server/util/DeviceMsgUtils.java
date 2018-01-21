@@ -4,6 +4,8 @@
 
 package com.tyj.jhpt.server.util;
 
+import com.github.fartherp.framework.common.util.ISOUtil;
+
 import java.util.Calendar;
 import java.util.Date;
 
@@ -45,17 +47,17 @@ public class DeviceMsgUtils {
         byte[] date = new byte[6];
         Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR) - 2000;
-        date[0] = Byte.parseByte(Integer.toHexString(year));
-        int month = c.get(Calendar.MONTH) + 1;
-        date[1] = Byte.parseByte(Integer.toHexString(month));
+        date[0] = ISOUtil.hex2byte(Integer.toHexString(year))[0];
+        int month = c.get(Calendar.MONTH);
+        date[1] = ISOUtil.hex2byte(Integer.toHexString(month))[0];
         int day = c.get(Calendar.DAY_OF_MONTH);
-        date[2] = Byte.parseByte(Integer.toHexString(day));
+        date[2] = ISOUtil.hex2byte(Integer.toHexString(day))[0];
         int hour = c.get(Calendar.HOUR_OF_DAY);
-        date[3] = Byte.parseByte(Integer.toHexString(hour));
+        date[3] = ISOUtil.hex2byte(Integer.toHexString(hour))[0];
         int minute = c.get(Calendar.MINUTE);
-        date[4] = Byte.parseByte(Integer.toHexString(minute));
+        date[4] = ISOUtil.hex2byte(Integer.toHexString(minute))[0];
         int second = c.get(Calendar.SECOND);
-        date[5] = Byte.parseByte(Integer.toHexString(second));
+        date[5] = ISOUtil.hex2byte(Integer.toHexString(second))[0];
         return date;
     }
 

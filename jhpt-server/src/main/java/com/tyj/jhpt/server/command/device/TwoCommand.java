@@ -22,7 +22,7 @@ import java.util.Date;
 @Component
 public class TwoCommand extends DeviceAbstractCommand {
     public TwoCommand() {
-        super(CommandEnum.RELOAD_SEND.getType());
+        super(CommandEnum.REAL_TIME_MESSAGE_UPLOAD.getType());
     }
 
     public void deal(DeviceManagerServerHandler handler, MessageBean mb) {
@@ -30,16 +30,23 @@ public class TwoCommand extends DeviceAbstractCommand {
         byte[] content = mb.getContent();
         Date time = DeviceMsgUtils.resolveTime(content, 0);
         mb.setEventTime(time);
-        int offset = 6;
+        deal(6, mb);
+    }
 
+    private void deal(int offset, MessageBean mb) {
+        if (mb.getLength() <= offset) {
+            return;
+        }
+        byte[] content = mb.getContent();
         // 信息体
         byte typeFlag = content[offset];
-
+        offset += 1;
         for (Body body : bodyList) {
             if (body.support(typeFlag)) {
-                body.deal(mb);
-                return;
+                offset = body.deal(mb, offset);
+                break;
             }
         }
+        deal(offset, mb);
     }
 }

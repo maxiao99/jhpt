@@ -34,10 +34,9 @@ public class FiveBody extends AbstractBody<CarLocationDto> {
     @Resource(name = "carLocationService")
     CarLocationService carLocationService;
 
-    public CarLocationDto deal(MessageBean mb) {
+    public int deal(MessageBean mb, int offset) {
         CarLocationDto dto = new CarLocationDto();
         byte[] content = mb.getContent();
-        int offset = 7;
 
         // 定位状态
         dto.setLocationStatus(content[offset]);
@@ -58,7 +57,7 @@ public class FiveBody extends AbstractBody<CarLocationDto> {
         bo.setEventTime(mb.getEventTime());
         BeanUtils.copyProperties(dto, bo);
         carLocationService.saveEntitySelective(bo);
-        return dto;
+        return offset;
     }
 
     public static enum DataEnum {

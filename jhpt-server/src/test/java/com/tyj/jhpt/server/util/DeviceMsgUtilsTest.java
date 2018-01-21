@@ -4,6 +4,7 @@
 
 package com.tyj.jhpt.server.util;
 
+import com.github.fartherp.framework.common.util.DateUtil;
 import com.github.fartherp.framework.common.util.ISOUtil;
 import org.testng.annotations.Test;
 
@@ -20,7 +21,14 @@ public class DeviceMsgUtilsTest {
     public void testResolveTime() throws Exception {
         String time = "12010E091C00";
         byte[] bytes = ISOUtil.hex2byte(time);
+        bytes[0] = 18;
+        bytes[1] = 0;
+        bytes[2] = 21;
+        bytes[3] = 9;
+        bytes[4] = 48;
+        bytes[5] = 27;
         Date d = DeviceMsgUtils.resolveTime(bytes, 0);
+        System.out.println(DateUtil.format(DateUtil.yyyy_MM_dd_HH_mm_ss, d));
         String date = "171214160810";
         String s = Integer.toHexString(12);
         System.out.println(s);

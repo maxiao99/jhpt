@@ -37,10 +37,9 @@ public class SevenBody extends AbstractBody<AlarmDto> {
     @Resource(name = "alarmService")
     AlarmService alarmService;
 
-    public AlarmDto deal(MessageBean mb) {
+    public int deal(MessageBean mb, int offset) {
         AlarmDto dto = new AlarmDto();
         byte[] content = mb.getContent();
-        int offset = 7;
 
         // 最高报警等级
         dto.setMaxAlarmLevel(content[offset]);
@@ -59,7 +58,7 @@ public class SevenBody extends AbstractBody<AlarmDto> {
         offset += totalN1.length;
 
         // 可充电储能装置故障代码列表
-        bytes = new byte[dto.getTotalN1()];
+        bytes = new byte[dto.getTotalN1() * 4];
         System.arraycopy(content, offset, bytes, 0, dto.getTotalN1());
         offset += dto.getTotalN1();
         dto.setBytes1(bytes);
@@ -69,7 +68,7 @@ public class SevenBody extends AbstractBody<AlarmDto> {
         offset += totalN2.length;
 
         // 驱动电机故障代码列表
-        bytes = new byte[dto.getTotalN2()];
+        bytes = new byte[dto.getTotalN2() * 4];
         System.arraycopy(content, offset, bytes, 0, dto.getTotalN2());
         offset += dto.getTotalN2();
         dto.setBytes2(bytes);
@@ -79,7 +78,7 @@ public class SevenBody extends AbstractBody<AlarmDto> {
         offset += totalN3.length;
 
         // 发动机故障列表
-        bytes = new byte[dto.getTotalN3()];
+        bytes = new byte[dto.getTotalN3() * 4];
         System.arraycopy(content, offset, bytes, 0, dto.getTotalN3());
         offset += dto.getTotalN3();
         dto.setBytes3(bytes);
@@ -89,8 +88,9 @@ public class SevenBody extends AbstractBody<AlarmDto> {
         offset += totalN4.length;
 
         // 其他故障代码列表
-        bytes = new byte[dto.getTotalN4()];
+        bytes = new byte[dto.getTotalN4() * 4];
         System.arraycopy(content, offset, bytes, 0, dto.getTotalN4());
+        offset += dto.getTotalN4();
         dto.setBytes4(bytes);
 
         Alarm bo = new Alarm();
@@ -98,7 +98,7 @@ public class SevenBody extends AbstractBody<AlarmDto> {
         bo.setEventTime(mb.getEventTime());
         BeanUtils.copyProperties(dto, bo);
         alarmService.saveEntitySelective(bo);
-        return dto;
+        return offset;
     }
 
     public static enum DataEnum {

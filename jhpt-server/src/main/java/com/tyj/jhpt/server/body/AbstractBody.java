@@ -23,7 +23,7 @@ public abstract class AbstractBody<T> implements Body<T> {
         return this.type == type;
     }
 
-    public T deal(MessageBean mb) {
-        return null;
+    public int deal(MessageBean mb, int offset) {
+        return 0;
     }
 }

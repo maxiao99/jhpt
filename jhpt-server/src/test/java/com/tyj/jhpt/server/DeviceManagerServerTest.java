@@ -4,8 +4,6 @@
 
 package com.tyj.jhpt.server;
 
-import org.testng.annotations.Test;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,8 +13,6 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import static org.testng.Assert.*;
-
 /**
  * Created by IntelliJ IDEA.
  *
@@ -24,14 +20,36 @@ import static org.testng.Assert.*;
  * @date: 2018/1/14
  */
 public class DeviceManagerServerTest {
-    @Test
-    public void testOne() throws Exception {
-        // 868963ED59DEE01CD2DF6362DDB7303C3731E4627759ECA5849907ACB82FE1B9A9
+
+
+    public static void main(String[] args) {
+//        testOne();
+        testTwo();
+//        testFive();
+//        testSix();
+    }
+
+    public static void testOne() {
         String data = "232301FE4C5244533650454233485230303233353004001F868963ED59DEE01CD2DF6362DDB7303C3731E4627759ECA5849907ACB82FE1B9AF";
         send(data);
     }
 
-    public void send(String data) {
+    public static void testTwo() {
+        String data = "232302FE4C5244533650454233485230303233353004002199739D352A5B72027A3A18001B121A8B064533B5621BAA2E85E90B23F17353AB5D9403E84465B65CF0";
+        send(data);
+    }
+
+    public static void testFive() {
+        String data = "232307FE4C52445336504542334852303032333530040001076A2DC457BA4A841E";
+        send(data);
+    }
+
+    public static void testSix() {
+        String data = "232308FE4C52445336504542334852303032333530040006076A2DC457BA4A8416";
+        send(data);
+    }
+
+    public static void send(String data) {
         try {
             //创建Socket对象
             Socket socket = new Socket("localhost", 1443);

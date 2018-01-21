@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.math.BigInteger;
 
+import static com.tyj.jhpt.server.body.ThreeBody.DataEnum.dcStatus;
 import static com.tyj.jhpt.server.body.ThreeBody.DataEnum.dianliu;
 import static com.tyj.jhpt.server.body.ThreeBody.DataEnum.dianya;
 import static com.tyj.jhpt.server.body.ThreeBody.DataEnum.maxConcentration;
@@ -41,10 +42,10 @@ public class ThreeBody extends AbstractBody<RanLiaoDianChiDto> {
     @Resource(name = "ranliaoDianchiService")
     RanliaoDianchiService ranliaoDianchiService;
 
-    public RanLiaoDianChiDto deal(MessageBean mb) {
+    public int deal(MessageBean mb, int offset) {
         RanLiaoDianChiDto dto = new RanLiaoDianChiDto();
         byte[] content = mb.getContent();
-        int offset = 7;
+
         // 燃料电池电压
         byte[] bytes = new byte[dianya.length];
         System.arraycopy(content, offset, bytes, 0, dianya.length);
@@ -121,25 +122,26 @@ public class ThreeBody extends AbstractBody<RanLiaoDianChiDto> {
 
         // 高压DC/DC状态
         dto.setDcStatus(content[offset]);
+        offset += dcStatus.length;
 
         RanliaoDianchi bo = new RanliaoDianchi();
         bo.setCarVin(mb.getVin());
         bo.setEventTime(mb.getEventTime());
         BeanUtils.copyProperties(dto, bo);
         ranliaoDianchiService.saveEntitySelective(bo);
-        return dto;
+        return offset;
     }
 
     public static enum DataEnum {
-        dianya(4, "燃料电池电压"),
-        dianliu(4, "燃料电池电流"),
-        xiaohaolv(4, "燃料消耗率"),
-        tanzhenTotal(4, "燃料电池温度探针总数"),
-        maxTemperature(4, "氢系统中最高温度"),
+        dianya(2, "燃料电池电压"),
+        dianliu(2, "燃料电池电流"),
+        xiaohaolv(2, "燃料消耗率"),
+        tanzhenTotal(2, "燃料电池温度探针总数"),
+        maxTemperature(2, "氢系统中最高温度"),
         maxTanzhenNo(1, "氢系统中最高温度探针代号"),
-        maxConcentration(4, "氢气最高浓度"),
+        maxConcentration(2, "氢气最高浓度"),
         maxConcentrationNo(1, "氢气最高浓度传感器代号"),
-        maxPressure(4, "氢气最高压力"),
+        maxPressure(2, "氢气最高压力"),
         maxPressureNo(1, "氢气最高压力传感器代号"),
         dcStatus(1, "高压DC/DC状态"),
         ;

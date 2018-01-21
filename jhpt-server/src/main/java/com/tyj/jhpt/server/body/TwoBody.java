@@ -48,11 +48,11 @@ public class TwoBody extends AbstractBody<QuDongDianJisDto> {
     @Resource(name = "qudongDianjiDetailService")
     QudongDianjiDetailService qudongDianjiDetailService;
 
-    public QuDongDianJisDto deal(MessageBean mb) {
+    public int deal(MessageBean mb, int offset) {
         QuDongDianJisDto dtos = new QuDongDianJisDto();
 
         byte[] content = mb.getContent();
-        int offset = 7;
+
         // 车辆状态
         dtos.setNumber(content[offset]);
         offset += 1;
@@ -125,18 +125,18 @@ public class TwoBody extends AbstractBody<QuDongDianJisDto> {
             }
             qudongDianjiDetailService.saveBatch(list);
         }
-        return dtos;
+        return offset;
     }
 
     public static enum DataEnum {
         seq(1, "驱动电机序号"),
         status(1, "驱动电机状态"),
         controlTemperature(1, "驱动电机控制器温度"),
-        speed(4, "驱动电机转速"),
-        zhuanju(4, "驱动电机转矩"),
+        speed(2, "驱动电机转速"),
+        zhuanju(2, "驱动电机转矩"),
         temperature(1, "驱动电机温度"),
-        dianya(4, "电机控制器输入电压"),
-        dianliu(4, "电机控制器直流母线母线电流"),
+        dianya(2, "电机控制器输入电压"),
+        dianliu(2, "电机控制器直流母线母线电流"),
         ;
         private int length;
         private String desc;
