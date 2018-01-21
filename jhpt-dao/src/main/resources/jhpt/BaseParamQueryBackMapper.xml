@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ Copyright (c) 2018. CK. All rights reserved.
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyj.jhpt.dao.ParamQueryBackMapper">
+  <resultMap id="BaseResultMap" type="com.tyj.jhpt.bo.ParamQueryBack">
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="car_vin" property="carVin" jdbcType="VARCHAR" />
+    <result column="event_time" property="eventTime" jdbcType="TIMESTAMP" />
+    <result column="param_num" property="paramNum" jdbcType="INTEGER" />
+    <result column="local_store_cycle" property="localStoreCycle" jdbcType="INTEGER" />
+    <result column="normal_upload_cycle" property="normalUploadCycle" jdbcType="INTEGER" />
+    <result column="alarm_upload_cycle" property="alarmUploadCycle" jdbcType="INTEGER" />
+    <result column="manage_domain_length" property="manageDomainLength" jdbcType="INTEGER" />
+    <result column="manage_domain" property="manageDomain" jdbcType="LONGVARBINARY" />
+    <result column="manage_port" property="managePort" jdbcType="INTEGER" />
+    <result column="hardware_version" property="hardwareVersion" jdbcType="VARCHAR" />
+    <result column="firmware_version" property="firmwareVersion" jdbcType="VARCHAR" />
+    <result column="terminal_heart_send_cycle" property="terminalHeartSendCycle" jdbcType="INTEGER" />
+    <result column="terminal_resp_over_time" property="terminalRespOverTime" jdbcType="INTEGER" />
+    <result column="platform_resp_over_time" property="platformRespOverTime" jdbcType="INTEGER" />
+    <result column="three_next_login_time" property="threeNextLoginTime" jdbcType="INTEGER" />
+    <result column="gov_platform_domain_length" property="govPlatformDomainLength" jdbcType="INTEGER" />
+    <result column="gov_platform_domain" property="govPlatformDomain" jdbcType="LONGVARBINARY" />
+    <result column="gov_platform_port" property="govPlatformPort" jdbcType="INTEGER" />
+    <result column="monitor" property="monitor" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    `id`, `car_vin`, `event_time`, `param_num`, `local_store_cycle`, `normal_upload_cycle`, `alarm_upload_cycle`, `manage_domain_length`, 
+    `manage_domain`, `manage_port`, `hardware_version`, `firmware_version`, `terminal_heart_send_cycle`, `terminal_resp_over_time`, 
+    `platform_resp_over_time`, `three_next_login_time`, `gov_platform_domain_length`, `gov_platform_domain`, `gov_platform_port`, 
+    `monitor`
+  </sql>
+  <insert id="insert" parameterType="com.tyj.jhpt.bo.ParamQueryBack" useGeneratedKeys="true" keyProperty="id">
+    <![CDATA[
+    insert into `tb_param_query_back` (`car_vin`, `event_time`, `param_num`, 
+      `local_store_cycle`, `normal_upload_cycle`, `alarm_upload_cycle`, 
+      `manage_domain_length`, `manage_domain`, 
+      `manage_port`, `hardware_version`, `firmware_version`, 
+      `terminal_heart_send_cycle`, `terminal_resp_over_time`, 
+      `platform_resp_over_time`, `three_next_login_time`, 
+      `gov_platform_domain_length`, `gov_platform_domain`, 
+      `gov_platform_port`, `monitor`)
+    values (#{carVin,jdbcType=VARCHAR}, #{eventTime,jdbcType=TIMESTAMP}, #{paramNum,jdbcType=INTEGER}, 
+      #{localStoreCycle,jdbcType=INTEGER}, #{normalUploadCycle,jdbcType=INTEGER}, #{alarmUploadCycle,jdbcType=INTEGER}, 
+      #{manageDomainLength,jdbcType=INTEGER}, #{manageDomain,jdbcType=LONGVARBINARY}, 
+      #{managePort,jdbcType=INTEGER}, #{hardwareVersion,jdbcType=VARCHAR}, #{firmwareVersion,jdbcType=VARCHAR}, 
+      #{terminalHeartSendCycle,jdbcType=INTEGER}, #{terminalRespOverTime,jdbcType=INTEGER}, 
+      #{platformRespOverTime,jdbcType=INTEGER}, #{threeNextLoginTime,jdbcType=INTEGER}, 
+      #{govPlatformDomainLength,jdbcType=INTEGER}, #{govPlatformDomain,jdbcType=LONGVARBINARY}, 
+      #{govPlatformPort,jdbcType=INTEGER}, #{monitor,jdbcType=INTEGER})
+    ]]>
+  </insert>
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into `tb_param_query_back` (`car_vin`, `event_time`, `param_num`, 
+      `local_store_cycle`, `normal_upload_cycle`, 
+      `alarm_upload_cycle`, `manage_domain_length`, 
+      `manage_domain`, `manage_port`, 
+      `hardware_version`, `firmware_version`, 
+      `terminal_heart_send_cycle`, `terminal_resp_over_time`, 
+      `platform_resp_over_time`, `three_next_login_time`, 
+      `gov_platform_domain_length`, `gov_platform_domain`, 
+      `gov_platform_port`, `monitor`)
+     values 
+    <foreach collection="list" item="item" index="index" separator=",">
+       (#{item.carVin,jdbcType=VARCHAR}, #{item.eventTime,jdbcType=TIMESTAMP}, #{item.paramNum,jdbcType=INTEGER}, 
+        #{item.localStoreCycle,jdbcType=INTEGER}, #{item.normalUploadCycle,jdbcType=INTEGER}, 
+        #{item.alarmUploadCycle,jdbcType=INTEGER}, #{item.manageDomainLength,jdbcType=INTEGER}, 
+        #{item.manageDomain,jdbcType=LONGVARBINARY}, #{item.managePort,jdbcType=INTEGER}, 
+        #{item.hardwareVersion,jdbcType=VARCHAR}, #{item.firmwareVersion,jdbcType=VARCHAR}, 
+        #{item.terminalHeartSendCycle,jdbcType=INTEGER}, #{item.terminalRespOverTime,jdbcType=INTEGER}, 
+        #{item.platformRespOverTime,jdbcType=INTEGER}, #{item.threeNextLoginTime,jdbcType=INTEGER}, 
+        #{item.govPlatformDomainLength,jdbcType=INTEGER}, #{item.govPlatformDomain,jdbcType=LONGVARBINARY}, 
+        #{item.govPlatformPort,jdbcType=INTEGER}, #{item.monitor,jdbcType=INTEGER})
+    </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.tyj.jhpt.bo.ParamQueryBack" useGeneratedKeys="true" keyProperty="id">
+    insert into `tb_param_query_back`
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="carVin != null">
+        `car_vin`,
+      </if>
+      <if test="eventTime != null">
+        `event_time`,
+      </if>
+      <if test="paramNum != null">
+        `param_num`,
+      </if>
+      <if test="localStoreCycle != null">
+        `local_store_cycle`,
+      </if>
+      <if test="normalUploadCycle != null">
+        `normal_upload_cycle`,
+      </if>
+      <if test="alarmUploadCycle != null">
+        `alarm_upload_cycle`,
+      </if>
+      <if test="manageDomainLength != null">
+        `manage_domain_length`,
+      </if>
+      <if test="manageDomain != null">
+        `manage_domain`,
+      </if>
+      <if test="managePort != null">
+        `manage_port`,
+      </if>
+      <if test="hardwareVersion != null">
+        `hardware_version`,
+      </if>
+      <if test="firmwareVersion != null">
+        `firmware_version`,
+      </if>
+      <if test="terminalHeartSendCycle != null">
+        `terminal_heart_send_cycle`,
+      </if>
+      <if test="terminalRespOverTime != null">
+        `terminal_resp_over_time`,
+      </if>
+      <if test="platformRespOverTime != null">
+        `platform_resp_over_time`,
+      </if>
+      <if test="threeNextLoginTime != null">
+        `three_next_login_time`,
+      </if>
+      <if test="govPlatformDomainLength != null">
+        `gov_platform_domain_length`,
+      </if>
+      <if test="govPlatformDomain != null">
+        `gov_platform_domain`,
+      </if>
+      <if test="govPlatformPort != null">
+        `gov_platform_port`,
+      </if>
+      <if test="monitor != null">
+        `monitor`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="carVin != null">
+        #{carVin,jdbcType=VARCHAR},
+      </if>
+      <if test="eventTime != null">
+        #{eventTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paramNum != null">
+        #{paramNum,jdbcType=INTEGER},
+      </if>
+      <if test="localStoreCycle != null">
+        #{localStoreCycle,jdbcType=INTEGER},
+      </if>
+      <if test="normalUploadCycle != null">
+        #{normalUploadCycle,jdbcType=INTEGER},
+      </if>
+      <if test="alarmUploadCycle != null">
+        #{alarmUploadCycle,jdbcType=INTEGER},
+      </if>
+      <if test="manageDomainLength != null">
+        #{manageDomainLength,jdbcType=INTEGER},
+      </if>
+      <if test="manageDomain != null">
+        #{manageDomain,jdbcType=LONGVARBINARY},
+      </if>
+      <if test="managePort != null">
+        #{managePort,jdbcType=INTEGER},
+      </if>
+      <if test="hardwareVersion != null">
+        #{hardwareVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="firmwareVersion != null">
+        #{firmwareVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="terminalHeartSendCycle != null">
+        #{terminalHeartSendCycle,jdbcType=INTEGER},
+      </if>
+      <if test="terminalRespOverTime != null">
+        #{terminalRespOverTime,jdbcType=INTEGER},
+      </if>
+      <if test="platformRespOverTime != null">
+        #{platformRespOverTime,jdbcType=INTEGER},
+      </if>
+      <if test="threeNextLoginTime != null">
+        #{threeNextLoginTime,jdbcType=INTEGER},
+      </if>
+      <if test="govPlatformDomainLength != null">
+        #{govPlatformDomainLength,jdbcType=INTEGER},
+      </if>
+      <if test="govPlatformDomain != null">
+        #{govPlatformDomain,jdbcType=LONGVARBINARY},
+      </if>
+      <if test="govPlatformPort != null">
+        #{govPlatformPort,jdbcType=INTEGER},
+      </if>
+      <if test="monitor != null">
+        #{monitor,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from `tb_param_query_back`
+    where `id` = #{id,jdbcType=BIGINT}
+  </delete>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from `tb_param_query_back`
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from `tb_param_query_back`
+    where `id` = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    select count(*) from `tb_param_query_back`
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tyj.jhpt.bo.ParamQueryBack">
+    update `tb_param_query_back`
+    <set>
+      <if test="carVin != null">
+        `car_vin` = #{carVin,jdbcType=VARCHAR},
+      </if>
+      <if test="eventTime != null">
+        `event_time` = #{eventTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paramNum != null">
+        `param_num` = #{paramNum,jdbcType=INTEGER},
+      </if>
+      <if test="localStoreCycle != null">
+        `local_store_cycle` = #{localStoreCycle,jdbcType=INTEGER},
+      </if>
+      <if test="normalUploadCycle != null">
+        `normal_upload_cycle` = #{normalUploadCycle,jdbcType=INTEGER},
+      </if>
+      <if test="alarmUploadCycle != null">
+        `alarm_upload_cycle` = #{alarmUploadCycle,jdbcType=INTEGER},
+      </if>
+      <if test="manageDomainLength != null">
+        `manage_domain_length` = #{manageDomainLength,jdbcType=INTEGER},
+      </if>
+      <if test="manageDomain != null">
+        `manage_domain` = #{manageDomain,jdbcType=LONGVARBINARY},
+      </if>
+      <if test="managePort != null">
+        `manage_port` = #{managePort,jdbcType=INTEGER},
+      </if>
+      <if test="hardwareVersion != null">
+        `hardware_version` = #{hardwareVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="firmwareVersion != null">
+        `firmware_version` = #{firmwareVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="terminalHeartSendCycle != null">
+        `terminal_heart_send_cycle` = #{terminalHeartSendCycle,jdbcType=INTEGER},
+      </if>
+      <if test="terminalRespOverTime != null">
+        `terminal_resp_over_time` = #{terminalRespOverTime,jdbcType=INTEGER},
+      </if>
+      <if test="platformRespOverTime != null">
+        `platform_resp_over_time` = #{platformRespOverTime,jdbcType=INTEGER},
+      </if>
+      <if test="threeNextLoginTime != null">
+        `three_next_login_time` = #{threeNextLoginTime,jdbcType=INTEGER},
+      </if>
+      <if test="govPlatformDomainLength != null">
+        `gov_platform_domain_length` = #{govPlatformDomainLength,jdbcType=INTEGER},
+      </if>
+      <if test="govPlatformDomain != null">
+        `gov_platform_domain` = #{govPlatformDomain,jdbcType=LONGVARBINARY},
+      </if>
+      <if test="govPlatformPort != null">
+        `gov_platform_port` = #{govPlatformPort,jdbcType=INTEGER},
+      </if>
+      <if test="monitor != null">
+        `monitor` = #{monitor,jdbcType=INTEGER},
+      </if>
+    </set>
+    where `id` = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tyj.jhpt.bo.ParamQueryBack">
+    update `tb_param_query_back`
+    set `car_vin` = #{carVin,jdbcType=VARCHAR},
+      `event_time` = #{eventTime,jdbcType=TIMESTAMP},
+      `param_num` = #{paramNum,jdbcType=INTEGER},
+      `local_store_cycle` = #{localStoreCycle,jdbcType=INTEGER},
+      `normal_upload_cycle` = #{normalUploadCycle,jdbcType=INTEGER},
+      `alarm_upload_cycle` = #{alarmUploadCycle,jdbcType=INTEGER},
+      `manage_domain_length` = #{manageDomainLength,jdbcType=INTEGER},
+      `manage_domain` = #{manageDomain,jdbcType=LONGVARBINARY},
+      `manage_port` = #{managePort,jdbcType=INTEGER},
+      `hardware_version` = #{hardwareVersion,jdbcType=VARCHAR},
+      `firmware_version` = #{firmwareVersion,jdbcType=VARCHAR},
+      `terminal_heart_send_cycle` = #{terminalHeartSendCycle,jdbcType=INTEGER},
+      `terminal_resp_over_time` = #{terminalRespOverTime,jdbcType=INTEGER},
+      `platform_resp_over_time` = #{platformRespOverTime,jdbcType=INTEGER},
+      `three_next_login_time` = #{threeNextLoginTime,jdbcType=INTEGER},
+      `gov_platform_domain_length` = #{govPlatformDomainLength,jdbcType=INTEGER},
+      `gov_platform_domain` = #{govPlatformDomain,jdbcType=LONGVARBINARY},
+      `gov_platform_port` = #{govPlatformPort,jdbcType=INTEGER},
+      `monitor` = #{monitor,jdbcType=INTEGER}
+    where `id` = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

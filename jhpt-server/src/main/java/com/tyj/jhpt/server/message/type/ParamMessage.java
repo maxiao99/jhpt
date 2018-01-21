@@ -4,6 +4,8 @@
 
 package com.tyj.jhpt.server.message.type;
 
+import com.github.fartherp.framework.common.util.ISOUtil;
+
 /**
  * Created by IntelliJ IDEA.
  *
@@ -31,10 +33,12 @@ public enum ParamMessage {
     private String code;
     private String name;
     private int length;
+    private byte codeB;
     ParamMessage(String code, String name, int length) {
         this.code = code;
         this.name = name;
         this.length = length;
+        this.codeB = ISOUtil.hex2byte(code)[0];
     }
 
     public String getCode() {
@@ -47,5 +51,19 @@ public enum ParamMessage {
 
     public int getLength() {
         return length;
+    }
+
+    public byte getCodeB() {
+        return codeB;
+    }
+
+    public static ParamMessage get(byte codeB) {
+        ParamMessage[] values = ParamMessage.values();
+        for (ParamMessage v : values) {
+            if (v.getCodeB() == codeB) {
+                return v;
+            }
+        }
+        return null;
     }
 }

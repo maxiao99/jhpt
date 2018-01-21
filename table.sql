@@ -305,3 +305,29 @@ CREATE TABLE `tb_car_terminal_status` (
   `terminal_status_upload_id` BIGINT(20) NOT NULL COMMENT 'tb_terminal_status_upload的ID',
   PRIMARY KEY (`id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='车载终端状态';
+
+DROP TABLE IF EXISTS `tb_param_query_back`;
+
+CREATE TABLE `tb_param_query_back` (
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '参数查询反馈的ID',
+  `car_vin` VARCHAR(20) NOT NULL COMMENT '车辆vin',
+  `event_time` DATETIME NOT NULL COMMENT '数据采集时间',
+  `param_num` INT(11) NOT NULL COMMENT '参数总数',
+  `local_store_cycle` INT(11) DEFAULT NULL COMMENT '车载终端本地存储时间周期',
+  `normal_upload_cycle` INT(11) DEFAULT NULL COMMENT '正常时，信息上报时间周期',
+  `alarm_upload_cycle` INT(11) DEFAULT NULL COMMENT '出现报警时，信息上报时间周期',
+  `manage_domain_length` INT(11) DEFAULT NULL COMMENT '远程服务与管理平台域名长度',
+  `manage_domain` BLOB COMMENT '远程服务与管理平台域名',
+  `manage_port` INT(11) DEFAULT NULL COMMENT '远程服务与管理平台端口',
+  `hardware_version` VARCHAR(50) DEFAULT NULL COMMENT '硬件版本',
+  `firmware_version` VARCHAR(50) DEFAULT NULL COMMENT '固件版本',
+  `terminal_heart_send_cycle` INT(11) DEFAULT NULL COMMENT '车载终端心跳发送周期',
+  `terminal_resp_over_time` INT(11) DEFAULT NULL COMMENT '终端应答超时时间',
+  `platform_resp_over_time` INT(11) DEFAULT NULL COMMENT '平台应答超时时间',
+  `three_next_login_time` INT(11) DEFAULT NULL COMMENT '连续三次登入失败后，到下一次登入的间隔时间',
+  `gov_platform_domain_length` INT(11) DEFAULT NULL COMMENT '政府平台域名长度',
+  `gov_platform_domain` BLOB COMMENT '政府平台域名',
+  `gov_platform_port` INT(11) DEFAULT NULL COMMENT '政府平台端口',
+  `monitor` INT(11) DEFAULT NULL COMMENT '是否处于抽样监测',
+  PRIMARY KEY (`id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='参数查询反馈';
