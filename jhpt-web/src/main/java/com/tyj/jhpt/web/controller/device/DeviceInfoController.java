@@ -219,18 +219,8 @@ public class DeviceInfoController extends AbstractController {
             ss[4] = String.valueOf(d.getLongitude());
             ss[5] = String.valueOf(d.getLatitude());
             ss[6] = String.valueOf(d.getSpeed());
-            if (MsgType.SPEED_UP.getMsgType() == d.getMsgType().intValue()
-                    || MsgType.SPEED_DOWN.getMsgType() == d.getMsgType().intValue()) {
-                ss[7] = d.getAcceleration() + "m/s^2";
-            } else if (MsgType.LIMIT_SPEED_ALARM.getMsgType() == d.getMsgType().intValue()
-                    || MsgType.OVER_SPEED_FOLLOW.getMsgType() == d.getMsgType().intValue()
-                    || MsgType.PERSON_COLLIDE_FOLLOW.getMsgType() == d.getMsgType().intValue()
-                    || MsgType.CAR_COLLIDE_FOLLOW.getMsgType() == d.getMsgType().intValue()) {
-                ss[7] = (d.getAcceleration() * 10) + "Km/h";
-            } else {
-                ss[7] = "0";
-            }
-            ss[8] = msgType.get(d.getMsgType().intValue());
+            ss[7] = "0";
+            ss[8] = "";
             ss[9] = String.valueOf(d.getDriverPersonId());
             list.add(ss);
         }

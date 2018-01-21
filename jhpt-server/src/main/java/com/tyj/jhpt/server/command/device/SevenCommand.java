@@ -4,18 +4,23 @@
 
 package com.tyj.jhpt.server.command.device;
 
+import com.tyj.jhpt.bo.CarAlarm;
 import com.tyj.jhpt.bo.DeviceGpsInfo;
 import com.tyj.jhpt.server.message.CommandEnum;
 import com.tyj.jhpt.server.message.type.CarAlarmMessage;
 import com.tyj.jhpt.server.handler.DeviceManagerServerHandler;
 import com.tyj.jhpt.server.message.MessageBean;
 import com.tyj.jhpt.server.util.DeviceMsgUtils;
+import com.tyj.jhpt.service.CarAlarmService;
 import com.tyj.jhpt.service.DeviceGpsInfoService;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static com.tyj.jhpt.server.command.device.SevenCommand.DataEnum.CURRENT_CAR_DRIVER_SPEED;
 import static com.tyj.jhpt.server.command.device.SevenCommand.DataEnum.DRIVER_ID;
@@ -41,6 +46,9 @@ public class SevenCommand extends DeviceAbstractCommand {
 
     @Resource(name = "deviceGpsInfoService")
     DeviceGpsInfoService deviceGpsInfoService;
+
+    @Resource(name = "carAlarmService")
+    CarAlarmService carAlarmService;
 
     public void deal(DeviceManagerServerHandler handler, MessageBean mb) {
         byte[] content = mb.getContent();
@@ -91,10 +99,29 @@ public class SevenCommand extends DeviceAbstractCommand {
         int speed = bigInteger.intValue();
         deviceGpsInfo.setSpeed(speed);
 
+        deviceGpsInfo.setUploadTime(new Date());
+        Long id = deviceGpsInfoService.saveEntitySelective(deviceGpsInfo);
+
+        List<CarAlarm> list = new ArrayList<CarAlarm>();
+
+        deal(list, mb, offset, id);
+
+        if (CollectionUtils.isNotEmpty(list)) {
+            carAlarmService.saveBatch(list);
+        }
+    }
+
+    private void deal(List<CarAlarm> list, MessageBean mb, int offset, Long id) {
+        if (mb.getLength() <= offset) {
+            return;
+        }
+        CarAlarm carAlarm = new CarAlarm();
+        carAlarm.setDeviceGpsInfoId(id);
+        byte[] content = mb.getContent();
         // 信息类型标志
         byte alarmType = content[offset];
         offset += MESSAGE_TYPE.length;
-        deviceGpsInfo.setMsgType((int) alarmType);
+        carAlarm.setAlarmType((int) alarmType);
 
         // 信息体
         if (CarAlarmMessage.LIMIT_SPEED_ALARM.getCode() == alarmType
@@ -104,10 +131,11 @@ public class SevenCommand extends DeviceAbstractCommand {
                 || CarAlarmMessage.RIGHT_UP.getCode() == alarmType) {
             byte alarmBody = content[offset];
             offset += MESSAGE_BODY.length;
-            deviceGpsInfo.setAcceleration((float) (0xff & alarmBody));
+            carAlarm.setAlarmBody((int) alarmBody);
         }
-        deviceGpsInfo.setUploadTime(new Date());
-        deviceGpsInfoService.saveEntitySelective(deviceGpsInfo);
+        list.add(carAlarm);
+
+        deal(list, mb, offset, id);
     }
 
     public static enum DataEnum {
