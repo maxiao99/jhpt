@@ -160,22 +160,6 @@ public abstract class DeviceGpsInfoBase extends FieldAccessVo implements TableDa
     private Integer speed;
 
     /**
-     * This field corresponds to the database column `tb_device_gps_info`.msg_type
-     */
-    private static final String PROPERTY_MSGTYPE = "msgType";
-
-    /**
-     * This field corresponds to the database column `tb_device_gps_info`.msg_type
-     */
-    private static final String PROPERTY_REMARK_MSGTYPE = "告警类型";
-
-    /**
-     * This field corresponds to the database column `tb_device_gps_info`.msg_type
-     */
-    @ColumnDescription(desc = PROPERTY_REMARK_MSGTYPE)
-    private Integer msgType;
-
-    /**
      * This field corresponds to the database column `tb_device_gps_info`.upload_time
      */
     private static final String PROPERTY_UPLOADTIME = "uploadTime";
@@ -190,22 +174,6 @@ public abstract class DeviceGpsInfoBase extends FieldAccessVo implements TableDa
      */
     @ColumnDescription(desc = PROPERTY_REMARK_UPLOADTIME)
     private Date uploadTime;
-
-    /**
-     * This field corresponds to the database column `tb_device_gps_info`.acceleration
-     */
-    private static final String PROPERTY_ACCELERATION = "acceleration";
-
-    /**
-     * This field corresponds to the database column `tb_device_gps_info`.acceleration
-     */
-    private static final String PROPERTY_REMARK_ACCELERATION = "加速度";
-
-    /**
-     * This field corresponds to the database column `tb_device_gps_info`.acceleration
-     */
-    @ColumnDescription(desc = PROPERTY_REMARK_ACCELERATION)
-    private Float acceleration;
 
     /**
      * This method returns the value of the database column `tb_device_gps_info`.id
@@ -370,24 +338,6 @@ public abstract class DeviceGpsInfoBase extends FieldAccessVo implements TableDa
     }
 
     /**
-     * This method returns the value of the database column `tb_device_gps_info`.msg_type
-     *
-     * @return the value of `tb_device_gps_info`.msg_type
-     */
-    public Integer getMsgType() {
-        return msgType;
-    }
-
-    /**
-     * This method sets the value of the database column `tb_device_gps_info`.msg_type
-     *
-     * @param msgType the value for `tb_device_gps_info`.msg_type
-     */
-    public void setMsgType(Integer msgType) {
-        this.msgType = msgType;
-    }
-
-    /**
      * This method returns the value of the database column `tb_device_gps_info`.upload_time
      *
      * @return the value of `tb_device_gps_info`.upload_time
@@ -403,23 +353,5 @@ public abstract class DeviceGpsInfoBase extends FieldAccessVo implements TableDa
      */
     public void setUploadTime(Date uploadTime) {
         this.uploadTime = uploadTime;
-    }
-
-    /**
-     * This method returns the value of the database column `tb_device_gps_info`.acceleration
-     *
-     * @return the value of `tb_device_gps_info`.acceleration
-     */
-    public Float getAcceleration() {
-        return acceleration;
-    }
-
-    /**
-     * This method sets the value of the database column `tb_device_gps_info`.acceleration
-     *
-     * @param acceleration the value for `tb_device_gps_info`.acceleration
-     */
-    public void setAcceleration(Float acceleration) {
-        this.acceleration = acceleration;
     }
 }

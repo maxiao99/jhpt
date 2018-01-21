@@ -15,39 +15,34 @@
     <result column="longitude" property="longitude" jdbcType="DOUBLE" />
     <result column="latitude" property="latitude" jdbcType="DOUBLE" />
     <result column="speed" property="speed" jdbcType="INTEGER" />
-    <result column="msg_type" property="msgType" jdbcType="INTEGER" />
     <result column="upload_time" property="uploadTime" jdbcType="TIMESTAMP" />
-    <result column="acceleration" property="acceleration" jdbcType="REAL" />
   </resultMap>
   <sql id="Base_Column_List">
-    `id`, `car_vin`, `msg_id`, `event_time`, `driver_person_id`, `location_status`, `longitude`, `latitude`, `speed`, `msg_type`, 
-    `upload_time`, `acceleration`
+    `id`, `car_vin`, `msg_id`, `event_time`, `driver_person_id`, `location_status`, `longitude`, `latitude`, `speed`, `upload_time`
   </sql>
   <insert id="insert" parameterType="com.tyj.jhpt.bo.DeviceGpsInfo" useGeneratedKeys="true" keyProperty="id">
     <![CDATA[
     insert into `tb_device_gps_info` (`car_vin`, `msg_id`, `event_time`, 
       `driver_person_id`, `location_status`, `longitude`, 
-      `latitude`, `speed`, `msg_type`, 
-      `upload_time`, `acceleration`)
+      `latitude`, `speed`, `upload_time`
+      )
     values (#{carVin,jdbcType=VARCHAR}, #{msgId,jdbcType=INTEGER}, #{eventTime,jdbcType=TIMESTAMP}, 
       #{driverPersonId,jdbcType=INTEGER}, #{locationStatus,jdbcType=INTEGER}, #{longitude,jdbcType=DOUBLE}, 
-      #{latitude,jdbcType=DOUBLE}, #{speed,jdbcType=INTEGER}, #{msgType,jdbcType=INTEGER}, 
-      #{uploadTime,jdbcType=TIMESTAMP}, #{acceleration,jdbcType=REAL})
+      #{latitude,jdbcType=DOUBLE}, #{speed,jdbcType=INTEGER}, #{uploadTime,jdbcType=TIMESTAMP}
+      )
     ]]>
   </insert>
   <insert id="insertBatch" parameterType="java.util.List">
     insert into `tb_device_gps_info` (`car_vin`, `msg_id`, `event_time`, 
       `driver_person_id`, `location_status`, 
       `longitude`, `latitude`, `speed`, 
-      `msg_type`, `upload_time`, `acceleration`
-      )
+      `upload_time`)
      values 
     <foreach collection="list" item="item" index="index" separator=",">
        (#{item.carVin,jdbcType=VARCHAR}, #{item.msgId,jdbcType=INTEGER}, #{item.eventTime,jdbcType=TIMESTAMP}, 
         #{item.driverPersonId,jdbcType=INTEGER}, #{item.locationStatus,jdbcType=INTEGER}, 
         #{item.longitude,jdbcType=DOUBLE}, #{item.latitude,jdbcType=DOUBLE}, #{item.speed,jdbcType=INTEGER}, 
-        #{item.msgType,jdbcType=INTEGER}, #{item.uploadTime,jdbcType=TIMESTAMP}, #{item.acceleration,jdbcType=REAL}
-        )
+        #{item.uploadTime,jdbcType=TIMESTAMP})
     </foreach>
   </insert>
   <insert id="insertSelective" parameterType="com.tyj.jhpt.bo.DeviceGpsInfo" useGeneratedKeys="true" keyProperty="id">
@@ -77,14 +72,8 @@
       <if test="speed != null">
         `speed`,
       </if>
-      <if test="msgType != null">
-        `msg_type`,
-      </if>
       <if test="uploadTime != null">
         `upload_time`,
-      </if>
-      <if test="acceleration != null">
-        `acceleration`,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -112,14 +101,8 @@
       <if test="speed != null">
         #{speed,jdbcType=INTEGER},
       </if>
-      <if test="msgType != null">
-        #{msgType,jdbcType=INTEGER},
-      </if>
       <if test="uploadTime != null">
         #{uploadTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="acceleration != null">
-        #{acceleration,jdbcType=REAL},
       </if>
     </trim>
   </insert>
@@ -131,6 +114,12 @@
     select 
     <include refid="Base_Column_List" />
     from `tb_device_gps_info`
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from `tb_device_gps_info`
+    where `id` = #{id,jdbcType=BIGINT}
   </select>
   <select id="count" resultType="java.lang.Integer">
     select count(*) from `tb_device_gps_info`
@@ -162,14 +151,8 @@
       <if test="speed != null">
         `speed` = #{speed,jdbcType=INTEGER},
       </if>
-      <if test="msgType != null">
-        `msg_type` = #{msgType,jdbcType=INTEGER},
-      </if>
       <if test="uploadTime != null">
         `upload_time` = #{uploadTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="acceleration != null">
-        `acceleration` = #{acceleration,jdbcType=REAL},
       </if>
     </set>
     where `id` = #{id,jdbcType=BIGINT}
@@ -184,9 +167,7 @@
       `longitude` = #{longitude,jdbcType=DOUBLE},
       `latitude` = #{latitude,jdbcType=DOUBLE},
       `speed` = #{speed,jdbcType=INTEGER},
-      `msg_type` = #{msgType,jdbcType=INTEGER},
-      `upload_time` = #{uploadTime,jdbcType=TIMESTAMP},
-      `acceleration` = #{acceleration,jdbcType=REAL}
+      `upload_time` = #{uploadTime,jdbcType=TIMESTAMP}
     where `id` = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

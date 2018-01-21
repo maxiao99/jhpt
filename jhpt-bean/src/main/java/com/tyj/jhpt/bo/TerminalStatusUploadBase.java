@@ -64,38 +64,6 @@ public abstract class TerminalStatusUploadBase extends FieldAccessVo implements 
     private Date eventTime;
 
     /**
-     * This field corresponds to the database column `tb_terminal_status_upload`.message_type
-     */
-    private static final String PROPERTY_MESSAGETYPE = "messageType";
-
-    /**
-     * This field corresponds to the database column `tb_terminal_status_upload`.message_type
-     */
-    private static final String PROPERTY_REMARK_MESSAGETYPE = "信息类型标志, 01:电源状态, 02:通电状态 03:通信传输状态";
-
-    /**
-     * This field corresponds to the database column `tb_terminal_status_upload`.message_type
-     */
-    @ColumnDescription(desc = PROPERTY_REMARK_MESSAGETYPE)
-    private Integer messageType;
-
-    /**
-     * This field corresponds to the database column `tb_terminal_status_upload`.message_body
-     */
-    private static final String PROPERTY_MESSAGEBODY = "messageBody";
-
-    /**
-     * This field corresponds to the database column `tb_terminal_status_upload`.message_body
-     */
-    private static final String PROPERTY_REMARK_MESSAGEBODY = "信息体, 电源状态: 0-电源故障, 1-电源正常, 通电状态: 0-断电, 1-通电, 通信传输状态: 0-通信传输异常, 1-通信传输正常";
-
-    /**
-     * This field corresponds to the database column `tb_terminal_status_upload`.message_body
-     */
-    @ColumnDescription(desc = PROPERTY_REMARK_MESSAGEBODY)
-    private Integer messageBody;
-
-    /**
      * This method returns the value of the database column `tb_terminal_status_upload`.id
      *
      * @return the value of `tb_terminal_status_upload`.id
@@ -147,41 +115,5 @@ public abstract class TerminalStatusUploadBase extends FieldAccessVo implements 
      */
     public void setEventTime(Date eventTime) {
         this.eventTime = eventTime;
-    }
-
-    /**
-     * This method returns the value of the database column `tb_terminal_status_upload`.message_type
-     *
-     * @return the value of `tb_terminal_status_upload`.message_type
-     */
-    public Integer getMessageType() {
-        return messageType;
-    }
-
-    /**
-     * This method sets the value of the database column `tb_terminal_status_upload`.message_type
-     *
-     * @param messageType the value for `tb_terminal_status_upload`.message_type
-     */
-    public void setMessageType(Integer messageType) {
-        this.messageType = messageType;
-    }
-
-    /**
-     * This method returns the value of the database column `tb_terminal_status_upload`.message_body
-     *
-     * @return the value of `tb_terminal_status_upload`.message_body
-     */
-    public Integer getMessageBody() {
-        return messageBody;
-    }
-
-    /**
-     * This method sets the value of the database column `tb_terminal_status_upload`.message_body
-     *
-     * @param messageBody the value for `tb_terminal_status_upload`.message_body
-     */
-    public void setMessageBody(Integer messageBody) {
-        this.messageBody = messageBody;
     }
 }
