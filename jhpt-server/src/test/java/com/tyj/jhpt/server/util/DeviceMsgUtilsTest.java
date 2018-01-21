@@ -22,7 +22,7 @@ public class DeviceMsgUtilsTest {
         String time = "12010E091C00";
         byte[] bytes = ISOUtil.hex2byte(time);
         bytes[0] = 18;
-        bytes[1] = 0;
+        bytes[1] = 1;
         bytes[2] = 21;
         bytes[3] = 9;
         bytes[4] = 48;

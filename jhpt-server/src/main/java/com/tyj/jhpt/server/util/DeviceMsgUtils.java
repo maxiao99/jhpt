@@ -26,7 +26,7 @@ public class DeviceMsgUtils {
         Calendar c = Calendar.getInstance();
         int year = Integer.parseInt("20" + (0xff & content[offset]));
         c.set(Calendar.YEAR, year);
-        int month = (0xff & content[1 + offset]);
+        int month = (0xff & content[1 + offset]) - 1;
         c.set(Calendar.MONTH, month);
         int day = 0xff & content[2 + offset];
         c.set(Calendar.DAY_OF_MONTH, day);
@@ -48,7 +48,7 @@ public class DeviceMsgUtils {
         Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR) - 2000;
         date[0] = ISOUtil.hex2byte(Integer.toHexString(year))[0];
-        int month = c.get(Calendar.MONTH);
+        int month = c.get(Calendar.MONTH) + 1;
         date[1] = ISOUtil.hex2byte(Integer.toHexString(month))[0];
         int day = c.get(Calendar.DAY_OF_MONTH);
         date[2] = ISOUtil.hex2byte(Integer.toHexString(day))[0];
@@ -73,7 +73,7 @@ public class DeviceMsgUtils {
                 + (0xff0000L & (content[offset + 1] << 16))
                 + (0xff00L & (content[offset + 2] << 8))
                 + (0xffL & content[offset + 3]);
-        return value * 1.0 / 10000000;
+        return value * 1.0 / 1000000;
     }
 
     /**
