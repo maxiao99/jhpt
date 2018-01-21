@@ -134,6 +134,17 @@ public class ByteUtils {
         return re;
     }
 
+    public static byte calculateAll(byte[] content) {
+        if (content == null || content.length == 0) {
+            return 0;
+        }
+        byte re = content[0];
+        for (int i = 1; i < content.length; i++) {
+            re ^= content[i];
+        }
+        return re;
+    }
+
     /**
      * 解析ASCII
      * @param in ByteBuf

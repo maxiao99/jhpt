@@ -6,6 +6,9 @@ package com.tyj.jhpt.server.util;
 
 import com.github.fartherp.framework.common.util.DateUtil;
 import com.github.fartherp.framework.common.util.ISOUtil;
+import com.tyj.jhpt.vo.SettingConfigVo;
+import com.tyj.jhpt.vo.TerminalConfigVo;
+import org.apache.commons.lang.RandomStringUtils;
 import org.testng.annotations.Test;
 
 import java.util.Date;
@@ -65,7 +68,24 @@ public class DeviceMsgUtilsTest {
 
     @Test
     public void testParseAcceleration() throws Exception {
-
+        String s = RandomStringUtils.randomNumeric(8);
+        System.out.println(s);
     }
 
+    @Test
+    public void testParam() {
+        SettingConfigVo vo = new SettingConfigVo();
+        vo.setLocalStoreCycle(5);
+        vo.setTerminalHeartSendCycle(5);
+        String s = DeviceMsgUtils.param("LRDS6PEB3HR002350", "81", vo);
+        System.out.println(s);
+    }
+
+    @Test
+    public void testControl() throws Exception {
+        TerminalConfigVo vo = new TerminalConfigVo();
+        vo.setDeviceControl(3);
+        String s = DeviceMsgUtils.control("LRDS6PEB3HR002350", vo);
+        System.out.println(s);
+    }
 }

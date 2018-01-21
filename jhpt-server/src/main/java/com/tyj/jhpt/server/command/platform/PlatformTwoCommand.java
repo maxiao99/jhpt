@@ -14,7 +14,7 @@ import static com.tyj.jhpt.server.command.platform.PlatformTwoCommand.DataEnum.P
 import static com.tyj.jhpt.server.command.platform.PlatformTwoCommand.DataEnum.TIME;
 
 /**
- * 参数查询
+ * 参数设置
  *
  * @author: CK
  * @date: 2017/12/8
@@ -28,7 +28,7 @@ public class PlatformTwoCommand extends PlatformAbstractCommand {
     public MessageBean finish(MessageBean mb) {
         int length = 0;
         byte[] data = new byte[length];
-        // 参数查询时间
+        // 参数设置时间
         byte[] date = DeviceMsgUtils.getTime();
         int offset = 0;
         System.arraycopy(date, 0, data, offset, TIME.length);

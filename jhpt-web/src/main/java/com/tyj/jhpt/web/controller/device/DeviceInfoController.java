@@ -24,6 +24,7 @@ import com.tyj.jhpt.bo.WenduDetail;
 import com.tyj.jhpt.server.command.platform.PlatformThreeCommand;
 import com.tyj.jhpt.server.command.platform.PlatformTwoCommand;
 import com.tyj.jhpt.server.message.MessageBean;
+import com.tyj.jhpt.server.util.DeviceMsgUtils;
 import com.tyj.jhpt.service.AlarmService;
 import com.tyj.jhpt.service.AllCarService;
 import com.tyj.jhpt.service.DeviceGpsInfoService;
@@ -32,6 +33,7 @@ import com.tyj.jhpt.service.DianyaDetailService;
 import com.tyj.jhpt.service.DianyaService;
 import com.tyj.jhpt.service.FadongjiService;
 import com.tyj.jhpt.service.DeviceInfoService;
+import com.tyj.jhpt.service.IShortMsgSender;
 import com.tyj.jhpt.service.QudongDianjiDetailService;
 import com.tyj.jhpt.service.QudongDianjiService;
 import com.tyj.jhpt.service.RanliaoDianchiService;
@@ -46,7 +48,6 @@ import com.tyj.jhpt.vo.SettingConfigVo;
 import com.tyj.jhpt.vo.TerminalConfigVo;
 import com.tyj.jhpt.web.controller.AbstractController;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -113,6 +114,9 @@ public class DeviceInfoController extends AbstractController {
 
     @Resource(name = "platformThreeCommand")
     PlatformThreeCommand platformThreeCommand;
+
+    @Resource(name = "yunpianShortMessageSender")
+    IShortMsgSender shortMessageSender;
 
     /**
      * 录入用户列表
@@ -436,14 +440,37 @@ public class DeviceInfoController extends AbstractController {
     }
 
     /**
+     * 平台参数查询
+     */
+    @ResponseBody
+    @RequestMapping(value = "/param_query")
+    public String paramQuery(SettingConfigVo vo) {
+        String vin = "";
+        String s = DeviceMsgUtils.param(vin, "80", vo);
+        String phone = "";
+
+        int send = shortMessageSender.send(phone, s);
+        if (send == 0) {
+            return JsonResp.asData().success().toJson();
+        }
+        return JsonResp.asData().error("激活短信发送失败").toJson();
+    }
+
+    /**
      * 平台参数设置指令
      */
     @ResponseBody
     @RequestMapping(value = "/setting_config")
     public String settingConfig(SettingConfigVo vo) {
-        MessageBean mb = new MessageBean();
-        platformTwoCommand.finish(mb);
-        return JsonResp.asData().success().toJson();
+        String vin = "";
+        String s = DeviceMsgUtils.param(vin, "81", vo);
+        String phone = "";
+
+        int send = shortMessageSender.send(phone, s);
+        if (send == 0) {
+            return JsonResp.asData().success().toJson();
+        }
+        return JsonResp.asData().error("激活短信发送失败").toJson();
     }
 
     /**
@@ -452,8 +479,14 @@ public class DeviceInfoController extends AbstractController {
     @ResponseBody
     @RequestMapping(value = "/terminal_config")
     public String terminalConfig(TerminalConfigVo vo) {
-        MessageBean mb = new MessageBean();
-        platformThreeCommand.finish(mb);
-        return JsonResp.asData().success().toJson();
+        String vin = "";
+        String s = DeviceMsgUtils.control(vin, vo);
+        String phone = "";
+
+        int send = shortMessageSender.send(phone, s);
+        if (send == 0) {
+            return JsonResp.asData().success().toJson();
+        }
+        return JsonResp.asData().error("激活短信发送失败").toJson();
     }
 }

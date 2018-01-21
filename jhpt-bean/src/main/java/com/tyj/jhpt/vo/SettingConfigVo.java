@@ -19,6 +19,8 @@ public class SettingConfigVo {
     private Integer manageDomainLength;
     private String manageDomain;
     private Integer managePort;
+    private String hardwareVersion;
+    private String firmwareVersion;
     private Integer terminalHeartSendCycle;
     private Integer terminalRespOverTime;
     private Integer platformRespOverTime;
@@ -27,6 +29,14 @@ public class SettingConfigVo {
     private String govPlatformDomain;
     private Integer govPlatformPort;
     private Integer monitor;
+
+    public String getIds() {
+        return ids;
+    }
+
+    public void setIds(String ids) {
+        this.ids = ids;
+    }
 
     public Integer getLocalStoreCycle() {
         return localStoreCycle;
@@ -138,5 +148,21 @@ public class SettingConfigVo {
 
     public void setMonitor(Integer monitor) {
         this.monitor = monitor;
+    }
+
+    public String getHardwareVersion() {
+        return hardwareVersion;
+    }
+
+    public void setHardwareVersion(String hardwareVersion) {
+        this.hardwareVersion = hardwareVersion;
+    }
+
+    public String getFirmwareVersion() {
+        return firmwareVersion;
+    }
+
+    public void setFirmwareVersion(String firmwareVersion) {
+        this.firmwareVersion = firmwareVersion;
     }
 }
