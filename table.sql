@@ -79,9 +79,7 @@ CREATE TABLE `tb_device_gps_info` (
   `longitude` DOUBLE NOT NULL COMMENT '经度',
   `latitude` DOUBLE NOT NULL COMMENT '纬度',
   `speed` INT(11) NOT NULL COMMENT '车速',
-  `msg_type` INT(4) NOT NULL COMMENT '告警类型',
   `upload_time` DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '上传时间',
-  `acceleration` FLOAT NOT NULL COMMENT '加速度',
   PRIMARY KEY (`id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='车辆告警信息';
 
@@ -143,10 +141,10 @@ CREATE TABLE `tb_driver_person` (
   `car_vin` VARCHAR(20) NOT NULL COMMENT '车辆vin',
   `driver_id` INT(20) NOT NULL COMMENT '驾驶员ID',
   `event_time` DATETIME NOT NULL COMMENT '数据采集时间',
-  `driver_name` VARCHAR(20) NOT NULL COMMENT '驾驶员姓名',
+  `driver_name` VARCHAR(50) NOT NULL COMMENT '驾驶员姓名',
   `driver_identity_no` VARCHAR(20) NOT NULL COMMENT '驾驶员身份证',
-  `work_qualification` VARCHAR(20) NOT NULL COMMENT '从业资格证',
-  `issue_organization_name` VARCHAR(20) NOT NULL COMMENT '发证机构名称',
+  `work_qualification` VARCHAR(40) NOT NULL COMMENT '从业资格证',
+  `issue_organization_name` VARCHAR(50) NOT NULL COMMENT '发证机构名称',
   PRIMARY KEY (`id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='驾驶员身份信息采集';
 
@@ -235,8 +233,6 @@ CREATE TABLE `tb_terminal_status_upload` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '车载终端状态的ID',
   `car_vin` VARCHAR(20) NOT NULL COMMENT '车辆vin',
   `event_time` DATETIME NOT NULL COMMENT '数据采集时间',
-  `message_type` INT(4) NOT NULL COMMENT '信息类型标志, 01:电源状态, 02:通电状态 03:通信传输状态',
-  `message_body` INT(4) NOT NULL COMMENT '信息体, 电源状态: 0-电源故障, 1-电源正常, 通电状态: 0-断电, 1-通电, 通信传输状态: 0-通信传输异常, 1-通信传输正常',
   PRIMARY KEY (`id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='车载终端状态信息上报';
 
@@ -289,3 +285,23 @@ CREATE TABLE `td_composite_dictionary` (
   PRIMARY KEY (`id`)
 ) ENGINE=INNODB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8 COMMENT='字典表';
 INSERT INTO `td_composite_dictionary` (`id`, `dic_id`, `dic_name`, `dic_type`, `status`, `dic_desc`) VALUES('1','1','A照','1','1','驾照类型'),('2','2','B照','1','1','驾照类型'),('3','3','C照','1','1','驾照类型'),('4','1','私家车','2','1','车型'),('5','2','集团车','2','1','车型'),('6','1','一个月','3','1','1'),('7','2','三个月','3','1','3'),('8','3','半年','3','1','6'),('9','4','一年','3','1','1'),('10','5','三年','3','1','3'),('11','6','五年','3','1','5'),('12','7','0个月','3','1','0'),('13','1','1','4','1','事前间隔'),('14','2','2','4','1','事前间隔'),('15','3','3','4','1','事前间隔'),('16','4','4','4','1','事前间隔'),('17','5','5','4','1','事前间隔'),('18','10','10','5','1','事后间隔'),('19','15','15','5','1','事后间隔'),('20','20','20','5','1','事后间隔'),('21','25','25','5','1','事后间隔'),('22','30','30','5','1','事后间隔'),('23','35','35','5','1','事后间隔'),('24','40','40','5','1','事后间隔'),('25','45','45','5','1','事后间隔'),('26','50','50','5','1','事后间隔'),('27','55','55','5','1','事后间隔'),('28','60','60','5','1','事后间隔'),('29','1','左车道偏离','6','1','告警类型'),('30','2','右车道偏离','6','1','告警类型'),('31','3','车距监测','6','1','告警类型'),('32','4','限速警示','6','1','告警类型'),('33','5','城市前碰撞','6','1','告警类型'),('34','6','车辆前部碰撞','6','1','告警类型'),('35','7','汽车启动','6','1','告警类型'),('36','8','汽车熄火','6','1','告警类型'),('37','9','定位信息','6','1','告警类型'),('38','13','急加速','6','1','告警类型'),('39','14','急减速','6','1','告警类型'),('40','15','VD未启动','6','1','告警类型'),('41','16','设备已激活','6','1','告警类型'),('42','17','行人前部碰撞','6','1','告警类型'),('43','18','车辆碰撞跟踪','6','1','告警类型'),('44','19','设备配置成功','6','1','告警类型'),('45','20','设备配置失败','6','1','告警类型'),('46','21','超速跟踪','6','1','告警类型'),('47','22','超速警示','6','1','告警类型'),('48','23','行人碰撞跟踪','6','1','告警类型'),('49','2','车载终端关机','7','1','设备控制'),('50','3','车载终端复位','7','1','设备控制'),('51','4','车载终端恢复出厂设置','7','1','设备控制'),('52','5','断开数据通信链路','7','1','设备控制'),('53','1','1级报警','8','1','车载终端报警/预警'),('54','2','2级报警','8','1','车载终端报警/预警'),('55','3','3级报警','8','1','车载终端报警/预警'),('56','4','4级预警','8','1','车载终端报警/预警'),('57','5','5级预警','8','1','车载终端报警/预警');
+
+DROP TABLE IF EXISTS `tb_car_alarm`;
+
+CREATE TABLE `tb_car_alarm` (
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
+  `alarm_type` INT(20) NOT NULL COMMENT '车辆告警信息类型',
+  `alarm_body` INT(20) NOT NULL COMMENT '车辆告警信息体',
+  `device_gps_info_id` BIGINT(20) NOT NULL COMMENT 'tb_device_gps_info的ID',
+  PRIMARY KEY (`id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='车辆告警信息';
+
+DROP TABLE IF EXISTS `tb_car_terminal_status`;
+
+CREATE TABLE `tb_car_terminal_status` (
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
+  `alarm_type` INT(20) NOT NULL COMMENT '信息类型标志, 01:电源状态, 02:通电状态 03:通信传输状态',
+  `alarm_body` INT(20) NOT NULL COMMENT '信息体, 电源状态: 0-电源故障, 1-电源正常, 通电状态: 0-断电, 1-通电, 通信传输状态: 0-通信传输异常, 1-通信传输正常',
+  `terminal_status_upload_id` BIGINT(20) NOT NULL COMMENT 'tb_terminal_status_upload的ID',
+  PRIMARY KEY (`id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='车载终端状态';

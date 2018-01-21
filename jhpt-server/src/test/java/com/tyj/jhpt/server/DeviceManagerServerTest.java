@@ -25,12 +25,12 @@ public class DeviceManagerServerTest {
     public static void main(String[] args) {
 //        testOne();
 //        testTwo();
-//        testThree(); // TODO
+//        testThree();
 //        testFour();
 //        testFive();
 //        testSix();
-//        testSeven(); // TODO
-//        testEight(); // TODO
+//        testSeven();
+//        testEight();
 //        testNine();
     }
 
