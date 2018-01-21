@@ -24,9 +24,14 @@ public class DeviceManagerServerTest {
 
     public static void main(String[] args) {
 //        testOne();
-        testTwo();
+//        testTwo();
+//        testThree(); // TODO
+//        testFour();
 //        testFive();
 //        testSix();
+//        testSeven(); // TODO
+//        testEight(); // TODO
+//        testNine();
     }
 
     public static void testOne() {
@@ -39,6 +44,11 @@ public class DeviceManagerServerTest {
         send(data);
     }
 
+    public static void testFour() {
+        String data = "232304FE4C5244533650454233485230303233353004000863A5FC21100C1665C7";
+        send(data);
+    }
+
     public static void testFive() {
         String data = "232307FE4C52445336504542334852303032333530040001076A2DC457BA4A841E";
         send(data);
@@ -46,6 +56,21 @@ public class DeviceManagerServerTest {
 
     public static void testSix() {
         String data = "232308FE4C52445336504542334852303032333530040006076A2DC457BA4A8416";
+        send(data);
+    }
+
+    public static void testSeven() {
+        String data = "232309FE4C5244533650454233485230303233353004001A22CA8B519CCDC4D050D6B4E29051468FEA728FAC616F58598DF8F4E62C91D1BC00";
+        send(data);
+    }
+
+    public static void testEight() {
+        String data = "23230AFE4C5244533650454233485230303233353004000A60157ACC0C26039B34B145CFDBAC123A9E";
+        send(data);
+    }
+
+    public static void testNine() {
+        String data = "23230BFE4C5244533650454233485230303233353004005722CA8B519CCDC4D0D7B7A1D3F25111B933E56F0C21B4D67C30AC9ADA590759EFE805BF991595B1E9076A2DC457BA4A84303E13AC3E5709A8183309DA58A8BFAF8C43FFE51BB70D1D69D1D0823D5049561627CCC56055B2C46C";
         send(data);
     }
 

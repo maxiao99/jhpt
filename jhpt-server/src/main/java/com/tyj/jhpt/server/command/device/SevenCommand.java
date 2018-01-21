@@ -106,6 +106,7 @@ public class SevenCommand extends DeviceAbstractCommand {
             offset += MESSAGE_BODY.length;
             deviceGpsInfo.setAcceleration((float) (0xff & alarmBody));
         }
+        deviceGpsInfo.setUploadTime(new Date());
         deviceGpsInfoService.saveEntitySelective(deviceGpsInfo);
     }
 
