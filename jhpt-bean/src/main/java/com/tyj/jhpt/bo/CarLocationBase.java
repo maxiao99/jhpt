@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017. CK. All rights reserved.
+ * Copyright (c) 2018. CK. All rights reserved.
  */
 
 package com.tyj.jhpt.bo;
@@ -77,7 +77,7 @@ public abstract class CarLocationBase extends FieldAccessVo implements TableData
      * This field corresponds to the database column `tb_car_location`.location_status
      */
     @ColumnDescription(desc = PROPERTY_REMARK_LOCATIONSTATUS)
-    private Byte locationStatus;
+    private Integer locationStatus;
 
     /**
      * This field corresponds to the database column `tb_car_location`.longitude
@@ -170,7 +170,7 @@ public abstract class CarLocationBase extends FieldAccessVo implements TableData
      *
      * @return the value of `tb_car_location`.location_status
      */
-    public Byte getLocationStatus() {
+    public Integer getLocationStatus() {
         return locationStatus;
     }
 
@@ -179,7 +179,7 @@ public abstract class CarLocationBase extends FieldAccessVo implements TableData
      *
      * @param locationStatus the value for `tb_car_location`.location_status
      */
-    public void setLocationStatus(Byte locationStatus) {
+    public void setLocationStatus(Integer locationStatus) {
         this.locationStatus = locationStatus;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017. CK. All rights reserved.
+ * Copyright (c) 2018. CK. All rights reserved.
  */
 
 package com.tyj.jhpt.bo;
@@ -77,7 +77,7 @@ public abstract class SupersBase extends FieldAccessVo implements TableDataConve
      * This field corresponds to the database column `tb_supers`.max_system_no
      */
     @ColumnDescription(desc = PROPERTY_REMARK_MAXSYSTEMNO)
-    private Byte maxSystemNo;
+    private Integer maxSystemNo;
 
     /**
      * This field corresponds to the database column `tb_supers`.max_simple_no
@@ -93,7 +93,7 @@ public abstract class SupersBase extends FieldAccessVo implements TableDataConve
      * This field corresponds to the database column `tb_supers`.max_simple_no
      */
     @ColumnDescription(desc = PROPERTY_REMARK_MAXSIMPLENO)
-    private Byte maxSimpleNo;
+    private Integer maxSimpleNo;
 
     /**
      * This field corresponds to the database column `tb_supers`.max
@@ -125,7 +125,7 @@ public abstract class SupersBase extends FieldAccessVo implements TableDataConve
      * This field corresponds to the database column `tb_supers`.mix_system_no
      */
     @ColumnDescription(desc = PROPERTY_REMARK_MIXSYSTEMNO)
-    private Byte mixSystemNo;
+    private Integer mixSystemNo;
 
     /**
      * This field corresponds to the database column `tb_supers`.mix_simple_no
@@ -141,7 +141,7 @@ public abstract class SupersBase extends FieldAccessVo implements TableDataConve
      * This field corresponds to the database column `tb_supers`.mix_simple_no
      */
     @ColumnDescription(desc = PROPERTY_REMARK_MIXSIMPLENO)
-    private Byte mixSimpleNo;
+    private Integer mixSimpleNo;
 
     /**
      * This field corresponds to the database column `tb_supers`.min
@@ -173,7 +173,7 @@ public abstract class SupersBase extends FieldAccessVo implements TableDataConve
      * This field corresponds to the database column `tb_supers`.max_temperature_system_no
      */
     @ColumnDescription(desc = PROPERTY_REMARK_MAXTEMPERATURESYSTEMNO)
-    private Byte maxTemperatureSystemNo;
+    private Integer maxTemperatureSystemNo;
 
     /**
      * This field corresponds to the database column `tb_supers`.max_seq
@@ -189,7 +189,7 @@ public abstract class SupersBase extends FieldAccessVo implements TableDataConve
      * This field corresponds to the database column `tb_supers`.max_seq
      */
     @ColumnDescription(desc = PROPERTY_REMARK_MAXSEQ)
-    private Byte maxSeq;
+    private Integer maxSeq;
 
     /**
      * This field corresponds to the database column `tb_supers`.max_temperature
@@ -205,7 +205,7 @@ public abstract class SupersBase extends FieldAccessVo implements TableDataConve
      * This field corresponds to the database column `tb_supers`.max_temperature
      */
     @ColumnDescription(desc = PROPERTY_REMARK_MAXTEMPERATURE)
-    private Byte maxTemperature;
+    private Integer maxTemperature;
 
     /**
      * This field corresponds to the database column `tb_supers`.min_temperature_system_no
@@ -221,7 +221,7 @@ public abstract class SupersBase extends FieldAccessVo implements TableDataConve
      * This field corresponds to the database column `tb_supers`.min_temperature_system_no
      */
     @ColumnDescription(desc = PROPERTY_REMARK_MINTEMPERATURESYSTEMNO)
-    private Byte minTemperatureSystemNo;
+    private Integer minTemperatureSystemNo;
 
     /**
      * This field corresponds to the database column `tb_supers`.min_seq
@@ -237,7 +237,7 @@ public abstract class SupersBase extends FieldAccessVo implements TableDataConve
      * This field corresponds to the database column `tb_supers`.min_seq
      */
     @ColumnDescription(desc = PROPERTY_REMARK_MINSEQ)
-    private Byte minSeq;
+    private Integer minSeq;
 
     /**
      * This field corresponds to the database column `tb_supers`.min_temperature
@@ -253,7 +253,7 @@ public abstract class SupersBase extends FieldAccessVo implements TableDataConve
      * This field corresponds to the database column `tb_supers`.min_temperature
      */
     @ColumnDescription(desc = PROPERTY_REMARK_MINTEMPERATURE)
-    private Byte minTemperature;
+    private Integer minTemperature;
 
     /**
      * This method returns the value of the database column `tb_supers`.id
@@ -314,7 +314,7 @@ public abstract class SupersBase extends FieldAccessVo implements TableDataConve
      *
      * @return the value of `tb_supers`.max_system_no
      */
-    public Byte getMaxSystemNo() {
+    public Integer getMaxSystemNo() {
         return maxSystemNo;
     }
 
@@ -323,7 +323,7 @@ public abstract class SupersBase extends FieldAccessVo implements TableDataConve
      *
      * @param maxSystemNo the value for `tb_supers`.max_system_no
      */
-    public void setMaxSystemNo(Byte maxSystemNo) {
+    public void setMaxSystemNo(Integer maxSystemNo) {
         this.maxSystemNo = maxSystemNo;
     }
 
@@ -332,7 +332,7 @@ public abstract class SupersBase extends FieldAccessVo implements TableDataConve
      *
      * @return the value of `tb_supers`.max_simple_no
      */
-    public Byte getMaxSimpleNo() {
+    public Integer getMaxSimpleNo() {
         return maxSimpleNo;
     }
 
@@ -341,7 +341,7 @@ public abstract class SupersBase extends FieldAccessVo implements TableDataConve
      *
      * @param maxSimpleNo the value for `tb_supers`.max_simple_no
      */
-    public void setMaxSimpleNo(Byte maxSimpleNo) {
+    public void setMaxSimpleNo(Integer maxSimpleNo) {
         this.maxSimpleNo = maxSimpleNo;
     }
 
@@ -368,7 +368,7 @@ public abstract class SupersBase extends FieldAccessVo implements TableDataConve
      *
      * @return the value of `tb_supers`.mix_system_no
      */
-    public Byte getMixSystemNo() {
+    public Integer getMixSystemNo() {
         return mixSystemNo;
     }
 
@@ -377,7 +377,7 @@ public abstract class SupersBase extends FieldAccessVo implements TableDataConve
      *
      * @param mixSystemNo the value for `tb_supers`.mix_system_no
      */
-    public void setMixSystemNo(Byte mixSystemNo) {
+    public void setMixSystemNo(Integer mixSystemNo) {
         this.mixSystemNo = mixSystemNo;
     }
 
@@ -386,7 +386,7 @@ public abstract class SupersBase extends FieldAccessVo implements TableDataConve
      *
      * @return the value of `tb_supers`.mix_simple_no
      */
-    public Byte getMixSimpleNo() {
+    public Integer getMixSimpleNo() {
         return mixSimpleNo;
     }
 
@@ -395,7 +395,7 @@ public abstract class SupersBase extends FieldAccessVo implements TableDataConve
      *
      * @param mixSimpleNo the value for `tb_supers`.mix_simple_no
      */
-    public void setMixSimpleNo(Byte mixSimpleNo) {
+    public void setMixSimpleNo(Integer mixSimpleNo) {
         this.mixSimpleNo = mixSimpleNo;
     }
 
@@ -422,7 +422,7 @@ public abstract class SupersBase extends FieldAccessVo implements TableDataConve
      *
      * @return the value of `tb_supers`.max_temperature_system_no
      */
-    public Byte getMaxTemperatureSystemNo() {
+    public Integer getMaxTemperatureSystemNo() {
         return maxTemperatureSystemNo;
     }
 
@@ -431,7 +431,7 @@ public abstract class SupersBase extends FieldAccessVo implements TableDataConve
      *
      * @param maxTemperatureSystemNo the value for `tb_supers`.max_temperature_system_no
      */
-    public void setMaxTemperatureSystemNo(Byte maxTemperatureSystemNo) {
+    public void setMaxTemperatureSystemNo(Integer maxTemperatureSystemNo) {
         this.maxTemperatureSystemNo = maxTemperatureSystemNo;
     }
 
@@ -440,7 +440,7 @@ public abstract class SupersBase extends FieldAccessVo implements TableDataConve
      *
      * @return the value of `tb_supers`.max_seq
      */
-    public Byte getMaxSeq() {
+    public Integer getMaxSeq() {
         return maxSeq;
     }
 
@@ -449,7 +449,7 @@ public abstract class SupersBase extends FieldAccessVo implements TableDataConve
      *
      * @param maxSeq the value for `tb_supers`.max_seq
      */
-    public void setMaxSeq(Byte maxSeq) {
+    public void setMaxSeq(Integer maxSeq) {
         this.maxSeq = maxSeq;
     }
 
@@ -458,7 +458,7 @@ public abstract class SupersBase extends FieldAccessVo implements TableDataConve
      *
      * @return the value of `tb_supers`.max_temperature
      */
-    public Byte getMaxTemperature() {
+    public Integer getMaxTemperature() {
         return maxTemperature;
     }
 
@@ -467,7 +467,7 @@ public abstract class SupersBase extends FieldAccessVo implements TableDataConve
      *
      * @param maxTemperature the value for `tb_supers`.max_temperature
      */
-    public void setMaxTemperature(Byte maxTemperature) {
+    public void setMaxTemperature(Integer maxTemperature) {
         this.maxTemperature = maxTemperature;
     }
 
@@ -476,7 +476,7 @@ public abstract class SupersBase extends FieldAccessVo implements TableDataConve
      *
      * @return the value of `tb_supers`.min_temperature_system_no
      */
-    public Byte getMinTemperatureSystemNo() {
+    public Integer getMinTemperatureSystemNo() {
         return minTemperatureSystemNo;
     }
 
@@ -485,7 +485,7 @@ public abstract class SupersBase extends FieldAccessVo implements TableDataConve
      *
      * @param minTemperatureSystemNo the value for `tb_supers`.min_temperature_system_no
      */
-    public void setMinTemperatureSystemNo(Byte minTemperatureSystemNo) {
+    public void setMinTemperatureSystemNo(Integer minTemperatureSystemNo) {
         this.minTemperatureSystemNo = minTemperatureSystemNo;
     }
 
@@ -494,7 +494,7 @@ public abstract class SupersBase extends FieldAccessVo implements TableDataConve
      *
      * @return the value of `tb_supers`.min_seq
      */
-    public Byte getMinSeq() {
+    public Integer getMinSeq() {
         return minSeq;
     }
 
@@ -503,7 +503,7 @@ public abstract class SupersBase extends FieldAccessVo implements TableDataConve
      *
      * @param minSeq the value for `tb_supers`.min_seq
      */
-    public void setMinSeq(Byte minSeq) {
+    public void setMinSeq(Integer minSeq) {
         this.minSeq = minSeq;
     }
 
@@ -512,7 +512,7 @@ public abstract class SupersBase extends FieldAccessVo implements TableDataConve
      *
      * @return the value of `tb_supers`.min_temperature
      */
-    public Byte getMinTemperature() {
+    public Integer getMinTemperature() {
         return minTemperature;
     }
 
@@ -521,7 +521,7 @@ public abstract class SupersBase extends FieldAccessVo implements TableDataConve
      *
      * @param minTemperature the value for `tb_supers`.min_temperature
      */
-    public void setMinTemperature(Byte minTemperature) {
+    public void setMinTemperature(Integer minTemperature) {
         this.minTemperature = minTemperature;
     }
 }

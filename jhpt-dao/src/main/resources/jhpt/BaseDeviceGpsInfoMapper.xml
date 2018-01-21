@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-  ~ Copyright (c) 2017. CK. All rights reserved.
+  ~ Copyright (c) 2018. CK. All rights reserved.
   -->
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
@@ -11,13 +11,13 @@
     <result column="msg_id" property="msgId" jdbcType="INTEGER" />
     <result column="event_time" property="eventTime" jdbcType="TIMESTAMP" />
     <result column="driver_person_id" property="driverPersonId" jdbcType="INTEGER" />
-    <result column="location_status" property="locationStatus" jdbcType="TINYINT" />
+    <result column="location_status" property="locationStatus" jdbcType="INTEGER" />
     <result column="longitude" property="longitude" jdbcType="DOUBLE" />
     <result column="latitude" property="latitude" jdbcType="DOUBLE" />
     <result column="speed" property="speed" jdbcType="INTEGER" />
-    <result column="msg_type" property="msgType" jdbcType="TINYINT" />
+    <result column="msg_type" property="msgType" jdbcType="INTEGER" />
     <result column="upload_time" property="uploadTime" jdbcType="TIMESTAMP" />
-    <result column="acceleration" property="acceleration" jdbcType="INTEGER" />
+    <result column="acceleration" property="acceleration" jdbcType="REAL" />
   </resultMap>
   <sql id="Base_Column_List">
     `id`, `car_vin`, `msg_id`, `event_time`, `driver_person_id`, `location_status`, `longitude`, `latitude`, `speed`, `msg_type`, 
@@ -30,9 +30,9 @@
       `latitude`, `speed`, `msg_type`, 
       `upload_time`, `acceleration`)
     values (#{carVin,jdbcType=VARCHAR}, #{msgId,jdbcType=INTEGER}, #{eventTime,jdbcType=TIMESTAMP}, 
-      #{driverPersonId,jdbcType=INTEGER}, #{locationStatus,jdbcType=TINYINT}, #{longitude,jdbcType=DOUBLE}, 
-      #{latitude,jdbcType=DOUBLE}, #{speed,jdbcType=INTEGER}, #{msgType,jdbcType=TINYINT}, 
-      #{uploadTime,jdbcType=TIMESTAMP}, #{acceleration,jdbcType=INTEGER})
+      #{driverPersonId,jdbcType=INTEGER}, #{locationStatus,jdbcType=INTEGER}, #{longitude,jdbcType=DOUBLE}, 
+      #{latitude,jdbcType=DOUBLE}, #{speed,jdbcType=INTEGER}, #{msgType,jdbcType=INTEGER}, 
+      #{uploadTime,jdbcType=TIMESTAMP}, #{acceleration,jdbcType=REAL})
     ]]>
   </insert>
   <insert id="insertBatch" parameterType="java.util.List">
@@ -44,9 +44,9 @@
      values 
     <foreach collection="list" item="item" index="index" separator=",">
        (#{item.carVin,jdbcType=VARCHAR}, #{item.msgId,jdbcType=INTEGER}, #{item.eventTime,jdbcType=TIMESTAMP}, 
-        #{item.driverPersonId,jdbcType=INTEGER}, #{item.locationStatus,jdbcType=TINYINT}, 
+        #{item.driverPersonId,jdbcType=INTEGER}, #{item.locationStatus,jdbcType=INTEGER}, 
         #{item.longitude,jdbcType=DOUBLE}, #{item.latitude,jdbcType=DOUBLE}, #{item.speed,jdbcType=INTEGER}, 
-        #{item.msgType,jdbcType=TINYINT}, #{item.uploadTime,jdbcType=TIMESTAMP}, #{item.acceleration,jdbcType=INTEGER}
+        #{item.msgType,jdbcType=INTEGER}, #{item.uploadTime,jdbcType=TIMESTAMP}, #{item.acceleration,jdbcType=REAL}
         )
     </foreach>
   </insert>
@@ -101,7 +101,7 @@
         #{driverPersonId,jdbcType=INTEGER},
       </if>
       <if test="locationStatus != null">
-        #{locationStatus,jdbcType=TINYINT},
+        #{locationStatus,jdbcType=INTEGER},
       </if>
       <if test="longitude != null">
         #{longitude,jdbcType=DOUBLE},
@@ -113,13 +113,13 @@
         #{speed,jdbcType=INTEGER},
       </if>
       <if test="msgType != null">
-        #{msgType,jdbcType=TINYINT},
+        #{msgType,jdbcType=INTEGER},
       </if>
       <if test="uploadTime != null">
         #{uploadTime,jdbcType=TIMESTAMP},
       </if>
       <if test="acceleration != null">
-        #{acceleration,jdbcType=INTEGER},
+        #{acceleration,jdbcType=REAL},
       </if>
     </trim>
   </insert>
@@ -151,7 +151,7 @@
         `driver_person_id` = #{driverPersonId,jdbcType=INTEGER},
       </if>
       <if test="locationStatus != null">
-        `location_status` = #{locationStatus,jdbcType=TINYINT},
+        `location_status` = #{locationStatus,jdbcType=INTEGER},
       </if>
       <if test="longitude != null">
         `longitude` = #{longitude,jdbcType=DOUBLE},
@@ -163,13 +163,13 @@
         `speed` = #{speed,jdbcType=INTEGER},
       </if>
       <if test="msgType != null">
-        `msg_type` = #{msgType,jdbcType=TINYINT},
+        `msg_type` = #{msgType,jdbcType=INTEGER},
       </if>
       <if test="uploadTime != null">
         `upload_time` = #{uploadTime,jdbcType=TIMESTAMP},
       </if>
       <if test="acceleration != null">
-        `acceleration` = #{acceleration,jdbcType=INTEGER},
+        `acceleration` = #{acceleration,jdbcType=REAL},
       </if>
     </set>
     where `id` = #{id,jdbcType=BIGINT}
@@ -180,13 +180,13 @@
       `msg_id` = #{msgId,jdbcType=INTEGER},
       `event_time` = #{eventTime,jdbcType=TIMESTAMP},
       `driver_person_id` = #{driverPersonId,jdbcType=INTEGER},
-      `location_status` = #{locationStatus,jdbcType=TINYINT},
+      `location_status` = #{locationStatus,jdbcType=INTEGER},
       `longitude` = #{longitude,jdbcType=DOUBLE},
       `latitude` = #{latitude,jdbcType=DOUBLE},
       `speed` = #{speed,jdbcType=INTEGER},
-      `msg_type` = #{msgType,jdbcType=TINYINT},
+      `msg_type` = #{msgType,jdbcType=INTEGER},
       `upload_time` = #{uploadTime,jdbcType=TIMESTAMP},
-      `acceleration` = #{acceleration,jdbcType=INTEGER}
+      `acceleration` = #{acceleration,jdbcType=REAL}
     where `id` = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

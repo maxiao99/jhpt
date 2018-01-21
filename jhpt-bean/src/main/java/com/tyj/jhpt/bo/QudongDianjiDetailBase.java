@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017. CK. All rights reserved.
+ * Copyright (c) 2018. CK. All rights reserved.
  */
 
 package com.tyj.jhpt.bo;
@@ -44,7 +44,7 @@ public abstract class QudongDianjiDetailBase extends FieldAccessVo implements Ta
      * This field corresponds to the database column `tb_qudong_dianji_detail`.seq
      */
     @ColumnDescription(desc = PROPERTY_REMARK_SEQ)
-    private Byte seq;
+    private Integer seq;
 
     /**
      * This field corresponds to the database column `tb_qudong_dianji_detail`.status
@@ -60,7 +60,7 @@ public abstract class QudongDianjiDetailBase extends FieldAccessVo implements Ta
      * This field corresponds to the database column `tb_qudong_dianji_detail`.status
      */
     @ColumnDescription(desc = PROPERTY_REMARK_STATUS)
-    private Byte status;
+    private Integer status;
 
     /**
      * This field corresponds to the database column `tb_qudong_dianji_detail`.control_temperature
@@ -76,7 +76,7 @@ public abstract class QudongDianjiDetailBase extends FieldAccessVo implements Ta
      * This field corresponds to the database column `tb_qudong_dianji_detail`.control_temperature
      */
     @ColumnDescription(desc = PROPERTY_REMARK_CONTROLTEMPERATURE)
-    private Byte controlTemperature;
+    private Integer controlTemperature;
 
     /**
      * This field corresponds to the database column `tb_qudong_dianji_detail`.speed
@@ -124,7 +124,7 @@ public abstract class QudongDianjiDetailBase extends FieldAccessVo implements Ta
      * This field corresponds to the database column `tb_qudong_dianji_detail`.temperature
      */
     @ColumnDescription(desc = PROPERTY_REMARK_TEMPERATURE)
-    private Byte temperature;
+    private Integer temperature;
 
     /**
      * This field corresponds to the database column `tb_qudong_dianji_detail`.dianya
@@ -197,7 +197,7 @@ public abstract class QudongDianjiDetailBase extends FieldAccessVo implements Ta
      *
      * @return the value of `tb_qudong_dianji_detail`.seq
      */
-    public Byte getSeq() {
+    public Integer getSeq() {
         return seq;
     }
 
@@ -206,7 +206,7 @@ public abstract class QudongDianjiDetailBase extends FieldAccessVo implements Ta
      *
      * @param seq the value for `tb_qudong_dianji_detail`.seq
      */
-    public void setSeq(Byte seq) {
+    public void setSeq(Integer seq) {
         this.seq = seq;
     }
 
@@ -215,7 +215,7 @@ public abstract class QudongDianjiDetailBase extends FieldAccessVo implements Ta
      *
      * @return the value of `tb_qudong_dianji_detail`.status
      */
-    public Byte getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
@@ -224,7 +224,7 @@ public abstract class QudongDianjiDetailBase extends FieldAccessVo implements Ta
      *
      * @param status the value for `tb_qudong_dianji_detail`.status
      */
-    public void setStatus(Byte status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
@@ -233,7 +233,7 @@ public abstract class QudongDianjiDetailBase extends FieldAccessVo implements Ta
      *
      * @return the value of `tb_qudong_dianji_detail`.control_temperature
      */
-    public Byte getControlTemperature() {
+    public Integer getControlTemperature() {
         return controlTemperature;
     }
 
@@ -242,7 +242,7 @@ public abstract class QudongDianjiDetailBase extends FieldAccessVo implements Ta
      *
      * @param controlTemperature the value for `tb_qudong_dianji_detail`.control_temperature
      */
-    public void setControlTemperature(Byte controlTemperature) {
+    public void setControlTemperature(Integer controlTemperature) {
         this.controlTemperature = controlTemperature;
     }
 
@@ -287,7 +287,7 @@ public abstract class QudongDianjiDetailBase extends FieldAccessVo implements Ta
      *
      * @return the value of `tb_qudong_dianji_detail`.temperature
      */
-    public Byte getTemperature() {
+    public Integer getTemperature() {
         return temperature;
     }
 
@@ -296,7 +296,7 @@ public abstract class QudongDianjiDetailBase extends FieldAccessVo implements Ta
      *
      * @param temperature the value for `tb_qudong_dianji_detail`.temperature
      */
-    public void setTemperature(Byte temperature) {
+    public void setTemperature(Integer temperature) {
         this.temperature = temperature;
     }
 

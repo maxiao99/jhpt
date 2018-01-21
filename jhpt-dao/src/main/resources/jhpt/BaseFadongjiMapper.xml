@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-  ~ Copyright (c) 2017. CK. All rights reserved.
+  ~ Copyright (c) 2018. CK. All rights reserved.
   -->
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
@@ -9,7 +9,7 @@
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="car_vin" property="carVin" jdbcType="VARCHAR" />
     <result column="event_time" property="eventTime" jdbcType="TIMESTAMP" />
-    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="status" property="status" jdbcType="INTEGER" />
     <result column="speed" property="speed" jdbcType="INTEGER" />
     <result column="xiaohaolv" property="xiaohaolv" jdbcType="INTEGER" />
   </resultMap>
@@ -20,7 +20,7 @@
     <![CDATA[
     insert into `tb_fadongji` (`car_vin`, `event_time`, `status`, 
       `speed`, `xiaohaolv`)
-    values (#{carVin,jdbcType=VARCHAR}, #{eventTime,jdbcType=TIMESTAMP}, #{status,jdbcType=TINYINT}, 
+    values (#{carVin,jdbcType=VARCHAR}, #{eventTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, 
       #{speed,jdbcType=INTEGER}, #{xiaohaolv,jdbcType=INTEGER})
     ]]>
   </insert>
@@ -29,7 +29,7 @@
       `speed`, `xiaohaolv`)
      values 
     <foreach collection="list" item="item" index="index" separator=",">
-       (#{item.carVin,jdbcType=VARCHAR}, #{item.eventTime,jdbcType=TIMESTAMP}, #{item.status,jdbcType=TINYINT}, 
+       (#{item.carVin,jdbcType=VARCHAR}, #{item.eventTime,jdbcType=TIMESTAMP}, #{item.status,jdbcType=INTEGER}, 
         #{item.speed,jdbcType=INTEGER}, #{item.xiaohaolv,jdbcType=INTEGER})
     </foreach>
   </insert>
@@ -60,7 +60,7 @@
         #{eventTime,jdbcType=TIMESTAMP},
       </if>
       <if test="status != null">
-        #{status,jdbcType=TINYINT},
+        #{status,jdbcType=INTEGER},
       </if>
       <if test="speed != null">
         #{speed,jdbcType=INTEGER},
@@ -92,7 +92,7 @@
         `event_time` = #{eventTime,jdbcType=TIMESTAMP},
       </if>
       <if test="status != null">
-        `status` = #{status,jdbcType=TINYINT},
+        `status` = #{status,jdbcType=INTEGER},
       </if>
       <if test="speed != null">
         `speed` = #{speed,jdbcType=INTEGER},
@@ -107,7 +107,7 @@
     update `tb_fadongji`
     set `car_vin` = #{carVin,jdbcType=VARCHAR},
       `event_time` = #{eventTime,jdbcType=TIMESTAMP},
-      `status` = #{status,jdbcType=TINYINT},
+      `status` = #{status,jdbcType=INTEGER},
       `speed` = #{speed,jdbcType=INTEGER},
       `xiaohaolv` = #{xiaohaolv,jdbcType=INTEGER}
     where `id` = #{id,jdbcType=BIGINT}

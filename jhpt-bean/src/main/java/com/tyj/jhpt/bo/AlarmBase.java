@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017. CK. All rights reserved.
+ * Copyright (c) 2018. CK. All rights reserved.
  */
 
 package com.tyj.jhpt.bo;
@@ -77,7 +77,7 @@ public abstract class AlarmBase extends FieldAccessVo implements TableDataConver
      * This field corresponds to the database column `tb_alarm`.max_alarm_level
      */
     @ColumnDescription(desc = PROPERTY_REMARK_MAXALARMLEVEL)
-    private Byte maxAlarmLevel;
+    private Integer maxAlarmLevel;
 
     /**
      * This field corresponds to the database column `tb_alarm`.general_alarm
@@ -218,7 +218,7 @@ public abstract class AlarmBase extends FieldAccessVo implements TableDataConver
      *
      * @return the value of `tb_alarm`.max_alarm_level
      */
-    public Byte getMaxAlarmLevel() {
+    public Integer getMaxAlarmLevel() {
         return maxAlarmLevel;
     }
 
@@ -227,7 +227,7 @@ public abstract class AlarmBase extends FieldAccessVo implements TableDataConver
      *
      * @param maxAlarmLevel the value for `tb_alarm`.max_alarm_level
      */
-    public void setMaxAlarmLevel(Byte maxAlarmLevel) {
+    public void setMaxAlarmLevel(Integer maxAlarmLevel) {
         this.maxAlarmLevel = maxAlarmLevel;
     }
 

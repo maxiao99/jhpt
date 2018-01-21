@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-  ~ Copyright (c) 2017. CK. All rights reserved.
+  ~ Copyright (c) 2018. CK. All rights reserved.
   -->
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.tyj.jhpt.dao.DianyaDetailMapper">
   <resultMap id="BaseResultMap" type="com.tyj.jhpt.bo.DianyaDetail">
     <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="system_no" property="systemNo" jdbcType="TINYINT" />
+    <result column="system_no" property="systemNo" jdbcType="INTEGER" />
     <result column="dianya" property="dianya" jdbcType="INTEGER" />
     <result column="dianliu" property="dianliu" jdbcType="INTEGER" />
     <result column="simple_total" property="simpleTotal" jdbcType="INTEGER" />
     <result column="seq" property="seq" jdbcType="INTEGER" />
-    <result column="own_simple_total" property="ownSimpleTotal" jdbcType="TINYINT" />
+    <result column="own_simple_total" property="ownSimpleTotal" jdbcType="INTEGER" />
     <result column="simple_totals" property="simpleTotals" jdbcType="LONGVARBINARY" />
     <result column="dianya_id" property="dianyaId" jdbcType="BIGINT" />
   </resultMap>
@@ -24,8 +24,8 @@
     insert into `tb_dianya_detail` (`system_no`, `dianya`, `dianliu`, 
       `simple_total`, `seq`, `own_simple_total`, 
       `simple_totals`, `dianya_id`)
-    values (#{systemNo,jdbcType=TINYINT}, #{dianya,jdbcType=INTEGER}, #{dianliu,jdbcType=INTEGER}, 
-      #{simpleTotal,jdbcType=INTEGER}, #{seq,jdbcType=INTEGER}, #{ownSimpleTotal,jdbcType=TINYINT}, 
+    values (#{systemNo,jdbcType=INTEGER}, #{dianya,jdbcType=INTEGER}, #{dianliu,jdbcType=INTEGER}, 
+      #{simpleTotal,jdbcType=INTEGER}, #{seq,jdbcType=INTEGER}, #{ownSimpleTotal,jdbcType=INTEGER}, 
       #{simpleTotals,jdbcType=LONGVARBINARY}, #{dianyaId,jdbcType=BIGINT})
     ]]>
   </insert>
@@ -35,8 +35,8 @@
       `simple_totals`, `dianya_id`)
      values 
     <foreach collection="list" item="item" index="index" separator=",">
-       (#{item.systemNo,jdbcType=TINYINT}, #{item.dianya,jdbcType=INTEGER}, #{item.dianliu,jdbcType=INTEGER}, 
-        #{item.simpleTotal,jdbcType=INTEGER}, #{item.seq,jdbcType=INTEGER}, #{item.ownSimpleTotal,jdbcType=TINYINT}, 
+       (#{item.systemNo,jdbcType=INTEGER}, #{item.dianya,jdbcType=INTEGER}, #{item.dianliu,jdbcType=INTEGER}, 
+        #{item.simpleTotal,jdbcType=INTEGER}, #{item.seq,jdbcType=INTEGER}, #{item.ownSimpleTotal,jdbcType=INTEGER}, 
         #{item.simpleTotals,jdbcType=LONGVARBINARY}, #{item.dianyaId,jdbcType=BIGINT})
     </foreach>
   </insert>
@@ -70,7 +70,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="systemNo != null">
-        #{systemNo,jdbcType=TINYINT},
+        #{systemNo,jdbcType=INTEGER},
       </if>
       <if test="dianya != null">
         #{dianya,jdbcType=INTEGER},
@@ -85,7 +85,7 @@
         #{seq,jdbcType=INTEGER},
       </if>
       <if test="ownSimpleTotal != null">
-        #{ownSimpleTotal,jdbcType=TINYINT},
+        #{ownSimpleTotal,jdbcType=INTEGER},
       </if>
       <if test="simpleTotals != null">
         #{simpleTotals,jdbcType=LONGVARBINARY},
@@ -111,7 +111,7 @@
     update `tb_dianya_detail`
     <set>
       <if test="systemNo != null">
-        `system_no` = #{systemNo,jdbcType=TINYINT},
+        `system_no` = #{systemNo,jdbcType=INTEGER},
       </if>
       <if test="dianya != null">
         `dianya` = #{dianya,jdbcType=INTEGER},
@@ -126,7 +126,7 @@
         `seq` = #{seq,jdbcType=INTEGER},
       </if>
       <if test="ownSimpleTotal != null">
-        `own_simple_total` = #{ownSimpleTotal,jdbcType=TINYINT},
+        `own_simple_total` = #{ownSimpleTotal,jdbcType=INTEGER},
       </if>
       <if test="simpleTotals != null">
         `simple_totals` = #{simpleTotals,jdbcType=LONGVARBINARY},
@@ -139,12 +139,12 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.tyj.jhpt.bo.DianyaDetail">
     update `tb_dianya_detail`
-    set `system_no` = #{systemNo,jdbcType=TINYINT},
+    set `system_no` = #{systemNo,jdbcType=INTEGER},
       `dianya` = #{dianya,jdbcType=INTEGER},
       `dianliu` = #{dianliu,jdbcType=INTEGER},
       `simple_total` = #{simpleTotal,jdbcType=INTEGER},
       `seq` = #{seq,jdbcType=INTEGER},
-      `own_simple_total` = #{ownSimpleTotal,jdbcType=TINYINT},
+      `own_simple_total` = #{ownSimpleTotal,jdbcType=INTEGER},
       `simple_totals` = #{simpleTotals,jdbcType=LONGVARBINARY},
       `dianya_id` = #{dianyaId,jdbcType=BIGINT}
     where `id` = #{id,jdbcType=BIGINT}

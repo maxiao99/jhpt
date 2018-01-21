@@ -77,7 +77,7 @@ public abstract class TerminalStatusUploadBase extends FieldAccessVo implements 
      * This field corresponds to the database column `tb_terminal_status_upload`.message_type
      */
     @ColumnDescription(desc = PROPERTY_REMARK_MESSAGETYPE)
-    private Byte messageType;
+    private Integer messageType;
 
     /**
      * This field corresponds to the database column `tb_terminal_status_upload`.message_body
@@ -93,7 +93,7 @@ public abstract class TerminalStatusUploadBase extends FieldAccessVo implements 
      * This field corresponds to the database column `tb_terminal_status_upload`.message_body
      */
     @ColumnDescription(desc = PROPERTY_REMARK_MESSAGEBODY)
-    private Byte messageBody;
+    private Integer messageBody;
 
     /**
      * This method returns the value of the database column `tb_terminal_status_upload`.id
@@ -154,7 +154,7 @@ public abstract class TerminalStatusUploadBase extends FieldAccessVo implements 
      *
      * @return the value of `tb_terminal_status_upload`.message_type
      */
-    public Byte getMessageType() {
+    public Integer getMessageType() {
         return messageType;
     }
 
@@ -163,7 +163,7 @@ public abstract class TerminalStatusUploadBase extends FieldAccessVo implements 
      *
      * @param messageType the value for `tb_terminal_status_upload`.message_type
      */
-    public void setMessageType(Byte messageType) {
+    public void setMessageType(Integer messageType) {
         this.messageType = messageType;
     }
 
@@ -172,7 +172,7 @@ public abstract class TerminalStatusUploadBase extends FieldAccessVo implements 
      *
      * @return the value of `tb_terminal_status_upload`.message_body
      */
-    public Byte getMessageBody() {
+    public Integer getMessageBody() {
         return messageBody;
     }
 
@@ -181,7 +181,7 @@ public abstract class TerminalStatusUploadBase extends FieldAccessVo implements 
      *
      * @param messageBody the value for `tb_terminal_status_upload`.message_body
      */
-    public void setMessageBody(Byte messageBody) {
+    public void setMessageBody(Integer messageBody) {
         this.messageBody = messageBody;
     }
 }

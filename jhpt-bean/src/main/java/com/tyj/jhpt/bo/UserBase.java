@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017. CK. All rights reserved.
+ * Copyright (c) 2018. CK. All rights reserved.
  */
 
 package com.tyj.jhpt.bo;
@@ -109,7 +109,7 @@ public abstract class UserBase extends FieldAccessVo implements TableDataConvert
      * This field corresponds to the database column `tb_user`.status
      */
     @ColumnDescription(desc = PROPERTY_REMARK_STATUS)
-    private Byte status;
+    private Integer status;
 
     /**
      * This field corresponds to the database column `tb_user`.creator_id
@@ -125,7 +125,7 @@ public abstract class UserBase extends FieldAccessVo implements TableDataConvert
      * This field corresponds to the database column `tb_user`.creator_id
      */
     @ColumnDescription(desc = PROPERTY_REMARK_CREATORID)
-    private Long creatorId;
+    private Integer creatorId;
 
     /**
      * This field corresponds to the database column `tb_user`.create_time
@@ -254,7 +254,7 @@ public abstract class UserBase extends FieldAccessVo implements TableDataConvert
      *
      * @return the value of `tb_user`.status
      */
-    public Byte getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
@@ -263,7 +263,7 @@ public abstract class UserBase extends FieldAccessVo implements TableDataConvert
      *
      * @param status the value for `tb_user`.status
      */
-    public void setStatus(Byte status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
@@ -272,7 +272,7 @@ public abstract class UserBase extends FieldAccessVo implements TableDataConvert
      *
      * @return the value of `tb_user`.creator_id
      */
-    public Long getCreatorId() {
+    public Integer getCreatorId() {
         return creatorId;
     }
 
@@ -281,7 +281,7 @@ public abstract class UserBase extends FieldAccessVo implements TableDataConvert
      *
      * @param creatorId the value for `tb_user`.creator_id
      */
-    public void setCreatorId(Long creatorId) {
+    public void setCreatorId(Integer creatorId) {
         this.creatorId = creatorId;
     }
 

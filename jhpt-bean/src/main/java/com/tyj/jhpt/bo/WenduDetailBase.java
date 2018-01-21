@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017. CK. All rights reserved.
+ * Copyright (c) 2018. CK. All rights reserved.
  */
 
 package com.tyj.jhpt.bo;
@@ -44,7 +44,7 @@ public abstract class WenduDetailBase extends FieldAccessVo implements TableData
      * This field corresponds to the database column `tb_wendu_detail`.system_no
      */
     @ColumnDescription(desc = PROPERTY_REMARK_SYSTEMNO)
-    private Byte systemNo;
+    private Integer systemNo;
 
     /**
      * This field corresponds to the database column `tb_wendu_detail`.count
@@ -117,7 +117,7 @@ public abstract class WenduDetailBase extends FieldAccessVo implements TableData
      *
      * @return the value of `tb_wendu_detail`.system_no
      */
-    public Byte getSystemNo() {
+    public Integer getSystemNo() {
         return systemNo;
     }
 
@@ -126,7 +126,7 @@ public abstract class WenduDetailBase extends FieldAccessVo implements TableData
      *
      * @param systemNo the value for `tb_wendu_detail`.system_no
      */
-    public void setSystemNo(Byte systemNo) {
+    public void setSystemNo(Integer systemNo) {
         this.systemNo = systemNo;
     }
 

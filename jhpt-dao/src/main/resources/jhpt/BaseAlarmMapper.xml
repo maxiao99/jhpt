@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-  ~ Copyright (c) 2017. CK. All rights reserved.
+  ~ Copyright (c) 2018. CK. All rights reserved.
   -->
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
@@ -9,7 +9,7 @@
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="car_vin" property="carVin" jdbcType="VARCHAR" />
     <result column="event_time" property="eventTime" jdbcType="TIMESTAMP" />
-    <result column="max_alarm_level" property="maxAlarmLevel" jdbcType="TINYINT" />
+    <result column="max_alarm_level" property="maxAlarmLevel" jdbcType="INTEGER" />
     <result column="general_alarm" property="generalAlarm" jdbcType="DOUBLE" />
     <result column="bytes1" property="bytes1" jdbcType="LONGVARBINARY" />
     <result column="bytes2" property="bytes2" jdbcType="LONGVARBINARY" />
@@ -24,7 +24,7 @@
     insert into `tb_alarm` (`car_vin`, `event_time`, `max_alarm_level`, 
       `general_alarm`, `bytes1`, `bytes2`, 
       `bytes3`, `bytes4`)
-    values (#{carVin,jdbcType=VARCHAR}, #{eventTime,jdbcType=TIMESTAMP}, #{maxAlarmLevel,jdbcType=TINYINT}, 
+    values (#{carVin,jdbcType=VARCHAR}, #{eventTime,jdbcType=TIMESTAMP}, #{maxAlarmLevel,jdbcType=INTEGER}, 
       #{generalAlarm,jdbcType=DOUBLE}, #{bytes1,jdbcType=LONGVARBINARY}, #{bytes2,jdbcType=LONGVARBINARY}, 
       #{bytes3,jdbcType=LONGVARBINARY}, #{bytes4,jdbcType=LONGVARBINARY})
     ]]>
@@ -35,7 +35,7 @@
       `bytes3`, `bytes4`)
      values 
     <foreach collection="list" item="item" index="index" separator=",">
-       (#{item.carVin,jdbcType=VARCHAR}, #{item.eventTime,jdbcType=TIMESTAMP}, #{item.maxAlarmLevel,jdbcType=TINYINT}, 
+       (#{item.carVin,jdbcType=VARCHAR}, #{item.eventTime,jdbcType=TIMESTAMP}, #{item.maxAlarmLevel,jdbcType=INTEGER}, 
         #{item.generalAlarm,jdbcType=DOUBLE}, #{item.bytes1,jdbcType=LONGVARBINARY}, #{item.bytes2,jdbcType=LONGVARBINARY}, 
         #{item.bytes3,jdbcType=LONGVARBINARY}, #{item.bytes4,jdbcType=LONGVARBINARY})
     </foreach>
@@ -76,7 +76,7 @@
         #{eventTime,jdbcType=TIMESTAMP},
       </if>
       <if test="maxAlarmLevel != null">
-        #{maxAlarmLevel,jdbcType=TINYINT},
+        #{maxAlarmLevel,jdbcType=INTEGER},
       </if>
       <if test="generalAlarm != null">
         #{generalAlarm,jdbcType=DOUBLE},
@@ -117,7 +117,7 @@
         `event_time` = #{eventTime,jdbcType=TIMESTAMP},
       </if>
       <if test="maxAlarmLevel != null">
-        `max_alarm_level` = #{maxAlarmLevel,jdbcType=TINYINT},
+        `max_alarm_level` = #{maxAlarmLevel,jdbcType=INTEGER},
       </if>
       <if test="generalAlarm != null">
         `general_alarm` = #{generalAlarm,jdbcType=DOUBLE},
@@ -141,7 +141,7 @@
     update `tb_alarm`
     set `car_vin` = #{carVin,jdbcType=VARCHAR},
       `event_time` = #{eventTime,jdbcType=TIMESTAMP},
-      `max_alarm_level` = #{maxAlarmLevel,jdbcType=TINYINT},
+      `max_alarm_level` = #{maxAlarmLevel,jdbcType=INTEGER},
       `general_alarm` = #{generalAlarm,jdbcType=DOUBLE},
       `bytes1` = #{bytes1,jdbcType=LONGVARBINARY},
       `bytes2` = #{bytes2,jdbcType=LONGVARBINARY},

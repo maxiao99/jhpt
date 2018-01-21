@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017. CK. All rights reserved.
+ * Copyright (c) 2018. CK. All rights reserved.
  */
 
 package com.tyj.jhpt.bo;
@@ -173,7 +173,7 @@ public abstract class RanliaoDianchiBase extends FieldAccessVo implements TableD
      * This field corresponds to the database column `tb_ranliao_dianchi`.max_tanzhen_no
      */
     @ColumnDescription(desc = PROPERTY_REMARK_MAXTANZHENNO)
-    private Byte maxTanzhenNo;
+    private Integer maxTanzhenNo;
 
     /**
      * This field corresponds to the database column `tb_ranliao_dianchi`.max_concentration
@@ -205,7 +205,7 @@ public abstract class RanliaoDianchiBase extends FieldAccessVo implements TableD
      * This field corresponds to the database column `tb_ranliao_dianchi`.max_concentration_no
      */
     @ColumnDescription(desc = PROPERTY_REMARK_MAXCONCENTRATIONNO)
-    private Byte maxConcentrationNo;
+    private Integer maxConcentrationNo;
 
     /**
      * This field corresponds to the database column `tb_ranliao_dianchi`.max_pressure
@@ -237,7 +237,7 @@ public abstract class RanliaoDianchiBase extends FieldAccessVo implements TableD
      * This field corresponds to the database column `tb_ranliao_dianchi`.max_pressure_no
      */
     @ColumnDescription(desc = PROPERTY_REMARK_MAXPRESSURENO)
-    private Byte maxPressureNo;
+    private Integer maxPressureNo;
 
     /**
      * This field corresponds to the database column `tb_ranliao_dianchi`.dc_status
@@ -253,7 +253,7 @@ public abstract class RanliaoDianchiBase extends FieldAccessVo implements TableD
      * This field corresponds to the database column `tb_ranliao_dianchi`.dc_status
      */
     @ColumnDescription(desc = PROPERTY_REMARK_DCSTATUS)
-    private Byte dcStatus;
+    private Integer dcStatus;
 
     /**
      * This method returns the value of the database column `tb_ranliao_dianchi`.id
@@ -422,7 +422,7 @@ public abstract class RanliaoDianchiBase extends FieldAccessVo implements TableD
      *
      * @return the value of `tb_ranliao_dianchi`.max_tanzhen_no
      */
-    public Byte getMaxTanzhenNo() {
+    public Integer getMaxTanzhenNo() {
         return maxTanzhenNo;
     }
 
@@ -431,7 +431,7 @@ public abstract class RanliaoDianchiBase extends FieldAccessVo implements TableD
      *
      * @param maxTanzhenNo the value for `tb_ranliao_dianchi`.max_tanzhen_no
      */
-    public void setMaxTanzhenNo(Byte maxTanzhenNo) {
+    public void setMaxTanzhenNo(Integer maxTanzhenNo) {
         this.maxTanzhenNo = maxTanzhenNo;
     }
 
@@ -458,7 +458,7 @@ public abstract class RanliaoDianchiBase extends FieldAccessVo implements TableD
      *
      * @return the value of `tb_ranliao_dianchi`.max_concentration_no
      */
-    public Byte getMaxConcentrationNo() {
+    public Integer getMaxConcentrationNo() {
         return maxConcentrationNo;
     }
 
@@ -467,7 +467,7 @@ public abstract class RanliaoDianchiBase extends FieldAccessVo implements TableD
      *
      * @param maxConcentrationNo the value for `tb_ranliao_dianchi`.max_concentration_no
      */
-    public void setMaxConcentrationNo(Byte maxConcentrationNo) {
+    public void setMaxConcentrationNo(Integer maxConcentrationNo) {
         this.maxConcentrationNo = maxConcentrationNo;
     }
 
@@ -494,7 +494,7 @@ public abstract class RanliaoDianchiBase extends FieldAccessVo implements TableD
      *
      * @return the value of `tb_ranliao_dianchi`.max_pressure_no
      */
-    public Byte getMaxPressureNo() {
+    public Integer getMaxPressureNo() {
         return maxPressureNo;
     }
 
@@ -503,7 +503,7 @@ public abstract class RanliaoDianchiBase extends FieldAccessVo implements TableD
      *
      * @param maxPressureNo the value for `tb_ranliao_dianchi`.max_pressure_no
      */
-    public void setMaxPressureNo(Byte maxPressureNo) {
+    public void setMaxPressureNo(Integer maxPressureNo) {
         this.maxPressureNo = maxPressureNo;
     }
 
@@ -512,7 +512,7 @@ public abstract class RanliaoDianchiBase extends FieldAccessVo implements TableD
      *
      * @return the value of `tb_ranliao_dianchi`.dc_status
      */
-    public Byte getDcStatus() {
+    public Integer getDcStatus() {
         return dcStatus;
     }
 
@@ -521,7 +521,7 @@ public abstract class RanliaoDianchiBase extends FieldAccessVo implements TableD
      *
      * @param dcStatus the value for `tb_ranliao_dianchi`.dc_status
      */
-    public void setDcStatus(Byte dcStatus) {
+    public void setDcStatus(Integer dcStatus) {
         this.dcStatus = dcStatus;
     }
 }

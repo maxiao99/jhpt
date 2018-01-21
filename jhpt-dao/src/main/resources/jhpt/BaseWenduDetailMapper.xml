@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-  ~ Copyright (c) 2017. CK. All rights reserved.
+  ~ Copyright (c) 2018. CK. All rights reserved.
   -->
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.tyj.jhpt.dao.WenduDetailMapper">
   <resultMap id="BaseResultMap" type="com.tyj.jhpt.bo.WenduDetail">
     <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="system_no" property="systemNo" jdbcType="TINYINT" />
+    <result column="system_no" property="systemNo" jdbcType="INTEGER" />
     <result column="count" property="count" jdbcType="INTEGER" />
     <result column="values" property="values" jdbcType="LONGVARBINARY" />
     <result column="wendu_id" property="wenduId" jdbcType="BIGINT" />
@@ -19,7 +19,7 @@
     <![CDATA[
     insert into `tb_wendu_detail` (`system_no`, `count`, `values`, 
       `wendu_id`)
-    values (#{systemNo,jdbcType=TINYINT}, #{count,jdbcType=INTEGER}, #{values,jdbcType=LONGVARBINARY}, 
+    values (#{systemNo,jdbcType=INTEGER}, #{count,jdbcType=INTEGER}, #{values,jdbcType=LONGVARBINARY}, 
       #{wenduId,jdbcType=BIGINT})
     ]]>
   </insert>
@@ -28,7 +28,7 @@
       `wendu_id`)
      values 
     <foreach collection="list" item="item" index="index" separator=",">
-       (#{item.systemNo,jdbcType=TINYINT}, #{item.count,jdbcType=INTEGER}, #{item.values,jdbcType=LONGVARBINARY}, 
+       (#{item.systemNo,jdbcType=INTEGER}, #{item.count,jdbcType=INTEGER}, #{item.values,jdbcType=LONGVARBINARY}, 
         #{item.wenduId,jdbcType=BIGINT})
     </foreach>
   </insert>
@@ -50,7 +50,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="systemNo != null">
-        #{systemNo,jdbcType=TINYINT},
+        #{systemNo,jdbcType=INTEGER},
       </if>
       <if test="count != null">
         #{count,jdbcType=INTEGER},
@@ -85,7 +85,7 @@
     update `tb_wendu_detail`
     <set>
       <if test="systemNo != null">
-        `system_no` = #{systemNo,jdbcType=TINYINT},
+        `system_no` = #{systemNo,jdbcType=INTEGER},
       </if>
       <if test="count != null">
         `count` = #{count,jdbcType=INTEGER},
@@ -101,7 +101,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.tyj.jhpt.bo.WenduDetail">
     update `tb_wendu_detail`
-    set `system_no` = #{systemNo,jdbcType=TINYINT},
+    set `system_no` = #{systemNo,jdbcType=INTEGER},
       `count` = #{count,jdbcType=INTEGER},
       `values` = #{values,jdbcType=LONGVARBINARY},
       `wendu_id` = #{wenduId,jdbcType=BIGINT}

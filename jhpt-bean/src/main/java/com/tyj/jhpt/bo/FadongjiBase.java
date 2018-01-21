@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017. CK. All rights reserved.
+ * Copyright (c) 2018. CK. All rights reserved.
  */
 
 package com.tyj.jhpt.bo;
@@ -77,7 +77,7 @@ public abstract class FadongjiBase extends FieldAccessVo implements TableDataCon
      * This field corresponds to the database column `tb_fadongji`.status
      */
     @ColumnDescription(desc = PROPERTY_REMARK_STATUS)
-    private Byte status;
+    private Integer status;
 
     /**
      * This field corresponds to the database column `tb_fadongji`.speed
@@ -170,7 +170,7 @@ public abstract class FadongjiBase extends FieldAccessVo implements TableDataCon
      *
      * @return the value of `tb_fadongji`.status
      */
-    public Byte getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
@@ -179,7 +179,7 @@ public abstract class FadongjiBase extends FieldAccessVo implements TableDataCon
      *
      * @param status the value for `tb_fadongji`.status
      */
-    public void setStatus(Byte status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

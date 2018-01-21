@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-  ~ Copyright (c) 2017. CK. All rights reserved.
+  ~ Copyright (c) 2018. CK. All rights reserved.
   -->
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
@@ -9,7 +9,7 @@
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="car_vin" property="carVin" jdbcType="VARCHAR" />
     <result column="event_time" property="eventTime" jdbcType="TIMESTAMP" />
-    <result column="location_status" property="locationStatus" jdbcType="TINYINT" />
+    <result column="location_status" property="locationStatus" jdbcType="INTEGER" />
     <result column="longitude" property="longitude" jdbcType="DOUBLE" />
     <result column="latitude" property="latitude" jdbcType="DOUBLE" />
   </resultMap>
@@ -20,7 +20,7 @@
     <![CDATA[
     insert into `tb_car_location` (`car_vin`, `event_time`, `location_status`, 
       `longitude`, `latitude`)
-    values (#{carVin,jdbcType=VARCHAR}, #{eventTime,jdbcType=TIMESTAMP}, #{locationStatus,jdbcType=TINYINT}, 
+    values (#{carVin,jdbcType=VARCHAR}, #{eventTime,jdbcType=TIMESTAMP}, #{locationStatus,jdbcType=INTEGER}, 
       #{longitude,jdbcType=DOUBLE}, #{latitude,jdbcType=DOUBLE})
     ]]>
   </insert>
@@ -29,7 +29,7 @@
       `longitude`, `latitude`)
      values 
     <foreach collection="list" item="item" index="index" separator=",">
-       (#{item.carVin,jdbcType=VARCHAR}, #{item.eventTime,jdbcType=TIMESTAMP}, #{item.locationStatus,jdbcType=TINYINT}, 
+       (#{item.carVin,jdbcType=VARCHAR}, #{item.eventTime,jdbcType=TIMESTAMP}, #{item.locationStatus,jdbcType=INTEGER}, 
         #{item.longitude,jdbcType=DOUBLE}, #{item.latitude,jdbcType=DOUBLE})
     </foreach>
   </insert>
@@ -60,7 +60,7 @@
         #{eventTime,jdbcType=TIMESTAMP},
       </if>
       <if test="locationStatus != null">
-        #{locationStatus,jdbcType=TINYINT},
+        #{locationStatus,jdbcType=INTEGER},
       </if>
       <if test="longitude != null">
         #{longitude,jdbcType=DOUBLE},
@@ -92,7 +92,7 @@
         `event_time` = #{eventTime,jdbcType=TIMESTAMP},
       </if>
       <if test="locationStatus != null">
-        `location_status` = #{locationStatus,jdbcType=TINYINT},
+        `location_status` = #{locationStatus,jdbcType=INTEGER},
       </if>
       <if test="longitude != null">
         `longitude` = #{longitude,jdbcType=DOUBLE},
@@ -107,7 +107,7 @@
     update `tb_car_location`
     set `car_vin` = #{carVin,jdbcType=VARCHAR},
       `event_time` = #{eventTime,jdbcType=TIMESTAMP},
-      `location_status` = #{locationStatus,jdbcType=TINYINT},
+      `location_status` = #{locationStatus,jdbcType=INTEGER},
       `longitude` = #{longitude,jdbcType=DOUBLE},
       `latitude` = #{latitude,jdbcType=DOUBLE}
     where `id` = #{id,jdbcType=BIGINT}

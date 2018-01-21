@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017. CK. All rights reserved.
+ * Copyright (c) 2018. CK. All rights reserved.
  */
 
 package com.tyj.jhpt.bo;
@@ -109,7 +109,7 @@ public abstract class DeviceGpsInfoBase extends FieldAccessVo implements TableDa
      * This field corresponds to the database column `tb_device_gps_info`.location_status
      */
     @ColumnDescription(desc = PROPERTY_REMARK_LOCATIONSTATUS)
-    private Byte locationStatus;
+    private Integer locationStatus;
 
     /**
      * This field corresponds to the database column `tb_device_gps_info`.longitude
@@ -173,7 +173,7 @@ public abstract class DeviceGpsInfoBase extends FieldAccessVo implements TableDa
      * This field corresponds to the database column `tb_device_gps_info`.msg_type
      */
     @ColumnDescription(desc = PROPERTY_REMARK_MSGTYPE)
-    private Byte msgType;
+    private Integer msgType;
 
     /**
      * This field corresponds to the database column `tb_device_gps_info`.upload_time
@@ -205,7 +205,7 @@ public abstract class DeviceGpsInfoBase extends FieldAccessVo implements TableDa
      * This field corresponds to the database column `tb_device_gps_info`.acceleration
      */
     @ColumnDescription(desc = PROPERTY_REMARK_ACCELERATION)
-    private Integer acceleration;
+    private Float acceleration;
 
     /**
      * This method returns the value of the database column `tb_device_gps_info`.id
@@ -302,7 +302,7 @@ public abstract class DeviceGpsInfoBase extends FieldAccessVo implements TableDa
      *
      * @return the value of `tb_device_gps_info`.location_status
      */
-    public Byte getLocationStatus() {
+    public Integer getLocationStatus() {
         return locationStatus;
     }
 
@@ -311,7 +311,7 @@ public abstract class DeviceGpsInfoBase extends FieldAccessVo implements TableDa
      *
      * @param locationStatus the value for `tb_device_gps_info`.location_status
      */
-    public void setLocationStatus(Byte locationStatus) {
+    public void setLocationStatus(Integer locationStatus) {
         this.locationStatus = locationStatus;
     }
 
@@ -374,7 +374,7 @@ public abstract class DeviceGpsInfoBase extends FieldAccessVo implements TableDa
      *
      * @return the value of `tb_device_gps_info`.msg_type
      */
-    public Byte getMsgType() {
+    public Integer getMsgType() {
         return msgType;
     }
 
@@ -383,7 +383,7 @@ public abstract class DeviceGpsInfoBase extends FieldAccessVo implements TableDa
      *
      * @param msgType the value for `tb_device_gps_info`.msg_type
      */
-    public void setMsgType(Byte msgType) {
+    public void setMsgType(Integer msgType) {
         this.msgType = msgType;
     }
 
@@ -410,7 +410,7 @@ public abstract class DeviceGpsInfoBase extends FieldAccessVo implements TableDa
      *
      * @return the value of `tb_device_gps_info`.acceleration
      */
-    public Integer getAcceleration() {
+    public Float getAcceleration() {
         return acceleration;
     }
 
@@ -419,7 +419,7 @@ public abstract class DeviceGpsInfoBase extends FieldAccessVo implements TableDa
      *
      * @param acceleration the value for `tb_device_gps_info`.acceleration
      */
-    public void setAcceleration(Integer acceleration) {
+    public void setAcceleration(Float acceleration) {
         this.acceleration = acceleration;
     }
 }

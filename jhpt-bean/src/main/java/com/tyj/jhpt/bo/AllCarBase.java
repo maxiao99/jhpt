@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017. CK. All rights reserved.
+ * Copyright (c) 2018. CK. All rights reserved.
  */
 
 package com.tyj.jhpt.bo;
@@ -77,7 +77,7 @@ public abstract class AllCarBase extends FieldAccessVo implements TableDataConve
      * This field corresponds to the database column `tb_all_car`.car_status
      */
     @ColumnDescription(desc = PROPERTY_REMARK_CARSTATUS)
-    private Byte carStatus;
+    private Integer carStatus;
 
     /**
      * This field corresponds to the database column `tb_all_car`.change_status
@@ -93,7 +93,7 @@ public abstract class AllCarBase extends FieldAccessVo implements TableDataConve
      * This field corresponds to the database column `tb_all_car`.change_status
      */
     @ColumnDescription(desc = PROPERTY_REMARK_CHANGESTATUS)
-    private Byte changeStatus;
+    private Integer changeStatus;
 
     /**
      * This field corresponds to the database column `tb_all_car`.run_mode
@@ -109,7 +109,7 @@ public abstract class AllCarBase extends FieldAccessVo implements TableDataConve
      * This field corresponds to the database column `tb_all_car`.run_mode
      */
     @ColumnDescription(desc = PROPERTY_REMARK_RUNMODE)
-    private Byte runMode;
+    private Integer runMode;
 
     /**
      * This field corresponds to the database column `tb_all_car`.speed
@@ -189,7 +189,7 @@ public abstract class AllCarBase extends FieldAccessVo implements TableDataConve
      * This field corresponds to the database column `tb_all_car`.soc
      */
     @ColumnDescription(desc = PROPERTY_REMARK_SOC)
-    private Byte soc;
+    private Integer soc;
 
     /**
      * This field corresponds to the database column `tb_all_car`.dc_status
@@ -205,7 +205,7 @@ public abstract class AllCarBase extends FieldAccessVo implements TableDataConve
      * This field corresponds to the database column `tb_all_car`.dc_status
      */
     @ColumnDescription(desc = PROPERTY_REMARK_DCSTATUS)
-    private Byte dcStatus;
+    private Integer dcStatus;
 
     /**
      * This field corresponds to the database column `tb_all_car`.dangwei
@@ -221,7 +221,7 @@ public abstract class AllCarBase extends FieldAccessVo implements TableDataConve
      * This field corresponds to the database column `tb_all_car`.dangwei
      */
     @ColumnDescription(desc = PROPERTY_REMARK_DANGWEI)
-    private Byte dangwei;
+    private Integer dangwei;
 
     /**
      * This field corresponds to the database column `tb_all_car`.insulation_resistance
@@ -253,7 +253,7 @@ public abstract class AllCarBase extends FieldAccessVo implements TableDataConve
      * This field corresponds to the database column `tb_all_car`.up_footplate_km
      */
     @ColumnDescription(desc = PROPERTY_REMARK_UPFOOTPLATEKM)
-    private Byte upFootplateKm;
+    private Integer upFootplateKm;
 
     /**
      * This field corresponds to the database column `tb_all_car`.footplate_status
@@ -269,7 +269,7 @@ public abstract class AllCarBase extends FieldAccessVo implements TableDataConve
      * This field corresponds to the database column `tb_all_car`.footplate_status
      */
     @ColumnDescription(desc = PROPERTY_REMARK_FOOTPLATESTATUS)
-    private Byte footplateStatus;
+    private Integer footplateStatus;
 
     /**
      * This method returns the value of the database column `tb_all_car`.id
@@ -330,7 +330,7 @@ public abstract class AllCarBase extends FieldAccessVo implements TableDataConve
      *
      * @return the value of `tb_all_car`.car_status
      */
-    public Byte getCarStatus() {
+    public Integer getCarStatus() {
         return carStatus;
     }
 
@@ -339,7 +339,7 @@ public abstract class AllCarBase extends FieldAccessVo implements TableDataConve
      *
      * @param carStatus the value for `tb_all_car`.car_status
      */
-    public void setCarStatus(Byte carStatus) {
+    public void setCarStatus(Integer carStatus) {
         this.carStatus = carStatus;
     }
 
@@ -348,7 +348,7 @@ public abstract class AllCarBase extends FieldAccessVo implements TableDataConve
      *
      * @return the value of `tb_all_car`.change_status
      */
-    public Byte getChangeStatus() {
+    public Integer getChangeStatus() {
         return changeStatus;
     }
 
@@ -357,7 +357,7 @@ public abstract class AllCarBase extends FieldAccessVo implements TableDataConve
      *
      * @param changeStatus the value for `tb_all_car`.change_status
      */
-    public void setChangeStatus(Byte changeStatus) {
+    public void setChangeStatus(Integer changeStatus) {
         this.changeStatus = changeStatus;
     }
 
@@ -366,7 +366,7 @@ public abstract class AllCarBase extends FieldAccessVo implements TableDataConve
      *
      * @return the value of `tb_all_car`.run_mode
      */
-    public Byte getRunMode() {
+    public Integer getRunMode() {
         return runMode;
     }
 
@@ -375,7 +375,7 @@ public abstract class AllCarBase extends FieldAccessVo implements TableDataConve
      *
      * @param runMode the value for `tb_all_car`.run_mode
      */
-    public void setRunMode(Byte runMode) {
+    public void setRunMode(Integer runMode) {
         this.runMode = runMode;
     }
 
@@ -456,7 +456,7 @@ public abstract class AllCarBase extends FieldAccessVo implements TableDataConve
      *
      * @return the value of `tb_all_car`.soc
      */
-    public Byte getSoc() {
+    public Integer getSoc() {
         return soc;
     }
 
@@ -465,7 +465,7 @@ public abstract class AllCarBase extends FieldAccessVo implements TableDataConve
      *
      * @param soc the value for `tb_all_car`.soc
      */
-    public void setSoc(Byte soc) {
+    public void setSoc(Integer soc) {
         this.soc = soc;
     }
 
@@ -474,7 +474,7 @@ public abstract class AllCarBase extends FieldAccessVo implements TableDataConve
      *
      * @return the value of `tb_all_car`.dc_status
      */
-    public Byte getDcStatus() {
+    public Integer getDcStatus() {
         return dcStatus;
     }
 
@@ -483,7 +483,7 @@ public abstract class AllCarBase extends FieldAccessVo implements TableDataConve
      *
      * @param dcStatus the value for `tb_all_car`.dc_status
      */
-    public void setDcStatus(Byte dcStatus) {
+    public void setDcStatus(Integer dcStatus) {
         this.dcStatus = dcStatus;
     }
 
@@ -492,7 +492,7 @@ public abstract class AllCarBase extends FieldAccessVo implements TableDataConve
      *
      * @return the value of `tb_all_car`.dangwei
      */
-    public Byte getDangwei() {
+    public Integer getDangwei() {
         return dangwei;
     }
 
@@ -501,7 +501,7 @@ public abstract class AllCarBase extends FieldAccessVo implements TableDataConve
      *
      * @param dangwei the value for `tb_all_car`.dangwei
      */
-    public void setDangwei(Byte dangwei) {
+    public void setDangwei(Integer dangwei) {
         this.dangwei = dangwei;
     }
 
@@ -528,7 +528,7 @@ public abstract class AllCarBase extends FieldAccessVo implements TableDataConve
      *
      * @return the value of `tb_all_car`.up_footplate_km
      */
-    public Byte getUpFootplateKm() {
+    public Integer getUpFootplateKm() {
         return upFootplateKm;
     }
 
@@ -537,7 +537,7 @@ public abstract class AllCarBase extends FieldAccessVo implements TableDataConve
      *
      * @param upFootplateKm the value for `tb_all_car`.up_footplate_km
      */
-    public void setUpFootplateKm(Byte upFootplateKm) {
+    public void setUpFootplateKm(Integer upFootplateKm) {
         this.upFootplateKm = upFootplateKm;
     }
 
@@ -546,7 +546,7 @@ public abstract class AllCarBase extends FieldAccessVo implements TableDataConve
      *
      * @return the value of `tb_all_car`.footplate_status
      */
-    public Byte getFootplateStatus() {
+    public Integer getFootplateStatus() {
         return footplateStatus;
     }
 
@@ -555,7 +555,7 @@ public abstract class AllCarBase extends FieldAccessVo implements TableDataConve
      *
      * @param footplateStatus the value for `tb_all_car`.footplate_status
      */
-    public void setFootplateStatus(Byte footplateStatus) {
+    public void setFootplateStatus(Integer footplateStatus) {
         this.footplateStatus = footplateStatus;
     }
 }

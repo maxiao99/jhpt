@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017. CK. All rights reserved.
+ * Copyright (c) 2018. CK. All rights reserved.
  */
 
 package com.tyj.jhpt.bo;
@@ -157,7 +157,7 @@ public abstract class DeviceInfoBase extends FieldAccessVo implements TableDataC
      * This field corresponds to the database column `tb_device_info`.age
      */
     @ColumnDescription(desc = PROPERTY_REMARK_AGE)
-    private Byte age;
+    private Integer age;
 
     /**
      * This field corresponds to the database column `tb_device_info`.driving_license
@@ -173,7 +173,7 @@ public abstract class DeviceInfoBase extends FieldAccessVo implements TableDataC
      * This field corresponds to the database column `tb_device_info`.driving_license
      */
     @ColumnDescription(desc = PROPERTY_REMARK_DRIVINGLICENSE)
-    private Byte drivingLicense;
+    private Integer drivingLicense;
 
     /**
      * This field corresponds to the database column `tb_device_info`.identity_no
@@ -237,7 +237,7 @@ public abstract class DeviceInfoBase extends FieldAccessVo implements TableDataC
      * This field corresponds to the database column `tb_device_info`.car_type
      */
     @ColumnDescription(desc = PROPERTY_REMARK_CARTYPE)
-    private Byte carType;
+    private Integer carType;
 
     /**
      * This field corresponds to the database column `tb_device_info`.weixin_account
@@ -333,7 +333,7 @@ public abstract class DeviceInfoBase extends FieldAccessVo implements TableDataC
      * This field corresponds to the database column `tb_device_info`.if_active
      */
     @ColumnDescription(desc = PROPERTY_REMARK_IFACTIVE)
-    private Byte ifActive;
+    private Integer ifActive;
 
     /**
      * This method returns the value of the database column `tb_device_info`.id
@@ -484,7 +484,7 @@ public abstract class DeviceInfoBase extends FieldAccessVo implements TableDataC
      *
      * @return the value of `tb_device_info`.age
      */
-    public Byte getAge() {
+    public Integer getAge() {
         return age;
     }
 
@@ -493,7 +493,7 @@ public abstract class DeviceInfoBase extends FieldAccessVo implements TableDataC
      *
      * @param age the value for `tb_device_info`.age
      */
-    public void setAge(Byte age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
@@ -502,7 +502,7 @@ public abstract class DeviceInfoBase extends FieldAccessVo implements TableDataC
      *
      * @return the value of `tb_device_info`.driving_license
      */
-    public Byte getDrivingLicense() {
+    public Integer getDrivingLicense() {
         return drivingLicense;
     }
 
@@ -511,7 +511,7 @@ public abstract class DeviceInfoBase extends FieldAccessVo implements TableDataC
      *
      * @param drivingLicense the value for `tb_device_info`.driving_license
      */
-    public void setDrivingLicense(Byte drivingLicense) {
+    public void setDrivingLicense(Integer drivingLicense) {
         this.drivingLicense = drivingLicense;
     }
 
@@ -574,7 +574,7 @@ public abstract class DeviceInfoBase extends FieldAccessVo implements TableDataC
      *
      * @return the value of `tb_device_info`.car_type
      */
-    public Byte getCarType() {
+    public Integer getCarType() {
         return carType;
     }
 
@@ -583,7 +583,7 @@ public abstract class DeviceInfoBase extends FieldAccessVo implements TableDataC
      *
      * @param carType the value for `tb_device_info`.car_type
      */
-    public void setCarType(Byte carType) {
+    public void setCarType(Integer carType) {
         this.carType = carType;
     }
 
@@ -682,7 +682,7 @@ public abstract class DeviceInfoBase extends FieldAccessVo implements TableDataC
      *
      * @return the value of `tb_device_info`.if_active
      */
-    public Byte getIfActive() {
+    public Integer getIfActive() {
         return ifActive;
     }
 
@@ -691,7 +691,7 @@ public abstract class DeviceInfoBase extends FieldAccessVo implements TableDataC
      *
      * @param ifActive the value for `tb_device_info`.if_active
      */
-    public void setIfActive(Byte ifActive) {
+    public void setIfActive(Integer ifActive) {
         this.ifActive = ifActive;
     }
 }

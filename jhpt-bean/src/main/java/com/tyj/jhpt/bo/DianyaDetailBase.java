@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017. CK. All rights reserved.
+ * Copyright (c) 2018. CK. All rights reserved.
  */
 
 package com.tyj.jhpt.bo;
@@ -44,7 +44,7 @@ public abstract class DianyaDetailBase extends FieldAccessVo implements TableDat
      * This field corresponds to the database column `tb_dianya_detail`.system_no
      */
     @ColumnDescription(desc = PROPERTY_REMARK_SYSTEMNO)
-    private Byte systemNo;
+    private Integer systemNo;
 
     /**
      * This field corresponds to the database column `tb_dianya_detail`.dianya
@@ -124,7 +124,7 @@ public abstract class DianyaDetailBase extends FieldAccessVo implements TableDat
      * This field corresponds to the database column `tb_dianya_detail`.own_simple_total
      */
     @ColumnDescription(desc = PROPERTY_REMARK_OWNSIMPLETOTAL)
-    private Byte ownSimpleTotal;
+    private Integer ownSimpleTotal;
 
     /**
      * This field corresponds to the database column `tb_dianya_detail`.simple_totals
@@ -181,7 +181,7 @@ public abstract class DianyaDetailBase extends FieldAccessVo implements TableDat
      *
      * @return the value of `tb_dianya_detail`.system_no
      */
-    public Byte getSystemNo() {
+    public Integer getSystemNo() {
         return systemNo;
     }
 
@@ -190,7 +190,7 @@ public abstract class DianyaDetailBase extends FieldAccessVo implements TableDat
      *
      * @param systemNo the value for `tb_dianya_detail`.system_no
      */
-    public void setSystemNo(Byte systemNo) {
+    public void setSystemNo(Integer systemNo) {
         this.systemNo = systemNo;
     }
 
@@ -271,7 +271,7 @@ public abstract class DianyaDetailBase extends FieldAccessVo implements TableDat
      *
      * @return the value of `tb_dianya_detail`.own_simple_total
      */
-    public Byte getOwnSimpleTotal() {
+    public Integer getOwnSimpleTotal() {
         return ownSimpleTotal;
     }
 
@@ -280,7 +280,7 @@ public abstract class DianyaDetailBase extends FieldAccessVo implements TableDat
      *
      * @param ownSimpleTotal the value for `tb_dianya_detail`.own_simple_total
      */
-    public void setOwnSimpleTotal(Byte ownSimpleTotal) {
+    public void setOwnSimpleTotal(Integer ownSimpleTotal) {
         this.ownSimpleTotal = ownSimpleTotal;
     }
 
