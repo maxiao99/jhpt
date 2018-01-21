@@ -66,7 +66,7 @@ public class OneBody extends AbstractBody<AllCarDto> {
         offset += speed.length;
         BigInteger bigInteger = new BigInteger(bytes);
         int speed = bigInteger.intValue();
-        dto.setSpeed(speed / 10);
+        dto.setSpeed(speed);
 
         // 累计里程
         bytes = new byte[totalKm.length];
@@ -74,7 +74,7 @@ public class OneBody extends AbstractBody<AllCarDto> {
         offset += totalKm.length;
         bigInteger = new BigInteger(bytes);
         int totalKm = bigInteger.intValue();
-        dto.setTotalKm(totalKm / 10);
+        dto.setTotalKm(totalKm);
 
         // 总电压
         bytes = new byte[totalVoltage.length];
@@ -82,7 +82,7 @@ public class OneBody extends AbstractBody<AllCarDto> {
         offset += totalVoltage.length;
         bigInteger = new BigInteger(bytes);
         int totalVoltage = bigInteger.intValue();
-        dto.setTotalVoltage(totalVoltage / 10);
+        dto.setTotalVoltage(totalVoltage);
 
         // 总电流
         bytes = new byte[totalElectricity.length];
@@ -90,7 +90,7 @@ public class OneBody extends AbstractBody<AllCarDto> {
         offset += totalElectricity.length;
         bigInteger = new BigInteger(bytes);
         int totalElectricity = bigInteger.intValue();
-        dto.setTotalElectricity(totalElectricity / 10);
+        dto.setTotalElectricity(totalElectricity);
 
         // SOC
         dto.setSoc(content[offset]);
