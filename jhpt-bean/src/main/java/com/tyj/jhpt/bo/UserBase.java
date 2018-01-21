@@ -125,7 +125,7 @@ public abstract class UserBase extends FieldAccessVo implements TableDataConvert
      * This field corresponds to the database column `tb_user`.creator_id
      */
     @ColumnDescription(desc = PROPERTY_REMARK_CREATORID)
-    private Integer creatorId;
+    private Long creatorId;
 
     /**
      * This field corresponds to the database column `tb_user`.create_time
@@ -272,7 +272,7 @@ public abstract class UserBase extends FieldAccessVo implements TableDataConvert
      *
      * @return the value of `tb_user`.creator_id
      */
-    public Integer getCreatorId() {
+    public Long getCreatorId() {
         return creatorId;
     }
 
@@ -281,7 +281,7 @@ public abstract class UserBase extends FieldAccessVo implements TableDataConvert
      *
      * @param creatorId the value for `tb_user`.creator_id
      */
-    public void setCreatorId(Integer creatorId) {
+    public void setCreatorId(Long creatorId) {
         this.creatorId = creatorId;
     }
 

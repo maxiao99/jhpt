@@ -12,17 +12,17 @@ package com.tyj.jhpt.server.body.dto;
  */
 public class CarLocationDto {
     // 定位状态
-    private byte locationStatus;
+    private int locationStatus;
     // 经度
     private double longitude;
     // 纬度
     private double latitude;
 
-    public byte getLocationStatus() {
+    public int getLocationStatus() {
         return locationStatus;
     }
 
-    public void setLocationStatus(byte locationStatus) {
+    public void setLocationStatus(int locationStatus) {
         this.locationStatus = locationStatus;
     }
 

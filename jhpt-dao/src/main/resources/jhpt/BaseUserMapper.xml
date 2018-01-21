@@ -12,7 +12,7 @@
     <result column="password" property="password" jdbcType="VARCHAR" />
     <result column="salt" property="salt" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="INTEGER" />
-    <result column="creator_id" property="creatorId" jdbcType="INTEGER" />
+    <result column="creator_id" property="creatorId" jdbcType="BIGINT" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="auth_id" property="authId" jdbcType="INTEGER" />
   </resultMap>
@@ -25,7 +25,7 @@
       `salt`, `status`, `creator_id`, 
       `create_time`, `auth_id`)
     values (#{userName,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{salt,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{creatorId,jdbcType=INTEGER}, 
+      #{salt,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{creatorId,jdbcType=BIGINT},
       #{createTime,jdbcType=TIMESTAMP}, #{authId,jdbcType=INTEGER})
     ]]>
   </insert>
@@ -36,7 +36,7 @@
      values 
     <foreach collection="list" item="item" index="index" separator=",">
        (#{item.userName,jdbcType=VARCHAR}, #{item.realName,jdbcType=VARCHAR}, #{item.password,jdbcType=VARCHAR}, 
-        #{item.salt,jdbcType=VARCHAR}, #{item.status,jdbcType=INTEGER}, #{item.creatorId,jdbcType=INTEGER}, 
+        #{item.salt,jdbcType=VARCHAR}, #{item.status,jdbcType=INTEGER}, #{item.creatorId,jdbcType=BIGINT},
         #{item.createTime,jdbcType=TIMESTAMP}, #{item.authId,jdbcType=INTEGER})
     </foreach>
   </insert>
@@ -85,7 +85,7 @@
         #{status,jdbcType=INTEGER},
       </if>
       <if test="creatorId != null">
-        #{creatorId,jdbcType=INTEGER},
+        #{creatorId,jdbcType=BIGINT},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -126,7 +126,7 @@
         `status` = #{status,jdbcType=INTEGER},
       </if>
       <if test="creatorId != null">
-        `creator_id` = #{creatorId,jdbcType=INTEGER},
+        `creator_id` = #{creatorId,jdbcType=BIGINT},
       </if>
       <if test="createTime != null">
         `create_time` = #{createTime,jdbcType=TIMESTAMP},
@@ -144,7 +144,7 @@
       `password` = #{password,jdbcType=VARCHAR},
       `salt` = #{salt,jdbcType=VARCHAR},
       `status` = #{status,jdbcType=INTEGER},
-      `creator_id` = #{creatorId,jdbcType=INTEGER},
+      `creator_id` = #{creatorId,jdbcType=BIGINT},
       `create_time` = #{createTime,jdbcType=TIMESTAMP},
       `auth_id` = #{authId,jdbcType=INTEGER}
     where `id` = #{id,jdbcType=BIGINT}

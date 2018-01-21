@@ -12,11 +12,11 @@ package com.tyj.jhpt.server.body.dto;
  */
 public class AllCarDto {
     // 车辆状态
-    private byte carStatus;
+    private int carStatus;
     // 充电状态
-    private byte changeStatus;
+    private int changeStatus;
     // 运行模式
-    private byte runMode;
+    private int runMode;
     // 车速
     private int speed;
     // 累计里程
@@ -26,39 +26,39 @@ public class AllCarDto {
     // 总电流
     private int totalElectricity;
     // SOC
-    private byte soc;
+    private int soc;
     // DC-DC状态
-    private byte dcStatus;
+    private int dcStatus;
     // 挡位
-    private byte dangwei;
+    private int dangwei;
     // 绝缘电阻
     private int insulationResistance;
     // 加速踏板行程值
-    private byte upFootplateKm;
+    private int upFootplateKm;
     // 制动踏板状态
-    private byte footplateStatus;
+    private int footplateStatus;
 
-    public byte getCarStatus() {
+    public int getCarStatus() {
         return carStatus;
     }
 
-    public void setCarStatus(byte carStatus) {
+    public void setCarStatus(int carStatus) {
         this.carStatus = carStatus;
     }
 
-    public byte getChangeStatus() {
+    public int getChangeStatus() {
         return changeStatus;
     }
 
-    public void setChangeStatus(byte changeStatus) {
+    public void setChangeStatus(int changeStatus) {
         this.changeStatus = changeStatus;
     }
 
-    public byte getRunMode() {
+    public int getRunMode() {
         return runMode;
     }
 
-    public void setRunMode(byte runMode) {
+    public void setRunMode(int runMode) {
         this.runMode = runMode;
     }
 
@@ -94,27 +94,27 @@ public class AllCarDto {
         this.totalElectricity = totalElectricity;
     }
 
-    public byte getSoc() {
+    public int getSoc() {
         return soc;
     }
 
-    public void setSoc(byte soc) {
+    public void setSoc(int soc) {
         this.soc = soc;
     }
 
-    public byte getDcStatus() {
+    public int getDcStatus() {
         return dcStatus;
     }
 
-    public void setDcStatus(byte dcStatus) {
+    public void setDcStatus(int dcStatus) {
         this.dcStatus = dcStatus;
     }
 
-    public byte getDangwei() {
+    public int getDangwei() {
         return dangwei;
     }
 
-    public void setDangwei(byte dangwei) {
+    public void setDangwei(int dangwei) {
         this.dangwei = dangwei;
     }
 
@@ -126,19 +126,19 @@ public class AllCarDto {
         this.insulationResistance = insulationResistance;
     }
 
-    public byte getUpFootplateKm() {
+    public int getUpFootplateKm() {
         return upFootplateKm;
     }
 
-    public void setUpFootplateKm(byte upFootplateKm) {
+    public void setUpFootplateKm(int upFootplateKm) {
         this.upFootplateKm = upFootplateKm;
     }
 
-    public byte getFootplateStatus() {
+    public int getFootplateStatus() {
         return footplateStatus;
     }
 
-    public void setFootplateStatus(byte footplateStatus) {
+    public void setFootplateStatus(int footplateStatus) {
         this.footplateStatus = footplateStatus;
     }
 }

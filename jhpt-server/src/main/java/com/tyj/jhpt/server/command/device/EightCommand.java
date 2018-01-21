@@ -48,12 +48,12 @@ public class EightCommand extends DeviceAbstractCommand {
         // 信息类型标志
         byte messageType = content[offset];
         offset += MESSAGE_TYPE.length;
-        terminalStatusUpload.setMessageType(messageType);
+        terminalStatusUpload.setMessageType((int) messageType);
 
         // 信息体
         byte messageBody = content[offset];
         offset += MESSAGE_BODY.length;
-        terminalStatusUpload.setMessageBody(messageBody);
+        terminalStatusUpload.setMessageBody((int) messageBody);
 
         terminalStatusUploadService.saveEntitySelective(terminalStatusUpload);
     }

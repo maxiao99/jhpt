@@ -24,17 +24,17 @@ public class RanLiaoDianChiDto {
     // 氢系统中最高温度
     private int maxTemperature;
     // 氢系统中最高温度探针代号
-    private byte maxTanzhenNo;
+    private int maxTanzhenNo;
     // 氢气最高浓度
     private int maxConcentration;
     // 氢气最高浓度传感器代号
-    private byte maxConcentrationNo;
+    private int maxConcentrationNo;
     // 氢气最高压力
     private int maxPressure;
     // 氢气最高压力传感器代号
-    private byte maxPressureNo;
+    private int maxPressureNo;
     // 高压DC/DC状态
-    private byte dcStatus;
+    private int dcStatus;
 
     public int getDianya() {
         return dianya;
@@ -84,11 +84,11 @@ public class RanLiaoDianChiDto {
         this.maxTemperature = maxTemperature;
     }
 
-    public byte getMaxTanzhenNo() {
+    public int getMaxTanzhenNo() {
         return maxTanzhenNo;
     }
 
-    public void setMaxTanzhenNo(byte maxTanzhenNo) {
+    public void setMaxTanzhenNo(int maxTanzhenNo) {
         this.maxTanzhenNo = maxTanzhenNo;
     }
 
@@ -100,11 +100,11 @@ public class RanLiaoDianChiDto {
         this.maxConcentration = maxConcentration;
     }
 
-    public byte getMaxConcentrationNo() {
+    public int getMaxConcentrationNo() {
         return maxConcentrationNo;
     }
 
-    public void setMaxConcentrationNo(byte maxConcentrationNo) {
+    public void setMaxConcentrationNo(int maxConcentrationNo) {
         this.maxConcentrationNo = maxConcentrationNo;
     }
 
@@ -116,19 +116,19 @@ public class RanLiaoDianChiDto {
         this.maxPressure = maxPressure;
     }
 
-    public byte getMaxPressureNo() {
+    public int getMaxPressureNo() {
         return maxPressureNo;
     }
 
-    public void setMaxPressureNo(byte maxPressureNo) {
+    public void setMaxPressureNo(int maxPressureNo) {
         this.maxPressureNo = maxPressureNo;
     }
 
-    public byte getDcStatus() {
+    public int getDcStatus() {
         return dcStatus;
     }
 
-    public void setDcStatus(byte dcStatus) {
+    public void setDcStatus(int dcStatus) {
         this.dcStatus = dcStatus;
     }
 }

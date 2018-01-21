@@ -17,15 +17,15 @@ import java.util.List;
  */
 public class QuDongDianJisDto {
     // 驱动电机个数
-    private byte number;
+    private int number;
     // 驱动电机总成信息列表
     private List<QuDongDianJiDto> list;
 
-    public byte getNumber() {
+    public int getNumber() {
         return number;
     }
 
-    public void setNumber(byte number) {
+    public void setNumber(int number) {
         this.number = number;
     }
 

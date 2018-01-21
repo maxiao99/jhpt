@@ -70,7 +70,7 @@ public class SevenCommand extends DeviceAbstractCommand {
         deviceGpsInfo.setDriverPersonId(driverId);
 
         // 定位状态
-        deviceGpsInfo.setLocationStatus(content[offset]);
+        deviceGpsInfo.setLocationStatus((int) content[offset]);
         offset += LOCATION_STATUS.length;
 
         // 经度
@@ -94,7 +94,7 @@ public class SevenCommand extends DeviceAbstractCommand {
         // 信息类型标志
         byte alarmType = content[offset];
         offset += MESSAGE_TYPE.length;
-        deviceGpsInfo.setMsgType(alarmType);
+        deviceGpsInfo.setMsgType((int) alarmType);
 
         // 信息体
         if (CarAlarmMessage.LIMIT_SPEED_ALARM.getCode() == alarmType
@@ -104,7 +104,7 @@ public class SevenCommand extends DeviceAbstractCommand {
                 || CarAlarmMessage.RIGHT_UP.getCode() == alarmType) {
             byte alarmBody = content[offset];
             offset += MESSAGE_BODY.length;
-            deviceGpsInfo.setAcceleration(0xff & alarmBody);
+            deviceGpsInfo.setAcceleration((float) (0xff & alarmBody));
         }
         deviceGpsInfoService.saveEntitySelective(deviceGpsInfo);
     }

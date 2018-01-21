@@ -249,7 +249,7 @@ CREATE TABLE `tb_user` (
   `password` VARCHAR(32) NOT NULL COMMENT '密码',
   `salt` VARCHAR(32) NOT NULL DEFAULT '' COMMENT '加密盐',
   `status` INT(4) NOT NULL DEFAULT '1' COMMENT '状态:1:可用,2不可用',
-  `creator_id` INT(11) NOT NULL COMMENT '创建人ID',
+  `creator_id` BIGINT(11) NOT NULL COMMENT '创建人ID',
   `create_time` DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '创建时间',
   `auth_id` INT(11) NOT NULL COMMENT '权限系统ID',
   PRIMARY KEY (`id`)

@@ -12,31 +12,31 @@ package com.tyj.jhpt.server.body.dto;
  */
 public class AlarmDto {
     // 最高报警等级
-    private byte maxAlarmLevel;
+    private int maxAlarmLevel;
     // 通用报警标志
     private double generalAlarm;
     // 可充电储能装置故障总数N1
-    private byte totalN1;
+    private int totalN1;
     // 可充电储能装置故障代码列表
     private byte[] bytes1;
     // 驱动电机故障总数N2
-    private byte totalN2;
+    private int totalN2;
     // 驱动电机故障代码列表
     private byte[] bytes2;
     // 发动机故障总数N3
-    private byte totalN3;
+    private int totalN3;
     // 发动机故障列表
     private byte[] bytes3;
     // 其他故障总数N4
-    private byte totalN4;
+    private int totalN4;
     // 其他故障代码列表
     private byte[] bytes4;
 
-    public byte getMaxAlarmLevel() {
+    public int getMaxAlarmLevel() {
         return maxAlarmLevel;
     }
 
-    public void setMaxAlarmLevel(byte maxAlarmLevel) {
+    public void setMaxAlarmLevel(int maxAlarmLevel) {
         this.maxAlarmLevel = maxAlarmLevel;
     }
 
@@ -48,11 +48,11 @@ public class AlarmDto {
         this.generalAlarm = generalAlarm;
     }
 
-    public byte getTotalN1() {
+    public int getTotalN1() {
         return totalN1;
     }
 
-    public void setTotalN1(byte totalN1) {
+    public void setTotalN1(int totalN1) {
         this.totalN1 = totalN1;
     }
 
@@ -64,11 +64,11 @@ public class AlarmDto {
         this.bytes1 = bytes1;
     }
 
-    public byte getTotalN2() {
+    public int getTotalN2() {
         return totalN2;
     }
 
-    public void setTotalN2(byte totalN2) {
+    public void setTotalN2(int totalN2) {
         this.totalN2 = totalN2;
     }
 
@@ -80,11 +80,11 @@ public class AlarmDto {
         this.bytes2 = bytes2;
     }
 
-    public byte getTotalN3() {
+    public int getTotalN3() {
         return totalN3;
     }
 
-    public void setTotalN3(byte totalN3) {
+    public void setTotalN3(int totalN3) {
         this.totalN3 = totalN3;
     }
 
@@ -96,11 +96,11 @@ public class AlarmDto {
         this.bytes3 = bytes3;
     }
 
-    public byte getTotalN4() {
+    public int getTotalN4() {
         return totalN4;
     }
 
-    public void setTotalN4(byte totalN4) {
+    public void setTotalN4(int totalN4) {
         this.totalN4 = totalN4;
     }
 

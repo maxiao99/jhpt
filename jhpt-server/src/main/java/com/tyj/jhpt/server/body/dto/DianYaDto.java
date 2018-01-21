@@ -12,7 +12,7 @@ package com.tyj.jhpt.server.body.dto;
  */
 public class DianYaDto {
     // 可充电储能子系统号
-    private byte systemNo;
+    private int systemNo;
     // 可充电储能装置电压
     private int dianya;
     // 可充电储能装置电流
@@ -22,15 +22,15 @@ public class DianYaDto {
     // 本帧起始电池序号
     private int seq;
     // 本帧单体电池总数
-    private byte ownSimpleTotal;
+    private int ownSimpleTotal;
     // 单体电池电压
     private byte[] simpleTotals;
 
-    public byte getSystemNo() {
+    public int getSystemNo() {
         return systemNo;
     }
 
-    public void setSystemNo(byte systemNo) {
+    public void setSystemNo(int systemNo) {
         this.systemNo = systemNo;
     }
 
@@ -66,11 +66,11 @@ public class DianYaDto {
         this.seq = seq;
     }
 
-    public byte getOwnSimpleTotal() {
+    public int getOwnSimpleTotal() {
         return ownSimpleTotal;
     }
 
-    public void setOwnSimpleTotal(byte ownSimpleTotal) {
+    public void setOwnSimpleTotal(int ownSimpleTotal) {
         this.ownSimpleTotal = ownSimpleTotal;
     }
 

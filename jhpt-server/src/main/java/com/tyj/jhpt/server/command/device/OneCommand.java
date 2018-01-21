@@ -90,7 +90,7 @@ public class OneCommand extends DeviceAbstractCommand {
     public MessageBean finish(MessageBean mb) {
         DeviceInfo deviceInfo = deviceInfoService.findByVin(mb.getVin());
         if (deviceInfo != null && Byte.valueOf("1").equals(deviceInfo.getIfActive())) {
-            deviceInfo.setIfActive((byte) 2);
+            deviceInfo.setIfActive(2);
             deviceInfoService.updateEntitySelective(deviceInfo);
             return platformTwoCommand.finish(mb);
         }

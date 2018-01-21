@@ -17,15 +17,15 @@ import java.util.List;
  */
 public class WenDusDto {
     // 可充电储能子系统个数
-    private byte number;
+    private int number;
     // 可充电储能子系统温度信息列表
     private List<WenDuDto> list;
 
-    public byte getNumber() {
+    public int getNumber() {
         return number;
     }
 
-    public void setNumber(byte number) {
+    public void setNumber(int number) {
         this.number = number;
     }
 

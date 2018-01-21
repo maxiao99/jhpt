@@ -12,17 +12,17 @@ package com.tyj.jhpt.server.body.dto;
  */
 public class FaDongJiDto {
     // 发动机状态
-    private byte status;
+    private int status;
     // 曲轴转速
     private int speed;
     // 燃料消耗率
     private int xiaohaolv;
 
-    public byte getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(byte status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 

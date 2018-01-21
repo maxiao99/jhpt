@@ -12,43 +12,43 @@ package com.tyj.jhpt.server.body.dto;
  */
 public class QuDongDianJiDto {
     // 驱动电机序号
-    private byte seq;
+    private int seq;
     // 驱动电机状态
-    private byte status;
+    private int status;
     // 驱动电机控制器温度
-    private byte controlTemperature;
+    private int controlTemperature;
     // 驱动电机转速
     private int speed;
     // 驱动电机转矩
     private int zhuanju;
     // 驱动电机温度
-    private byte temperature;
+    private int temperature;
     // 电机控制器输入电压
     private int dianya;
     // 电机控制器直流母线母线电流
     private int dianliu;
 
-    public byte getSeq() {
+    public int getSeq() {
         return seq;
     }
 
-    public void setSeq(byte seq) {
+    public void setSeq(int seq) {
         this.seq = seq;
     }
 
-    public byte getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(byte status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
-    public byte getControlTemperature() {
+    public int getControlTemperature() {
         return controlTemperature;
     }
 
-    public void setControlTemperature(byte controlTemperature) {
+    public void setControlTemperature(int controlTemperature) {
         this.controlTemperature = controlTemperature;
     }
 
@@ -68,11 +68,11 @@ public class QuDongDianJiDto {
         this.zhuanju = zhuanju;
     }
 
-    public byte getTemperature() {
+    public int getTemperature() {
         return temperature;
     }
 
-    public void setTemperature(byte temperature) {
+    public void setTemperature(int temperature) {
         this.temperature = temperature;
     }
 
