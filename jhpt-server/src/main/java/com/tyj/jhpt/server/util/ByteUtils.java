@@ -154,8 +154,17 @@ public class ByteUtils {
      * @return ASCII字符串
      */
     public static String getAsciiString(byte[] src, int offset, int length) {
-        byte[] dest = new byte[length];
-        System.arraycopy(src, offset, dest, 0, length);
+        int diff = 0;
+        for (int i = 0; i < length; i++) {
+            byte b = src[offset + i];
+            if (b != 0) {
+                break;
+            }
+            diff += 1;
+        }
+        int activeLength = length - diff;
+        byte[] dest = new byte[activeLength];
+        System.arraycopy(src, offset + diff, dest, 0, activeLength);
         return new String(dest);
     }
 
