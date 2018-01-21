@@ -21,7 +21,7 @@ public enum CommandEnum {
     TERMINAL_VERIFY_TIME("08", "终端校时"),
     CAR_ALARM_MESSAGE_UPLOAD("09", "车辆告警信息上报"),
     CAR_TERMINAL_STATUS_MESSAGE_UPLOAD("0A", "车载终端状态信息上报"),
-    DRIVER_IDENTITY_MESSAGE_COLLECTION_UPLOAD("FE", "驾驶员身份信息采集上报"),
+    DRIVER_IDENTITY_MESSAGE_COLLECTION_UPLOAD("0B", "驾驶员身份信息采集上报"),
     PARAM_QUERY_FEEDBACK("80", "参数查询反馈"),
     PARAM_SET("81", "参数设置"),
     CAR_TERMINAL_CONTROL("82", "车载终端控制"),
