@@ -26,6 +26,7 @@ public class DeviceResponseEncoder extends MessageToMessageEncoder<MessageBean> 
     private static final Logger logger = LoggerFactory.getLogger(DeviceResponseEncoder.class);
 
     protected void encode(ChannelHandlerContext ctx, MessageBean msg, List<Object> out) throws Exception {
+        logger.info("######### Encoder Request start...");
         ByteBuf buffer = ctx.alloc().buffer();
         // 起始符
         buffer.writeBytes(msg.getStart().getBytes());

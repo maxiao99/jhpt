@@ -31,6 +31,7 @@ public class DeviceRequestDecoder extends ReplayingDecoder {
     private static final Logger logger = LoggerFactory.getLogger(DeviceRequestDecoder.class);
 
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
+        logger.info("######### Decoder Request start...");
         in.markReaderIndex();
         int index = in.readableBytes();
         if (2147483647 == index) {
@@ -40,6 +41,7 @@ public class DeviceRequestDecoder extends ReplayingDecoder {
 
         String data = getAsciiString(in, index);
         if (StringUtils.isBlank(data)) {
+            logger.info("######### Decoder Request data is empty");
             return;
         }
         logger.info("######### Request data=[{}]", data);
