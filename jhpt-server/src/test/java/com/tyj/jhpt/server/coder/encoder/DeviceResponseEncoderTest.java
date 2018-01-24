@@ -26,7 +26,7 @@ public class DeviceResponseEncoderTest {
         msg.setRespFlag((byte) -2);
         msg.setVin("LRDS6PEB3HR002350");
         msg.setEncrypt((byte) 2);
-        msg.setLength(31);
+        msg.setLength((short) 31);
 
         StringBuilder sb = new StringBuilder();
         byte[] content = new byte[31];

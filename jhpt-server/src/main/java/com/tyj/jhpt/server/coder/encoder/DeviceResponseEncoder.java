@@ -26,12 +26,12 @@ public class DeviceResponseEncoder extends MessageToMessageEncoder<MessageBean> 
     private static final Logger logger = LoggerFactory.getLogger(DeviceResponseEncoder.class);
 
     protected void encode(ChannelHandlerContext ctx, MessageBean msg, List<Object> out) throws Exception {
-        logger.info("######### Encoder Request start...");
+        logger.info("######### Encoder Response start...");
         ByteBuf buffer = ctx.alloc().buffer();
         // 起始符
         buffer.writeBytes(msg.getStart().getBytes());
         // 命令标识
-        buffer.writeByte((byte)1);
+        buffer.writeByte(msg.getCommandFlag());
         // 应答标致
         buffer.writeByte(msg.getRespFlag());
         // vin
@@ -39,25 +39,27 @@ public class DeviceResponseEncoder extends MessageToMessageEncoder<MessageBean> 
         // 数据加密方式
         buffer.writeByte(msg.getEncrypt());
         // 数据单元长度
-        String length = Integer.toHexString(msg.getContent().length);
-        buffer.writeBytes(ISOUtil.zeropad(length, 4).getBytes());
-
         byte[] content = msg.getContent();
-        // 0补位
-        int diff = 8 - (content.length % 8);
-        diff = (diff == 8) ? 0 : diff;
-        byte[] data = new byte[content.length + diff];
-        System.arraycopy(content, 0, data, 0, content.length);
-        byte[] encryptD = ThreeDES.encrypt(data, ByteUtils.key);
-        buffer.writeBytes(encryptD);
+        int length = content.length;
+        buffer.writeShort(length);
 
-        byte[] bytes = new byte[24 + encryptD.length + 1];
-        System.arraycopy(msg.getBytes(), 0, bytes, 0, 24);
-        System.arraycopy(encryptD, 0, bytes, 24, encryptD.length);
+        // 0补位
+        int diff = 8 - (length % 8);
+        diff = (diff == 8) ? 0 : diff;
+        byte[] srcData = new byte[length + diff];
+        System.arraycopy(content, 0, srcData, 0, length);
+
+        byte[] encryptData = ThreeDES.encrypt(srcData, ByteUtils.key);
+        buffer.writeBytes(encryptData);
+
+        byte[] bytes = msg.getBytes();
+        byte[] tmpBytes = new byte[bytes.length + encryptData.length];
+        System.arraycopy(bytes, 0, tmpBytes, 0, bytes.length);
+        System.arraycopy(encryptData, 0, tmpBytes, bytes.length, encryptData.length);
         // 检验码
-        byte b = ByteUtils.calculate(bytes);
+        byte b = ByteUtils.calculate(tmpBytes);
         buffer.writeByte(b);
-        logger.info("######### Response data=[{}] mac=[{}]", ISOUtil.hexString(content), ISOUtil.hexString(new byte[]{b}));
+        logger.info("######### Response data=[{}] mac=[{}]", ISOUtil.hexString(tmpBytes), ISOUtil.hexString(new byte[]{b}));
         out.add(buffer);
     }
 }

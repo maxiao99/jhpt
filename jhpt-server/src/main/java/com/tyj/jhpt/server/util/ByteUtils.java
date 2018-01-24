@@ -5,7 +5,6 @@
 package com.tyj.jhpt.server.util;
 
 import com.github.fartherp.framework.common.util.ISOUtil;
-import com.github.fartherp.framework.security.symmetry.ThreeDES;
 import io.netty.buffer.ByteBuf;
 
 import java.io.UnsupportedEncodingException;
@@ -20,25 +19,11 @@ public class ByteUtils {
     public static final byte[] key = ISOUtil.hex2byte("23457A6256901B4676C89A1C2D4E2A46");
 
     /**
-     * 字节转换成int，采用小端模式转换
-     * @param content
-     * @param offset
-     * @return
-     */
-    public static int byteToIntLE(byte[] content, int offset) {
-        int id = (0xff000000 & content[offset] << 24 )
-                + (0xff0000	& content[offset + 1] << 16)
-                + (0xff00	& content[offset + 2] << 8)
-                + (0xff 	& content[offset+3]);
-        return id;
-    }
-
-    /**
-     * asc码到byte
+     * ascii码的byte 转换 java的byte
      * @param b
      * @return
      */
-    public static byte asciiToByteValue(byte b) {
+    public static byte asciiToByte(byte b) {
         int a = 0xff & b;
         if (a >= '0' && a <= '9') {
             b = (byte) (a - 48);
@@ -55,86 +40,60 @@ public class ByteUtils {
      *
      * @param bytes
      */
-    public static byte[] asciiCharsToBytes(byte[] bytes) {
-        byte[] bs = new byte[bytes.length / 2];
+    public static byte[] asciiToBytes(byte[] bytes) {
         for (int i = 0; i < bytes.length; i++) {
-            bytes[i] = ByteUtils.asciiToByteValue(bytes[i]);
+            bytes[i] = asciiToByte(bytes[i]);
         }
+        byte[] bs = new byte[bytes.length / 2];
         for (int i = 0; i < bytes.length; i += 2) {
             bs[i / 2] = (byte) ((0xff & bytes[i]) << 4 | 0xff & bytes[i + 1]);
         }
         return bs;
     }
 
-    public static int bytesToInt(byte[] deviceId) {
+    public static String readASCIIString(ByteBuf in, int actualLength) {
+        byte[] bytes = readBytes(in, actualLength);
+        return new String(bytes);
+    }
+
+    public static String readGBKString(ByteBuf in, int actualLength) {
+        byte[] bytes = readBytes(in, actualLength);
+        try {
+            return new String(bytes, "GBK");
+        } catch (UnsupportedEncodingException e) {
+            return null;
+        }
+    }
+
+    public static byte[] readBytes(ByteBuf in, int actualLength) {
+        byte[] bytes = new byte[actualLength * 2];
+        in.readBytes(bytes);
+        return asciiToBytes(bytes);
+    }
+
+    public static byte readByte(ByteBuf in) {
+        return readBytes(in, 1)[0];
+    }
+
+    public static short readShort(ByteBuf in) {
+        byte[] bytes = readBytes(in, 2);
+        return (short) bytesToInt(bytes, 2);
+    }
+
+    public static int readInt(ByteBuf in) {
+        byte[] bytes = readBytes(in, 4);
+        return bytesToInt(bytes, 4);
+    }
+
+    public static int bytesToInt(byte[] bytes, int size) {
         int a = 0;
-        for (int i = 0; i < 4; i++) {
-            a += (deviceId[i] & 0xff) << ((3 - i) * 8);
+        for (int i = 0; i < size; i++) {
+            a += (bytes[i] & 0xff) << ((size - 1 - i) * 8);
         }
         return a;
     }
 
-    public static void putIntToBufferBigEndian(byte[] bb, int offset, int x) {
-        bb[offset] = (byte)(x >> 24);
-        bb[(offset + 1)] = (byte)(x >> 16);
-        bb[(offset + 2)] = (byte)(x >> 8);
-        bb[(offset + 3)] = (byte)x;
-    }
-
-    public static void putByteToBuffer(byte[] bb, byte x, int index) {
-        bb[index] = x;
-    }
-
-    public static byte[] readBytes(ByteBuf in, int actualLength) {
-        byte[] bs = new byte[actualLength * 2];
-        in.readBytes(bs);
-        return ByteUtils.asciiCharsToBytes(bs);
-    }
-
-    public static int readInt(ByteBuf in) {
-        byte[] deviceId = new byte[8];
-        in.readBytes(deviceId);
-        deviceId = ByteUtils.asciiCharsToBytes(deviceId);
-        return ByteUtils.bytesToInt(deviceId);
-    }
-
-    public static byte readByte(ByteBuf in) {
-        byte[] bs = new byte[2];
-        in.readBytes(bs);
-        return ByteUtils.asciiCharsToBytes(bs)[0];
-    }
-
-    /**
-     * 按照加密算法的要求，加密的数据块必须是8个字节的整数倍。这里对加密的数据块进行补全
-     *
-     * @param content
-     * @return
-     */
-    public static byte[] completeData(byte[] content) {
-        if (content.length % 8 == 0) {
-            return content;
-        }
-        byte[] newContent = new byte[content.length + (8 - content.length % 8)];
-        System.arraycopy(content, 0, newContent, 0, content.length);
-        newContent[content.length] = (byte) 0x80;
-        for (int i = content.length + 1; i < newContent.length; i++) {
-            newContent[i] = 0x00;
-        }
-        return newContent;
-    }
-
     public static byte calculate(byte[] content) {
-        if (content == null || content.length == 0) {
-            return 0;
-        }
-        byte re = content[0];
-        for (int i = 1; i < content.length - 1; i++) {
-            re ^= content[i];
-        }
-        return re;
-    }
-
-    public static byte calculateAll(byte[] content) {
         if (content == null || content.length == 0) {
             return 0;
         }
@@ -143,18 +102,6 @@ public class ByteUtils {
             re ^= content[i];
         }
         return re;
-    }
-
-    /**
-     * 解析ASCII
-     * @param in ByteBuf
-     * @param length 字节长度
-     * @return ASCII字符串
-     */
-    public static String getAsciiString(ByteBuf in, int length) {
-        byte[] dest = new byte[length];
-        in.readBytes(dest);
-        return new String(dest);
     }
 
     /**

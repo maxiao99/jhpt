@@ -266,7 +266,7 @@ public class DeviceMsgUtils {
         String mac = sb.substring(13);
         byte[] bytes = ISOUtil.hex2byte(mac);
 
-        byte b = ByteUtils.calculateAll(bytes);
+        byte b = ByteUtils.calculate(bytes);
         sb.append(ISOUtil.hexString(new byte[]{b}));
         sb.append('.');
         sb.append(RandomStringUtils.randomNumeric(8));
@@ -302,7 +302,7 @@ public class DeviceMsgUtils {
         String mac = sb.substring(13);
         byte[] bytes = ISOUtil.hex2byte(mac);
 
-        byte b = ByteUtils.calculateAll(bytes);
+        byte b = ByteUtils.calculate(bytes);
         sb.append(ISOUtil.hexString(new byte[]{b}));
         sb.append('.');
         sb.append(RandomStringUtils.randomNumeric(8));

@@ -25,7 +25,6 @@ public class DeviceManagerServerTest {
     public static void main(String[] args) {
 //        testOne();
 //        testTwo();
-//        testThree();
 //        testFour();
 //        testFive();
 //        testSix();

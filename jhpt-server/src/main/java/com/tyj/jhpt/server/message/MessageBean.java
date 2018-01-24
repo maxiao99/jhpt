@@ -36,7 +36,7 @@ public class MessageBean {
     /**
      * 数据单元长度
      */
-    private int length;
+    private short length;
     /**
      * 数据单元
      */
@@ -84,11 +84,11 @@ public class MessageBean {
         this.encrypt = encrypt;
     }
 
-    public int getLength() {
+    public short getLength() {
         return length;
     }
 
-    public void setLength(int length) {
+    public void setLength(short length) {
         this.length = length;
     }
 
@@ -109,7 +109,7 @@ public class MessageBean {
     }
 
     public byte[] getBytes() {
-        byte[] bs = new byte[24];
+        byte[] bs = new byte[22];
         int offset = 0;
         bs[offset] = commandFlag;
         offset += 1;
@@ -120,10 +120,6 @@ public class MessageBean {
         bs[offset] = encrypt;
         offset += 1;
         // length
-        bs[offset] = (byte)(length >> 24);
-        offset += 1;
-        bs[offset] = (byte)(length >> 16);
-        offset += 1;
         bs[offset] = (byte)(length >> 8);
         offset += 1;
         bs[offset] = (byte)length;
