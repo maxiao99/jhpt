@@ -33,17 +33,14 @@ public class DeviceRequestDecoder extends ReplayingDecoder {
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
         logger.info("######### Decoder Request start...");
         in.markReaderIndex();
-        int index = in.readableBytes();
-        if (2147483647 == index) {
+        int index = super.actualReadableBytes();
+        if (0 == index) {
+            logger.info("######### Decoder Request data is empty");
             return;
         }
         MessageBean mb = new MessageBean();
 
         String data = getAsciiString(in, index);
-        if (StringUtils.isBlank(data)) {
-            logger.info("######### Decoder Request data is empty");
-            return;
-        }
         logger.info("######### Request data=[{}]", data);
         mb.setStart(data.substring(0, 4));
         byte[] srcBytes = ISOUtil.hex2byte(data.substring(4));
