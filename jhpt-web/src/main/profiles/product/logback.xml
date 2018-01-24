@@ -2,6 +2,11 @@
 <configuration scan="true">
     <property name="APP" value="jhpt"/>
     <property name="LOG_HOME" value="/logs/${APP}"/>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yy-MM-dd.HH:mm:ss.SSS} [%-16t] %-5p %-16c{0} - %m%n</pattern>
+        </encoder>
+    </appender>
     <appender name="DETAIL" class="ch.qos.logback.core.rolling.RollingFileAppender" additivity="false">
         <File>${LOG_HOME}/${APP}_detail.log</File>
         <encoder>
@@ -15,5 +20,6 @@
     <logger name="com.tyj" level="INFO" />
     <root level="INFO">
         <appender-ref ref="DETAIL"/>
+        <appender-ref ref="CONSOLE"/>
     </root>
 </configuration>
