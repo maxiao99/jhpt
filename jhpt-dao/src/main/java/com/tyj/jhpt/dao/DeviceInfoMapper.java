@@ -22,4 +22,6 @@ public interface DeviceInfoMapper extends DaoMapper<DeviceInfo, Long> {
     DeviceInfo findByVin(String vin);
 
     DeviceInfo findByIdentityNo(String identityNo);
+
+    List<DeviceInfo> findByIds(List<Long> list);
 }

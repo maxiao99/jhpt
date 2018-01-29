@@ -445,15 +445,27 @@ public class DeviceInfoController extends AbstractController {
     @ResponseBody
     @RequestMapping(value = "/param_query")
     public String paramQuery(SettingConfigVo vo) {
-        String vin = "";
-        String s = DeviceMsgUtils.param(vin, "80", vo);
-        String phone = "";
-
-        int send = shortMessageSender.send(phone, s);
-        if (send == 0) {
-            return JsonResp.asData().success().toJson();
+        String [] ds = vo.getIds().split(",");
+        List<Long> list = new ArrayList<Long>();
+        for (String d : ds) {
+            list.add(Long.valueOf(d));
         }
-        return JsonResp.asData().error("激活短信发送失败").toJson();
+        List<String> errorCarVins;
+        if (CollectionUtils.isNotEmpty(list)) {
+            errorCarVins = new ArrayList<String>();
+            List<DeviceInfo> deviceInfos = deviceInfoService.findByIds(list);
+            for (DeviceInfo deviceInfo : deviceInfos) {
+                String vin = deviceInfo.getCarVin();
+                String s = DeviceMsgUtils.param(vin, "80", vo);
+                String phone = deviceInfo.getTelephone();
+                int send = shortMessageSender.send(phone, s);
+                if (send != 0) {
+                    errorCarVins.add(vin);
+                }
+            }
+            return JsonResp.asData().error("激活短信发送失败vin: " + errorCarVins.toString()).toJson();
+        }
+        return JsonResp.asData().error("没有选择发送的设备").toJson();
     }
 
     /**
@@ -462,15 +474,27 @@ public class DeviceInfoController extends AbstractController {
     @ResponseBody
     @RequestMapping(value = "/setting_config")
     public String settingConfig(SettingConfigVo vo) {
-        String vin = "";
-        String s = DeviceMsgUtils.param(vin, "81", vo);
-        String phone = "";
-
-        int send = shortMessageSender.send(phone, s);
-        if (send == 0) {
-            return JsonResp.asData().success().toJson();
+        String [] ds = vo.getIds().split(",");
+        List<Long> list = new ArrayList<Long>();
+        for (String d : ds) {
+            list.add(Long.valueOf(d));
         }
-        return JsonResp.asData().error("激活短信发送失败").toJson();
+        List<String> errorCarVins;
+        if (CollectionUtils.isNotEmpty(list)) {
+            errorCarVins = new ArrayList<String>();
+            List<DeviceInfo> deviceInfos = deviceInfoService.findByIds(list);
+            for (DeviceInfo deviceInfo : deviceInfos) {
+                String vin = deviceInfo.getCarVin();
+                String s = DeviceMsgUtils.param(vin, "81", vo);
+                String phone = deviceInfo.getTelephone();
+                int send = shortMessageSender.send(phone, s);
+                if (send != 0) {
+                    errorCarVins.add(vin);
+                }
+            }
+            return JsonResp.asData().error("激活短信发送失败vin: " + errorCarVins.toString()).toJson();
+        }
+        return JsonResp.asData().error("没有选择发送的设备").toJson();
     }
 
     /**
@@ -479,14 +503,26 @@ public class DeviceInfoController extends AbstractController {
     @ResponseBody
     @RequestMapping(value = "/terminal_config")
     public String terminalConfig(TerminalConfigVo vo) {
-        String vin = "";
-        String s = DeviceMsgUtils.control(vin, vo);
-        String phone = "";
-
-        int send = shortMessageSender.send(phone, s);
-        if (send == 0) {
-            return JsonResp.asData().success().toJson();
+        String [] ds = vo.getIds().split(",");
+        List<Long> list = new ArrayList<Long>();
+        for (String d : ds) {
+            list.add(Long.valueOf(d));
         }
-        return JsonResp.asData().error("激活短信发送失败").toJson();
+        List<String> errorCarVins;
+        if (CollectionUtils.isNotEmpty(list)) {
+            errorCarVins = new ArrayList<String>();
+            List<DeviceInfo> deviceInfos = deviceInfoService.findByIds(list);
+            for (DeviceInfo deviceInfo : deviceInfos) {
+                String vin = deviceInfo.getCarVin();
+                String s = DeviceMsgUtils.control(vin, vo);
+                String phone = deviceInfo.getTelephone();
+                int send = shortMessageSender.send(phone, s);
+                if (send != 0) {
+                    errorCarVins.add(vin);
+                }
+            }
+            return JsonResp.asData().error("激活短信发送失败vin: " + errorCarVins.toString()).toJson();
+        }
+        return JsonResp.asData().error("没有选择发送的设备").toJson();
     }
 }

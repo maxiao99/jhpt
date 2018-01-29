@@ -28,4 +28,15 @@
         <include refid="Base_Column_List" />
         from `tb_device_info` where identity_no = #{identityNo}
     </select>
+
+    <select id="findByIds" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from `tb_device_info` where `id` IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+
 </mapper>

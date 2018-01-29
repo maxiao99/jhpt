@@ -11,7 +11,9 @@ import com.tyj.jhpt.vo.TerminalConfigVo;
 import org.apache.commons.lang.RandomStringUtils;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -70,6 +72,11 @@ public class DeviceMsgUtilsTest {
     public void testParseAcceleration() throws Exception {
         String s = RandomStringUtils.randomNumeric(8);
         System.out.println(s);
+
+        List<String> list = new ArrayList<String>();
+        list.add("fdafsa");
+        list.add("ddsfd");
+        System.out.println(list.toString());
     }
 
     @Test

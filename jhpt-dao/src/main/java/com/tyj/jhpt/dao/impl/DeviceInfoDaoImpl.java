@@ -46,4 +46,8 @@ public class DeviceInfoDaoImpl extends ConfigurableBaseSqlMapDao<DeviceInfo, Lon
     public DeviceInfo findByIdentityNo(String identityNo) {
         return deviceInfoMapper.findByIdentityNo(identityNo);
     }
+
+    public List<DeviceInfo> findByIds(List<Long> ids) {
+        return deviceInfoMapper.findByIds(ids);
+    }
 }

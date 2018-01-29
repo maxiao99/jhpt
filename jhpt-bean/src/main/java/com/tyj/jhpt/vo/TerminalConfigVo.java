@@ -11,7 +11,6 @@ package com.tyj.jhpt.vo;
  * @date: 2017/12/24
  */
 public class TerminalConfigVo {
-    // String [] ds = params.get("ids").toString().split(",")
     private String ids;
     private Integer deviceControl;
     private String bohaoName;

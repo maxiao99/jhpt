@@ -20,4 +20,6 @@ public interface DeviceInfoService extends GenericService<DeviceInfo, Long> {
     DeviceInfo findByVin(String vin);
 
     DeviceInfo findByIdentityNo(String identityNo);
+
+    List<DeviceInfo> findByIds(List<Long> ids);
 }

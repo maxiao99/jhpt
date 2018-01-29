@@ -11,7 +11,6 @@ package com.tyj.jhpt.vo;
  * @date: 2017/12/24
  */
 public class SettingConfigVo {
-    // String [] ds = params.get("ids").toString().split(",")
     private String ids;
     private Integer localStoreCycle;
     private Integer normalUploadCycle;
