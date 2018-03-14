@@ -32,11 +32,11 @@ public class DeviceRequestDecoder extends ReplayingDecoder {
     private static final Logger logger = LoggerFactory.getLogger(DeviceRequestDecoder.class);
 
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
-        logger.info("######### Decoder Request start...");
         if (in.readableBytes() < 4) {
             logger.info("######### Decoder Request data is empty");
             return;
         }
+        logger.info("######### Decoder Request start...");
         in.markReaderIndex();
         MessageBean mb = new MessageBean();
         mb.setStart(readASCIIString(in, 2));
