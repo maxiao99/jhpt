@@ -31,6 +31,12 @@ public class DeviceRequestDecoder extends ReplayingDecoder {
 
     private static final Logger logger = LoggerFactory.getLogger(DeviceRequestDecoder.class);
 
+    // 不加密
+    public static final byte NO_ENCRYPT = 1;
+
+    // 3DES加密
+    public static final byte THREE_DES_ENCRYPT = 4;
+
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
         if (in.readableBytes() < 4) {
             logger.info("######### Decoder Request data is empty");
@@ -57,9 +63,16 @@ public class DeviceRequestDecoder extends ReplayingDecoder {
             return;
         }
 
-        int diff = 8 - (size % 8);
-        diff = (diff == 8) ? 0 : diff;
-        int encryptLength = size + diff;
+        int encryptLength;
+        if (NO_ENCRYPT == mb.getEncrypt()) {
+            encryptLength = size;
+        } else if (THREE_DES_ENCRYPT == mb.getEncrypt()) {
+            int diff = 8 - (size % 8);
+            diff = (diff == 8) ? 0 : diff;
+            encryptLength = size + diff;
+        } else {
+            return;
+        }
         byte[] bytes = mb.getBytes();
         byte[] tmpBytes = new byte[bytes.length + encryptLength];
         System.arraycopy(bytes, 0, tmpBytes, 0, bytes.length);
@@ -75,7 +88,14 @@ public class DeviceRequestDecoder extends ReplayingDecoder {
             return;
         }
 
-        byte[] content = ThreeDES.decrypt(encryptDataB, ByteUtils.key);
+        byte[] content;
+        if (NO_ENCRYPT == mb.getEncrypt()) {
+            content = encryptDataB;
+        } else if (THREE_DES_ENCRYPT == mb.getEncrypt()) {
+            content = ThreeDES.decrypt(encryptDataB, ByteUtils.key);
+        } else {
+            return;
+        }
 
         mb.setContent(content);
         out.add(mb);
