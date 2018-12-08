@@ -31,7 +31,6 @@ public class DeviceManagerServerHandler extends ChannelInboundHandlerAdapter {
                 logger.info("######### deal DeviceCommand commandFlag: {} vin: {}", mb.getCommandFlag(), mb.getVin());
                 command.deal(this, mb);
                 ctx.writeAndFlush(command.finish(mb));
-                ctx.fireChannelRead(mb);
                 return;
             }
         }
