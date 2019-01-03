@@ -9,6 +9,7 @@ import com.github.fartherp.framework.security.symmetry.ThreeDES;
 import com.tyj.jhpt.server.message.MessageBean;
 import com.tyj.jhpt.server.util.ByteUtils;
 import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageEncoder;
 import org.slf4j.Logger;
@@ -22,8 +23,11 @@ import java.util.List;
  * @author: CK
  * @date: 2017/12/7
  */
+@ChannelHandler.Sharable
 public class DeviceResponseEncoder extends MessageToMessageEncoder<MessageBean> {
     private static final Logger logger = LoggerFactory.getLogger(DeviceResponseEncoder.class);
+
+    public static final DeviceResponseEncoder INSTANCE = new DeviceResponseEncoder();
 
     protected void encode(ChannelHandlerContext ctx, MessageBean msg, List<Object> out) throws Exception {
         logger.info("######### Encoder Response start...");

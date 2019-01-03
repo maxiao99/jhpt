@@ -21,6 +21,6 @@ public class DeviceManagerServerInitializer extends ChannelInitializer<SocketCha
         ChannelPipeline p = ch.pipeline();
         p.addLast("readTimeout", new ReadTimeoutHandler(SystemConfig.getInt("readTimeOutSeconds")));
         p.addLast("codec", new DeviceManagerCode());
-        p.addLast("handler", new DeviceManagerServerHandler());
+        p.addLast("handler", DeviceManagerServerHandler.HANDLER);
     }
 }

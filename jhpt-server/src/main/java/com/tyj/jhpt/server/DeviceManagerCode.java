@@ -17,6 +17,6 @@ import io.netty.channel.CombinedChannelDuplexHandler;
 public class DeviceManagerCode extends CombinedChannelDuplexHandler<DeviceRequestDecoder, DeviceResponseEncoder> {
 
     public DeviceManagerCode() {
-        super(new DeviceRequestDecoder(), new DeviceResponseEncoder());
+        super(new DeviceRequestDecoder(), DeviceResponseEncoder.INSTANCE);
     }
 }

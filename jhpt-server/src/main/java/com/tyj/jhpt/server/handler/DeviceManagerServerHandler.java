@@ -7,6 +7,7 @@ package com.tyj.jhpt.server.handler;
 import com.github.fartherp.framework.core.bean.ServiceLocator;
 import com.tyj.jhpt.server.command.DeviceCommand;
 import com.tyj.jhpt.server.message.MessageBean;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import org.slf4j.Logger;
@@ -19,12 +20,15 @@ import java.util.Collection;
  * Auth: CK
  * Date: 2016/5/3
  */
+@ChannelHandler.Sharable
 public class DeviceManagerServerHandler extends ChannelInboundHandlerAdapter {
     private static final Logger logger = LoggerFactory.getLogger(DeviceManagerServerHandler.class);
 
-    Collection<DeviceCommand> beans = ServiceLocator.getBeansOfType(DeviceCommand.class).values();
+    public static final DeviceManagerServerHandler HANDLER = new DeviceManagerServerHandler();
 
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        Collection<DeviceCommand> beans = ServiceLocator.getBeansOfType(DeviceCommand.class).values();
+
         MessageBean mb = (MessageBean) msg;
         for (DeviceCommand command : beans) {
             if (command.support(mb.getCommandFlag())) {
